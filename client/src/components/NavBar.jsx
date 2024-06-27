@@ -24,7 +24,7 @@ export default function NavBar({ showSearch }) {
     }
 
     const mobileContent = (
-        <div className="md:hidden z-10 block absolute justify-center w-full right-0 top-[3.4rem] transition-transform transform">
+        <div className="md:hidden z-10 block absolute justify-center w-full right-0 top-[3rem] transition-transform transform">
             <ul className={`h-screen text-center text-white text-xl bg-zinc-900 bg-opacity-95 border-t border-black pt-8 transition-transform transform ${openMenu ? 'translate-x-0 ' : 'translate-x-full'}`}>
                 <li className="py-4 flex justify-center items-center">
                     <Link to="films" onClick={() => { openModal(); setOpenMenu(false); }} className="transition duration-300 ease-in-out transform hover:scale-105 flex items-center">
@@ -70,7 +70,7 @@ export default function NavBar({ showSearch }) {
 
     return (
         <nav className="w-screen h-[7vh] relative z-20">
-            <div className="flex md:items-center md:justify-between px-4 md:px-10 pt-2 pb-2 text-white bg-zinc-900 bg-opacity-50">
+            <div className="flex md:items-center md:justify-between px-4 md:px-10 pt-2 pb-2 text-white bg-zinc-900 md:bg-opacity-50">
                 <div className="flex items-center md:justify-between justify-center w-full md:w-auto">
                     <div>
                         {openMenu && mobileContent}
