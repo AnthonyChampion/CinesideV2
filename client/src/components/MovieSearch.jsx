@@ -47,6 +47,23 @@ export default function MovieSearch() {
         }
     };
 
+    const renderStars = (vote_average) => {
+        const totalStars = 5;
+        const filledStars = Math.round((vote_average / 10) * totalStars);
+        const emptyStars = totalStars - filledStars;
+
+        return (
+            <div className="flex space-x-1">
+                {[...Array(filledStars)].map((_, i) => (
+                    <span key={i} className="text-yellow-500">★</span>
+                ))}
+                {[...Array(emptyStars)].map((_, i) => (
+                    <span key={i} className="text-gray-400">★</span>
+                ))}
+            </div>
+        );
+    };
+
     return (
         <section>
             <form onSubmit={handleSearch} className="md:flex md:flex-row flex-col items-center">
@@ -66,18 +83,24 @@ export default function MovieSearch() {
                         <div className="relative">
                             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 overflow-y-auto ">
                                 {movies.map((movie) => (
-                                    <div key={movie.id} className="relative flex flex-col md:h-[370px] h-[240px] justify-center items-center">
-                                        <div className="relative">
+                                    <div
+                                        key={movie.id}
+                                        className="relative flex flex-col md:h-[370px] h-[240px] justify-center items-center"
+                                        onClick={() => handleMovieClick(movie)}>
+
+                                        <div className="relative group cursor-pointer overflow-hidden rounded-lg shadow-lg bg-zinc-800">
                                             <img
                                                 src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
                                                 alt={movie.title}
                                                 className="md:w-[260px] md:h-[350px] w-[160px] h-[220px] object-cover rounded-xl"
-
                                             />
-
-                                            <div className="absolute top-0 left-0 md:w-[260px] w-[160px] h-full flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300 bg-black bg-opacity-50 rounded-xl">
-                                                <h2 className="text-white text-lg md:text-xl text-center w-[80%] cursor-pointer"
-                                                    onClick={() => handleMovieClick(movie)}>{movie.title}</h2>
+                                            <div className="absolute inset-0 p-4 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end">
+                                                <h2 className="text-lg md:text-xl font-bold text-white">{movie.title}</h2>
+                                                <div className="flex items-center space-x-2 mt-2">
+                                                    <div className="flex space-x-1">
+                                                        {renderStars(movie.vote_average) || "Note inconnue"}
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
 

@@ -77,7 +77,7 @@ const useMovieData = (movieId) => {
     return { credits, similarMovies, trailer, watchProviders, loading, error, updateCredits, updateSimilarMovies, getTrailers, getWatchProviders };
 };
 
-const MovieDetails = ({ movie, onClose }) => {
+export default function MovieDetails({ movie, onClose }) {
     const [movieDetails, setMovieDetails] = useState(movie);
     const [favorites, setFavorites] = useState(() => JSON.parse(localStorage.getItem('favorites')) || []);
     const { credits, similarMovies, trailer, watchProviders, loading, error, updateCredits, updateSimilarMovies, getTrailers, getWatchProviders } = useMovieData(movie.id);
@@ -121,78 +121,76 @@ const MovieDetails = ({ movie, onClose }) => {
     };
 
     return (
-        <div className="fixed inset-0 z-50 h-screen flex justify-center items-center bg-black bg-opacity-70">
-            <div className="bg-white text-black rounded-lg overflow-scroll noscrollbar h-[98%] w-11/12 md:w-3/4 lg:w-2/3">
+        <div className="fixed inset-0 z-50 h-screen flex justify-center items-center bg-black bg-opacity-70 p-4 md:p-8 lg:p-12">
+            <div className="bg-white text-black rounded-lg overflow-scroll noscrollbar max-h-full w-full md:w-3/4 lg:w-2/3 shadow-xl relative">
                 <div className="relative">
                     <img
                         src={`https://image.tmdb.org/t/p/original${movieDetails.backdrop_path}`}
                         alt={movieDetails.title}
-                        className="w-full h-[400px] object-cover"
+                        className="w-full h-[300px] md:h-[400px] object-cover rounded-t-lg"
                         onError={(e) => {
                             e.target.onerror = null;
                             e.target.src = "../src/assets/img_not_available.png";
                         }}
                     />
                     <button
-                        className="absolute top-4 right-4 bg-green-400 text-white rounded-full w-10 h-10 flex items-center justify-center"
+                        className="absolute top-4 right-4 bg-red-500 text-white rounded-full w-10 h-10 flex items-center justify-center"
                         onClick={onClose}
                         aria-label="Close"
                     >
                         &times;
                     </button>
                     <button
-                        className={`absolute top-4 right-20 bg-${isFavorite ? 'red' : 'green'}-400 text-white rounded-full w-10 h-10 flex items-center justify-center`}
+                        className={`absolute top-4 right-16 bg-${isFavorite ? 'red' : 'green'}-500 text-white rounded-full w-10 h-10 flex items-center justify-center`}
                         onClick={toggleFavorite}
                         aria-label="Favorite"
                     >
                         {isFavorite ? '★' : '☆'}
                     </button>
                 </div>
-                <div className="pt-6 pl-6 space-y-2 h-[fit] flex flex-col items-start text-[17px]">
+                <div className="p-6 space-y-4">
                     <h2 className="text-2xl font-bold">{movieDetails.title}</h2>
-                    <p><strong>Date de sortie:</strong> {movieDetails.release_date}</p>
-                    <p><strong>Note:</strong> {Math.round((movieDetails.vote_average) * 100) / 100} / 10</p>
-                    <p className="text-start"><strong>Genres:</strong> {movieDetails.genres?.map(genre => genre.name).join(', ')}</p>
-                    <p className="text-justify pr-4"><strong>Synopsis: </strong> {movieDetails.overview}</p>
+                    <p className="text-gray-700"><strong>Date de sortie:</strong> {movieDetails.release_date}</p>
+                    <p className="text-gray-700"><strong>Note:</strong> {Math.round((movieDetails.vote_average) * 100) / 100} / 10</p>
+                    <p className="text-gray-700"><strong>Genres:</strong> {movieDetails.genres?.map(genre => genre.name).join(', ')}</p>
+                    <p className="text-gray-700 text-justify"><strong>Synopsis:</strong> {movieDetails.overview}</p>
                 </div>
                 {Object.keys(watchProviders).length > 0 && (
-                    <div className="mt-4 pb-4 w-full">
-                        <h3 className="font-bold pb-4 pl-6">Plateformes:</h3>
-                        <div className="pl-6 pr-6">
+                    <div className="px-6 pb-6">
+                        <h3 className="font-bold">Plateformes:</h3>
+                        <div className="flex flex-wrap mt-2">
                             {Array.isArray(watchProviders.flatrate) ? (
-                                <div className="flex flex-wrap">
-                                    {watchProviders.flatrate.map(provider => (
-                                        <div key={provider.provider_id} className="flex flex-col items-center mr-4 mb-4">
-                                            <img
-                                                src={`https://image.tmdb.org/t/p/w200${provider.logo_path}`}
-                                                alt={provider.provider_name}
-                                                className="w-16 h-16 object-cover"
-                                                onError={(e) => {
-                                                    e.target.onerror = null;
-                                                    e.target.src = "../src/assets/img_not_available.png";
-                                                }}
-                                            />
-                                            <p className="text-gray-600 text-center">{provider.provider_name}</p>
-                                        </div>
-                                    ))}
-                                </div>
+                                watchProviders.flatrate.map(provider => (
+                                    <div key={provider.provider_id} className="flex flex-col items-center mr-4 mb-4">
+                                        <img
+                                            src={`https://image.tmdb.org/t/p/w200${provider.logo_path}`}
+                                            alt={provider.provider_name}
+                                            className="w-16 h-16 object-cover rounded"
+                                            onError={(e) => {
+                                                e.target.onerror = null;
+                                                e.target.src = "../src/assets/img_not_available.png";
+                                            }}
+                                        />
+                                        <p className="text-gray-600 text-center mt-1">{provider.provider_name}</p>
+                                    </div>
+                                ))
                             ) : (
                                 <p className="text-gray-600">Pas de fournisseur disponible</p>
                             )}
-                            <p className="text-sm text-gray-600">Données fournies par JustWatch</p> {/* Attribution text */}
                         </div>
+                        <p className="text-sm text-gray-600">Données fournies par JustWatch</p> {/* Attribution text */}
                     </div>
                 )}
                 {loading ? (
-                    <div className="p-2">Chargement...</div>
+                    <div className="p-6">Chargement...</div>
                 ) : error ? (
-                    <div className="p-2 text-red-500">{error}</div>
+                    <div className="p-6 text-red-500">{error}</div>
                 ) : (
                     <>
                         {trailer.length > 0 && (
-                            <div className="mt-8 md:mt-4 w-full">
-                                <h3 className="text-xl font-bold pb-4 text-start pl-6">Bande annonce</h3>
-                                <div className="flex flex-col items-center">
+                            <div className="px-6 pb-6">
+                                <h3 className="text-xl font-bold">Bande annonce</h3>
+                                <div className="flex flex-col items-center mt-4">
                                     {trailer.slice(0, 1).map(video => (
                                         <div key={video.id} className="w-full md:w-[75%] lg:w-[50%] mx-auto mb-4">
                                             <iframe
@@ -203,7 +201,7 @@ const MovieDetails = ({ movie, onClose }) => {
                                                 frameBorder="0"
                                                 allowFullScreen
                                             ></iframe>
-                                            <p className="text-center text-truncate mt-2 p-2">{video.name}</p>
+                                            <p className="text-center mt-2 p-2 text-gray-700">{video.name}</p>
                                         </div>
                                     ))}
                                 </div>
@@ -211,15 +209,15 @@ const MovieDetails = ({ movie, onClose }) => {
                         )}
 
                         {credits && (
-                            <div className="space-y-4 pl-6 pr-6 mt-8">
-                                <h3 className="text-xl font-bold text-start">Crédits</h3>
-                                <ul className="flex md:flex-row flex-wrap justify-center w-[100%] space-x-5 md:space-x-3">
+                            <div className="px-6 pb-6">
+                                <h3 className="text-xl font-bold">Crédits</h3>
+                                <ul className="flex flex-wrap justify-center mt-4">
                                     {credits.slice(0, 10).map(actor => (
-                                        <li key={actor.id} className="flex flex-col items-center w-24 h-30">
+                                        <li key={actor.id} className="flex flex-col items-center w-24 h-30 mx-4 mb-4">
                                             <img
                                                 src={`https://image.tmdb.org/t/p/w200${actor.profile_path}`}
                                                 alt={actor.name}
-                                                className="w-24 h-24 rounded-full object-cover"
+                                                className="w-24 h-24 rounded-full object-cover cursor-pointer"
                                                 aria-label={actor.name}
                                                 onError={(e) => {
                                                     e.target.onerror = null;
@@ -227,10 +225,8 @@ const MovieDetails = ({ movie, onClose }) => {
                                                 }}
                                                 onClick={() => handleCastClick(actor.id)}
                                             />
-                                            <div className="flex-col justify-center text-center w-[fit]">
-                                                <p className="font-semibold">{actor.name}</p>
-                                                <p className="text-sm text-gray-600 line-clamp-3 pb-2">{actor.character}</p>
-                                            </div>
+                                            <p className="font-semibold mt-2">{actor.name}</p>
+                                            <p className="text-sm text-gray-600 text-center">{actor.character}</p>
                                         </li>
                                     ))}
                                 </ul>
@@ -238,23 +234,23 @@ const MovieDetails = ({ movie, onClose }) => {
                         )}
 
                         {similarMovies.length > 0 && (
-                            <div className="mt-8 pb-8">
-                                <h3 className="text-xl font-bold pb-4 pl-6">Films similaires</h3>
-                                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 pl-6 pr-6">
-                                    {similarMovies.slice(0, 16).map(similarMovie => (
+                            <div className="px-6 pb-8">
+                                <h3 className="text-xl font-bold">Films similaires</h3>
+                                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-4">
+                                    {similarMovies.slice(0, 12).map(similarMovie => (
                                         <div
                                             key={similarMovie.id}
-                                            className="rounded-lg overflow-hidden shadow-lg transform transition duration-300 hover:scale-105 hover:shadow-xl"
+                                            className="rounded-lg overflow-hidden shadow-lg transform transition duration-300 hover:scale-105 hover:shadow-xl cursor-pointer"
+                                            onClick={() => handleMovieClick(similarMovie)}
                                         >
                                             <img
                                                 src={`https://image.tmdb.org/t/p/w500${similarMovie.poster_path}`}
                                                 alt={similarMovie.title}
-                                                className="w-full h-[250px] object-contain object-center"
+                                                className="w-full h-48 object-cover"
                                                 onError={(e) => {
                                                     e.target.onerror = null;
                                                     e.target.src = "../src/assets/img_not_available.png";
                                                 }}
-                                                onClick={() => handleMovieClick(similarMovie)}
                                             />
                                             <div className="p-4">
                                                 <h4 className="text-lg font-semibold mb-2">{similarMovie.title}</h4>
@@ -273,7 +269,7 @@ const MovieDetails = ({ movie, onClose }) => {
             )}
         </div>
     );
-};
+}
 
 MovieDetails.propTypes = {
     movie: PropTypes.shape({
@@ -291,4 +287,3 @@ MovieDetails.propTypes = {
     onClose: PropTypes.func.isRequired,
 };
 
-export default MovieDetails;

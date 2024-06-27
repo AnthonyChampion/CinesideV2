@@ -26,8 +26,8 @@ export default function RegisterPage() {
     };
 
     return (
-        <div className="fixed inset-0 flex justify-center items-center mt-10">
-            <div className="bg-zinc-800 bg-opacity-80 p-8 rounded-lg shadow-lg w-full max-w-md">
+        <div className="fixed inset-0 flex justify-center items-center">
+            <div className="bg-zinc-800 bg-opacity-80 p-8 rounded-lg shadow-lg w-full max-w-md -mt-6">
                 <h1 className="text-2xl font-bold text-white mb-4">Inscription</h1>
                 {error && <p className="text-red-500 mb-4">{error}</p>}
                 <form onSubmit={handleRegister}>

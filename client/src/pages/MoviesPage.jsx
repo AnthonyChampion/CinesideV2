@@ -109,8 +109,25 @@ export default function MoviesPage() {
         scrollToTop();
     };
 
+    const renderStars = (vote_average) => {
+        const totalStars = 5;
+        const filledStars = Math.round((vote_average / 10) * totalStars);
+        const emptyStars = totalStars - filledStars;
+
+        return (
+            <div className="flex space-x-1">
+                {[...Array(filledStars)].map((_, i) => (
+                    <span key={i} className="text-yellow-500">★</span>
+                ))}
+                {[...Array(emptyStars)].map((_, i) => (
+                    <span key={i} className="text-gray-400">★</span>
+                ))}
+            </div>
+        );
+    };
+
     return (
-        <section className="w-screen md:-mt-6">
+        <section className="w-screen">
             <div className="w-full flex flex-wrap justify-center p-2 md:space-x-3 bg-zinc-800 md:bg-opacity-60 z-10">
                 <div className="list-none">
                     <button
@@ -157,8 +174,8 @@ export default function MoviesPage() {
                                     <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
                                         <h2 className="text-lg md:text-xl font-bold text-white">{movie.title}</h2>
                                         <div className="flex items-center space-x-2 mt-2">
-                                            <div className="rounded-full bg-green-500 text-white text-xs md:text-sm flex items-center justify-center w-10 h-10">
-                                                {Math.round(movie.vote_average * 10) / 10}
+                                            <div className="flex space-x-1">
+                                                {renderStars(movie.vote_average) || "Note inconnue"}
                                             </div>
                                         </div>
                                     </div>
