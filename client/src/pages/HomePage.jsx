@@ -94,23 +94,29 @@ export default function HomePage() {
                 ) : (
                     <>
                         {trending[index] && (
-                            <div className="relative w-full h-full overflow-hidden md:-mt-16 mt-1">
+                            <div className="relative w-full h-full overflow-hidden md:-mt-[10%] mt-1">
                                 <img
                                     src={`https://image.tmdb.org/t/p/original${trending[index].backdrop_path}`}
                                     alt={trending[index]?.title || "Image de film"}
-                                    className="w-full md:h-[700px] object-cover brightness-70"
+                                    className="w-full md:h-screen object-cover"
                                     onError={(e) => {
                                         e.target.onerror = null;
                                         e.target.src = "../src/assets/img_not_available.png";
                                     }}
                                 />
                                 <div className="hidden md:block absolute inset-0 bg-gradient-to-t from-zinc-900 via-transparent to-transparent"></div>
-                                <div className="hidden md:block absolute md:top-[35vh] md:left-24 md:w-1/3 text-white p-4 md:p-6 bg-zinc-900 bg-opacity-50 rounded-lg shadow-xl">
+                                <div className="hidden md:block absolute space-y-2 md:top-[35vh] md:left-24 md:w-1/3 text-white p-4 md:p-6 bg-zinc-900 bg-opacity-50 rounded-lg shadow-xl">
                                     <h1 className="text-xl md:text-5xl font-extrabold text-green-400 mb-2">{trending[index]?.title || "Titre non disponible"}</h1>
-                                    <p>{trending[index]?.release_date || "Date de sortie inconnue"}</p>
-                                    <div className="flex space-x-1">
-                                        {renderStars(trending[index]?.vote_average) || "Note inconnue"}
+                                    <p className="md:text-lg">{trending[index]?.release_date || "Date de sortie inconnue"}</p>
+                                    <div className="flex flex-row space-x-4">
+                                        <div className="flex space-x-1">
+                                            {renderStars(trending[index]?.vote_average) || "Note inconnue"}
+                                        </div>
+                                        <div className="md:text-lg">
+                                            {Math.round(trending[index].vote_average * 100) / 100} /10
+                                        </div>
                                     </div>
+
                                     <p className="text-sm md:text-lg md:line-clamp-4 line-clamp-2 text-justify mb-4">{trending[index].overview}</p>
                                     <button
                                         className="bg-green-500 text-white font-bold md:text-lg py-2 md:py-3 px-4 md:px-6 rounded-lg hover:bg-green-600 transition duration-300"
@@ -136,7 +142,7 @@ export default function HomePage() {
                             </div>
                         )}
 
-                        <div className="md:py-4 py-4 md:px-4 flex-grow">
+                        <div className="md:py-4 py-4 md:px-4 flex-grow md:-mt-[10%]">
                             <swiper-container
                                 slides-per-view={slides}
                                 loop="true"
@@ -147,12 +153,11 @@ export default function HomePage() {
                                 {trending.map((data, idx) => (
                                     <swiper-slide key={data.id}>
                                         <div
-
-                                            className="relative group flex flex-col md:w-[330px] w-[190px] cursor-pointer overflow-hidden rounded-lg shadow-lg bg-zinc-800 p-2"
+                                            className="relative group flex flex-col md:w-[330px] w-[190px] cursor-pointer overflow-hidden rounded-lg bg-transparent p-2"
                                             onClick={() => setIndex(idx)}
                                         >
                                             <img
-                                                className="md:w-[330px] md:h-[250px] h-[200px] object-cover transform transition duration-300 group-hover:scale-110"
+                                                className="md:w-[330px] md:h-[250px] h-[200px] object-cover transform transition duration-300 group-hover:scale-110 rounded-xl"
                                                 src={"https://image.tmdb.org/t/p/original" + data.backdrop_path}
                                                 alt={data.title}
                                                 onError={(e) => {
@@ -160,13 +165,14 @@ export default function HomePage() {
                                                     e.target.src = "../src/assets/img_not_available.png";
                                                 }}
                                             />
-                                            <div className=" flex flex-col items-center justify-between space-x-2 py-2">
-                                                <h1 className="text-center line-clamp-1 pt-2 pl-2">{data.title}</h1>
-                                                <div className="flex space-x-1">
-                                                    {renderStars(data.vote_average)}
-                                                </div>
-                                            </div>
 
+
+                                        </div>
+                                        <div className=" flex flex-col items-center justify-between space-x-2 py-2">
+                                            <h1 className="text-center line-clamp-1 pt-2 pl-2">{data.title}</h1>
+                                            <div className="flex space-x-1">
+                                                {renderStars(data.vote_average)}
+                                            </div>
                                         </div>
                                     </swiper-slide>
 

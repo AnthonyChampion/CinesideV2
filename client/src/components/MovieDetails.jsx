@@ -121,8 +121,8 @@ export default function MovieDetails({ movie, onClose }) {
     };
 
     return (
-        <div className="fixed inset-0 z-50 h-screen flex justify-center items-center bg-black bg-opacity-50 p-4 md:p-8 lg:p-12 ">
-            <div className="bg-white text-black rounded-lg overflow-scroll noscrollbar max-h-full w-full md:w-3/4 lg:w-3/4 shadow-xl relative md:-mt-6">
+        <div className="fixed inset-0 z-50 h-screen flex justify-center items-center bg-black bg-opacity-70 p-4 md:p-8 lg:p-6 ">
+            <div className="bg-white text-black rounded-lg overflow-scroll noscrollbar h-full w-full md:w-3/4 lg:w-3/4 shadow-xl relative">
                 <div className="relative">
                     <img
                         src={`https://image.tmdb.org/t/p/original${movieDetails.backdrop_path}`}

@@ -78,10 +78,15 @@ export default function TopratedMovies() {
                             {toprated[index]?.title || "Titre non disponible"}
                         </h2>
 
-                        <div className="flex flex-col text-sm md:text-lg mb-4">
+                        <div className="flex flex-col text-sm md:text-lg mb-4 space-y-2">
                             <p>{toprated[index]?.release_date || "Date de sortie inconnue"}</p>
-                            <div className="flex space-x-1">
-                                {renderStars(toprated[index]?.vote_average) || "Note inconnue"}
+                            <div className="flex flex-row space-x-4 items-center">
+                                <div className="flex space-x-1">
+                                    {renderStars(toprated[index]?.vote_average) || "Note inconnue"}
+                                </div>
+                                <div className="text-lg">
+                                    {Math.round(toprated[index].vote_average * 100) / 100} /10
+                                </div>
                             </div>
                         </div>
                         <p className="text-sm md:text-base mb-4 md:line-clamp-3 line-clamp-2 text-justify">
@@ -99,11 +104,16 @@ export default function TopratedMovies() {
                             {toprated[index]?.title || "Titre non disponible"}
                         </h2>
 
-                        <div className="flex flex-col text-sm md:text-lg mb-4">
+                        <div className="flex flex-col text-sm md:text-lg space-y-2 mb-4">
 
                             <p>{toprated[index]?.release_date || "Date de sortie inconnue"}</p>
-                            <div className="flex space-x-1">
-                                {renderStars(toprated[index]?.vote_average) || "Note inconnue"}
+                            <div className="flex flex-row space-x-4">
+                                <div className="flex space-x-1">
+                                    {renderStars(toprated[index]?.vote_average) || "Note inconnue"}
+                                </div>
+                                <div>
+                                    {Math.round(toprated[index].vote_average * 100) / 100} /10
+                                </div>
                             </div>
                         </div>
                         <p className="text-sm mb-4 line-clamp-2 text-justify">
@@ -143,8 +153,13 @@ export default function TopratedMovies() {
                             <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
                                 <h2 className="text-lg md:text-xl font-bold text-white">{movie.title}</h2>
                                 <div className="flex items-center space-x-2 mt-2">
-                                    <div className="flex space-x-1">
-                                        {renderStars(toprated[index]?.vote_average) || "Note inconnue"}
+                                    <div className="flex flex-col md:flex-row md:space-x-4">
+                                        <div className="flex space-x-1">
+                                            {renderStars(movie.vote_average) || "Note inconnue"}
+                                        </div>
+                                        <div className="text-[14px] md:text-[16px]">
+                                            {Math.round(movie.vote_average * 100) / 100} /10
+                                        </div>
                                     </div>
                                 </div>
                             </div>

@@ -45,8 +45,8 @@ export default function PersonDetails({ personId, onClose }) {
     };
 
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-10">
-            <div className="relative w-11/12 md:h-[91.5%] h-[95.5%] md:w-3/4 lg:w-[71%] bg-white text-black rounded-lg overflow-scroll noscrollbar md:-mt-2 -mt-1">
+        <div className="fixed inset-0 z-50 h-screen flex items-center justify-center bg-black bg-opacity-10 p-4 md:p-8 lg:p-6">
+            <div className="relative w-full h-full md:w-3/4 lg:w-3/4 bg-white text-black rounded-lg overflow-scroll noscrollbar">
                 <button
                     className="absolute top-4 right-4 bg-green-500 text-white rounded-full w-10 h-10 flex items-center justify-center shadow-lg"
                     onClick={onClose}

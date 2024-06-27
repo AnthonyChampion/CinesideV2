@@ -78,8 +78,8 @@ export default function MovieSearch() {
             </form>
             {error && <p className="text-red-500 mt-2">{error}</p>}
             {movies.length > 0 && (
-                <div className="fixed inset-0 z-50 h-screen flex justify-center items-center bg-black bg-opacity-70">
-                    <div className="bg-white text-black rounded-lg overflow-scroll noscroll-bar h-[90%] w-11/12 md:w-3/4 lg:w-2/3">
+                <div className="fixed inset-0 z-50 h-screen flex justify-center items-center bg-black bg-opacity-70 p-4 md:p-8 lg:p-6">
+                    <div className="bg-white text-black rounded-lg overflow-scroll noscroll-bar h-full w-full md:w-3/4 lg:w-3/4">
                         <div className="relative">
                             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 overflow-y-auto ">
                                 {movies.map((movie) => (

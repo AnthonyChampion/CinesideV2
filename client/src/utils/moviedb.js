@@ -17,6 +17,7 @@ const watchProviders = movieId => `https://api.themoviedb.org/3/movie/${movieId}
 const personDetails = personId => `https://api.themoviedb.org/3/person/${personId}?api_key=${apiKey}`;
 const personMoviesEndpoint = personId => `https://api.themoviedb.org/3/person/${personId}/movie_credits?api_key=${apiKey}`
 
+
 const apiCall = async (endpoint, params) => {
     const options = {
         method: "GET",
