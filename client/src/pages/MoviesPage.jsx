@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useRef } from 'react';
-import PropTypes from 'prop-types';
 import { fetchGenresOfMovies, fetchMoviesByGenre, fetchMovieDetails } from '../utils/moviedb';
 import MovieDetails from '../components/MovieDetails';
 
@@ -23,6 +22,7 @@ export default function MoviesPage() {
 
     const handleResetFilter = () => {
         setActiveFilter(null);
+        setMoviesFiltered([]);
         setPage(1);
         setLoading(true);
     };
@@ -48,7 +48,6 @@ export default function MoviesPage() {
                     ? data.results.filter(movie => movie.genre_ids.includes(genreId))
                     : data.results;
 
-                // Add unique movies to the allMovies array
                 filteredMovies.forEach(movie => {
                     if (!allMovies.find(m => m.id === movie.id)) {
                         allMovies.push(movie);
@@ -57,13 +56,11 @@ export default function MoviesPage() {
 
                 currentPage++;
 
-                // Stop fetching if we've reached the end of available pages
                 if (currentPage > data.total_pages) {
                     break;
                 }
             }
 
-            // Slice to get exactly MOVIES_PER_PAGE movies
             const slicedMovies = allMovies.slice(0, MOVIES_PER_PAGE);
             setMoviesFiltered(slicedMovies);
             setLoading(false);
@@ -128,10 +125,11 @@ export default function MoviesPage() {
 
     return (
         <section className="w-screen">
-            <div className="w-full flex flex-wrap justify-center p-2 md:space-x-3 bg-zinc-800 md:bg-opacity-60 z-10">
+            <div className="w-full flex flex-wrap justify-center p-2 space-x-3 z-10 md:mt-2 mt-5">
+
                 <div className="list-none">
                     <button
-                        className={`text-[17px] text-white p-2 hover:scale-125 ${!activeFilter ? 'text-red-400' : ''} active:bg-red-400 focus:outline-none focus:ring focus:ring-red-400`}
+                        className={`text-s md:text-base lg:text-lg text-white p-2 md:px-4 md:py-2 rounded-lg hover:scale-110 ${!activeFilter ? 'text-gray-400 bg-gray-400' : 'bg-transparent'}`}
                         onClick={handleResetFilter}
                     >
                         Aucun filtre
@@ -139,16 +137,20 @@ export default function MoviesPage() {
                 </div>
 
                 {filters.map((filter) => (
-                    <div key={filter.id} className="list-none" onClick={() => handleClickFilter(filter.id, filter.name)}>
-                        <button className={`text-[17px] text-white p-2 hover:scale-125 ${activeFilter && activeFilter.id === filter.id ? 'text-green-500' : ''} active:green-500 focus:outline-none focus:ring focus:ring-green-500`}>
+                    <div key={filter.id} className="list-none">
+                        <button
+                            className={`text-s md:text-base lg:text-lg text-white p-2 md:px-4 md:py-2 rounded-lg hover:text-green-500 hover:scale-110 ${activeFilter && activeFilter.id === filter.id ? 'bg-green-500 text-green-500' : 'bg-transparent'}`}
+                            onClick={() => handleClickFilter(filter.id, filter.name)}
+                        >
                             {filter.name}
                         </button>
                     </div>
                 ))}
+
             </div>
 
             <div ref={moviesListRef}>
-                {loading ? <p>Chargement...</p> : (
+                {loading && moviesFiltered.length === 0 ? <p className="text-center text-white pt-2">Chargement...</p> : (
                     <>
                         {activeFilter?.name && (
                             <div className="text-white w-full text-center flex justify-center md:text-2xl text-lg mt-4 cursor-pointer">
@@ -159,11 +161,11 @@ export default function MoviesPage() {
                             {moviesFiltered.map((movie) => (
                                 <div
                                     key={movie.id}
-                                    className="relative p-2 group cursor-pointer overflow-hidden rounded-lg shadow-lg bg-zinc-800"
+                                    className="relative group cursor-pointer overflow-hidden rounded-lg shadow-lg"
                                     onClick={() => handleMovieClick(movie.id)}
                                 >
                                     <img
-                                        className="w-full h-full object-cover transform transition duration-300 group-hover:scale-105"
+                                        className="w-full h-full p-2 bg-zinc-800 object-cover transform transition duration-300 group-hover:scale-105"
                                         src={"https://image.tmdb.org/t/p/w500" + movie.poster_path}
                                         alt={movie.title}
                                         onError={(e) => {
@@ -171,28 +173,32 @@ export default function MoviesPage() {
                                             e.target.src = "../src/assets/img_not_available.png";
                                         }}
                                     />
-                                    <div className="absolute inset-0 text-white bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
-                                        <h2 className="text-lg md:text-xl font-bold ">{movie.title}</h2>
-                                        <div className="flex flex-col space-x-2 mt-2">
-                                            <div className="flex space-x-1">
-                                                {renderStars(movie.vote_average) || "Note inconnue"}
-                                            </div>
-                                            <div className="text-[14px] md:text-[16px]">
-                                                {Math.round(movie.vote_average * 100) / 100} /10
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
+                                        <div className="text-white">
+                                            <h2 className="text-lg md:text-xl font-bold">{movie.title}</h2>
+                                            <div className="flex flex-col mt-2">
+                                                <div className="flex space-x-1">
+                                                    {renderStars(movie.vote_average) || "Note inconnue"}
+                                                </div>
+                                                <div className="text-[14px] md:text-[16px]">
+                                                    {Math.round(movie.vote_average * 100) / 100} /10
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             ))}
                         </div>
-                        <div className="flex justify-center mt-8 md:mt-14">
-                            <button
-                                className="bg-green-500 text-white font-bold md:text-lg p-2 md:p-3 w-40 md:w-56 rounded-lg hover:bg-green-600 transition duration-300"
-                                onClick={handleLoadMoreMovies}
-                            >
-                                Films suivants
-                            </button>
-                        </div>
+                        {moviesFiltered.length > 0 && (
+                            <div className="flex justify-center mt-8 md:mt-14">
+                                <button
+                                    className="bg-green-500 text-white font-bold md:text-lg p-2 md:p-3 w-40 md:w-56 rounded-lg hover:bg-green-600 transition duration-300"
+                                    onClick={handleLoadMoreMovies}
+                                >
+                                    Films suivants
+                                </button>
+                            </div>
+                        )}
                     </>
                 )}
                 {showDetails && (
@@ -205,12 +211,3 @@ export default function MoviesPage() {
         </section>
     );
 }
-
-MoviesPage.propTypes = {
-    activeFilter: PropTypes.shape({
-        id: PropTypes.number,
-        name: PropTypes.string,
-    }),
-    page: PropTypes.number.isRequired,
-    setPage: PropTypes.func.isRequired,
-};

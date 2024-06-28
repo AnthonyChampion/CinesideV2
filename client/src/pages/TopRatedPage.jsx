@@ -59,7 +59,7 @@ export default function TopratedMovies() {
     };
 
     return (
-        <section className="w-screen h-fit text-white flex flex-col items-center md:mt-16 mt-10 bg-zinc-900">
+        <section className="w-screen h-fit text-white flex flex-col items-center md:mt-16 mt-10">
 
             {toprated[index] && (
                 <div className="relative w-full overflow-hidden md:-mt-[8%] -mt-8">
@@ -72,7 +72,7 @@ export default function TopratedMovies() {
                             e.target.src = "../src/assets/img_not_available.png";
                         }}
                     />
-                    <div className="hidden md:block absolute inset-0 bg-gradient-to-t from-zinc-900 via-transparent to-transparent"></div>
+                    <div className="hidden md:block absolute inset-0 bg-gradient-to-t from-[#111111] via-transparent to-transparent"></div>
                     <div className="hidden md:block absolute  md:bottom-20 md:left-14 text-white md:w-[35%] bg-zinc-900 bg-opacity-50 p-6 rounded-lg shadow-lg">
                         <h2 className="font-bold text-green-500 text-xl md:text-4xl text-left mb-2 truncate">
                             {toprated[index]?.title || "Titre non disponible"}
@@ -128,9 +128,9 @@ export default function TopratedMovies() {
                     </div>
                 </div>
             )}
-            <div className="container mx-auto md:py-16 py-8 px-4" ref={moviesListRef}>
-                <div className="flex justify-center w-full">
-                    <h1 className="md:w-[25%] w-[60%] p-2 z-10 md:text-2xl text-lg text-center text-white border border-white px-4 rounded-lg bg-gradient-to-r from-green-500 to-indigo-500 shadow-lg">
+            <div className="container mx-auto md:py-8 py-8 px-4" ref={moviesListRef}>
+                <div className="flex w-full">
+                    <h1 className="md:w-[25%] w-[60%] p-2 z-10 md:text-2xl text-lg text-center text-white border border-black px-4 rounded-lg bg-gradient-to-r from-zinc-800 to-black shadow-lg">
                         Films les mieux notés
                     </h1>
                 </div>
@@ -138,11 +138,11 @@ export default function TopratedMovies() {
                     {toprated.map((movie, idx) => (
                         <div
                             key={movie.id}
-                            className="relative p-2 group cursor-pointer overflow-hidden rounded-lg shadow-lg bg-zinc-800"
+                            className="relative group cursor-pointer overflow-hidden rounded-lg shadow-lg"
                             onClick={() => setIndex(idx)}
                         >
                             <img
-                                className="w-full h-full object-cover transform transition duration-300 group-hover:scale-105"
+                                className="w-full h-full p-2 bg-zinc-800 object-cover transform transition duration-300 group-hover:scale-105"
                                 src={"https://image.tmdb.org/t/p/w500" + movie.poster_path}
                                 alt={movie.title}
                                 onError={(e) => {
@@ -150,10 +150,10 @@ export default function TopratedMovies() {
                                     e.target.src = "../src/assets/img_not_available.png";
                                 }}
                             />
-                            <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
+                            <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
                                 <h2 className="text-lg md:text-xl font-bold text-white">{movie.title}</h2>
                                 <div className="flex items-center space-x-2 mt-2">
-                                    <div className="flex flex-col md:flex-row md:space-x-4">
+                                    <div className="flex flex-col">
                                         <div className="flex space-x-1">
                                             {renderStars(movie.vote_average) || "Note inconnue"}
                                         </div>

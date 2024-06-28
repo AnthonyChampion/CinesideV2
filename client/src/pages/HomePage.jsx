@@ -83,7 +83,7 @@ export default function HomePage() {
 
 
     return (
-        <div className="flex flex-col min-h-screen bg-zinc-900 text-white">
+        <div className="flex flex-col min-h-screen text-white">
             <section className="flex-grow w-screen">
                 {loading && page === 1 ? (
                     <div className="flex justify-center items-center h-screen">
@@ -94,16 +94,18 @@ export default function HomePage() {
                 ) : (
                     <>
                         {trending[index] && (
-                            <div className="relative w-full h-full overflow-hidden md:-mt-[10%] mt-1">
-                                <img
-                                    src={`https://image.tmdb.org/t/p/original${trending[index].backdrop_path}`}
-                                    alt={trending[index]?.title || "Image de film"}
-                                    className="w-full md:h-screen object-cover"
-                                    onError={(e) => {
-                                        e.target.onerror = null;
-                                        e.target.src = "../src/assets/img_not_available.png";
-                                    }}
-                                />
+                            <div className="relative w-screen h-screen overflow-hidden md:-mt-[10%] mt-1">
+                                <div className="relative w-full h-full">
+                                    <img
+                                        src={`https://image.tmdb.org/t/p/original${trending[index].backdrop_path}`}
+                                        alt={trending[index]?.title || "Image de film"}
+                                        className="w-full h-full object-cover"
+                                        onError={(e) => {
+                                            e.target.onerror = null;
+                                            e.target.src = "../src/assets/img_not_available.png";
+                                        }}
+                                    />
+                                </div>
                                 <div className="hidden md:block absolute inset-0 bg-gradient-to-t from-zinc-900 via-transparent to-transparent"></div>
                                 <div className="hidden md:block absolute space-y-2 md:top-[35vh] md:left-24 md:w-1/3 text-white p-4 md:p-6 bg-zinc-900 bg-opacity-50 rounded-lg shadow-xl">
                                     <h1 className="text-xl md:text-5xl font-extrabold text-green-400 mb-2">{trending[index]?.title || "Titre non disponible"}</h1>
@@ -142,36 +144,35 @@ export default function HomePage() {
                             </div>
                         )}
 
-                        <div className="md:py-4 py-4 md:px-4 flex-grow md:-mt-[10%]">
+                        <div className="md:py-4 py-4 md:px-4 flex-grow -mt-52">
                             <swiper-container
                                 slides-per-view={slides}
                                 loop="true"
                                 autoplay-delay="2500"
                                 autoplay-disable-on-interaction="false"
                             >
-
                                 {trending.map((data, idx) => (
                                     <swiper-slide key={data.id}>
                                         <div
-                                            className="relative group flex flex-col md:w-[330px] w-[190px] cursor-pointer overflow-hidden rounded-lg bg-transparent p-2"
+                                            className="relative group flex flex-col md:w-[300px] md:h-[300px] w-[190px] h-[300px] cursor-pointer overflow-hidden rounded-xl bg-transparent p-2 transition-transform duration-300 transform hover:scale-105"
                                             onClick={() => setIndex(idx)}
                                         >
-                                            <img
-                                                className="md:w-[330px] md:h-[250px] h-[200px] object-cover transform transition duration-300 group-hover:scale-110 rounded-xl"
-                                                src={"https://image.tmdb.org/t/p/original" + data.backdrop_path}
-                                                alt={data.title}
-                                                onError={(e) => {
-                                                    e.target.onerror = null;
-                                                    e.target.src = "../src/assets/img_not_available.png";
-                                                }}
-                                            />
-
-
-                                        </div>
-                                        <div className=" flex flex-col items-center justify-between space-x-2 py-2">
-                                            <h1 className="text-center line-clamp-1 pt-2 pl-2">{data.title}</h1>
-                                            <div className="flex space-x-1">
-                                                {renderStars(data.vote_average)}
+                                            <div className="relative rounded-xl overflow-hidden">
+                                                <img
+                                                    className="md:h-[200px] w-full h-full object-cover transform transition duration-300 group-hover:scale-125"
+                                                    src={"https://image.tmdb.org/t/p/original" + data.backdrop_path}
+                                                    alt={data.title}
+                                                    onError={(e) => {
+                                                        e.target.onerror = null;
+                                                        e.target.src = "../src/assets/img_not_available.png";
+                                                    }}
+                                                />
+                                            </div>
+                                            <div className="flex flex-col items-center justify-between space-x-2 py-2">
+                                                <h1 className="text-center line-clamp-1 pt-2 pl-2 text-white">{data.title}</h1>
+                                                <div className="flex space-x-1">
+                                                    {renderStars(data.vote_average)}
+                                                </div>
                                             </div>
                                         </div>
                                     </swiper-slide>
@@ -179,6 +180,7 @@ export default function HomePage() {
                                 ))}
                             </swiper-container>
                         </div>
+
                     </>
                 )}
                 {showDetails && (

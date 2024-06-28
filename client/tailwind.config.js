@@ -9,6 +9,9 @@ export default {
       "Roboto": ["Roboto", "sans-serif"],
     },
     extend: {
+      backgroundImage: {
+        'custom-gradient': 'linear-gradient(to right, rgb(63 63 70), rgb(39 39 42), #000000)',
+      },
       showContent: {
         "0%": { opacity: 0 },
         "100%": { opacity: 1 },

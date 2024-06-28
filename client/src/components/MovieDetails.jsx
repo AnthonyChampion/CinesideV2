@@ -120,6 +120,23 @@ export default function MovieDetails({ movie, onClose }) {
         setSelectedPerson(null);
     };
 
+    const renderStars = (vote_average) => {
+        const totalStars = 5;
+        const filledStars = Math.round((vote_average / 10) * totalStars);
+        const emptyStars = totalStars - filledStars;
+
+        return (
+            <div className="flex space-x-1">
+                {[...Array(filledStars)].map((_, i) => (
+                    <span key={i} className="text-yellow-500">★</span>
+                ))}
+                {[...Array(emptyStars)].map((_, i) => (
+                    <span key={i} className="text-gray-400">★</span>
+                ))}
+            </div>
+        );
+    };
+
     return (
         <div className="fixed inset-0 z-50 h-screen flex justify-center items-center bg-black bg-opacity-70 p-4 md:p-8 lg:p-6 ">
             <div className="bg-white text-black rounded-lg overflow-scroll noscrollbar h-full w-full md:w-3/4 lg:w-3/4 shadow-xl relative">
@@ -236,31 +253,41 @@ export default function MovieDetails({ movie, onClose }) {
                         {similarMovies.length > 0 && (
                             <div className="px-6 pb-8">
                                 <h3 className="text-xl font-bold">Films similaires</h3>
-                                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-4">
-                                    {similarMovies.slice(0, 12).map(similarMovie => (
+                                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 mt-4">
+                                    {similarMovies.slice(0, 15).map(similarMovie => (
                                         <div
                                             key={similarMovie.id}
-                                            className="rounded-lg overflow-hidden shadow-lg transform transition duration-300 hover:scale-105 hover:shadow-xl cursor-pointer"
-                                            onClick={() => handleMovieClick(similarMovie)}
+                                            className="relative group cursor-pointer overflow-hidden rounded-lg shadow-lg"
+                                            onClick={() => handleMovieClick(similarMovie.id)}
                                         >
                                             <img
+                                                className="w-full h-full object-cover transform transition duration-300 group-hover:scale-105"
                                                 src={`https://image.tmdb.org/t/p/w500${similarMovie.poster_path}`}
                                                 alt={similarMovie.title}
-                                                className="w-full h-48 object-cover"
                                                 onError={(e) => {
                                                     e.target.onerror = null;
                                                     e.target.src = "../src/assets/img_not_available.png";
                                                 }}
                                             />
-                                            <div className="p-4">
-                                                <h4 className="text-lg font-semibold mb-2">{similarMovie.title}</h4>
-                                                <p className="text-gray-600">{similarMovie.release_date}</p>
+                                            <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
+                                                <div className="text-white">
+                                                    <h2 className="text-lg md:text-xl font-bold">{similarMovie.title}</h2>
+                                                    <div className="flex flex-col mt-2">
+                                                        <div className="flex space-x-1">
+                                                            {renderStars(similarMovie.vote_average) || "Note inconnue"}
+                                                        </div>
+                                                        <div className="text-[14px] md:text-[16px]">
+                                                            {Math.round(similarMovie.vote_average * 100) / 100} /10
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     ))}
                                 </div>
                             </div>
                         )}
+
                     </>
                 )}
             </div>

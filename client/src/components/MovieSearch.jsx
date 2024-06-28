@@ -71,10 +71,10 @@ export default function MovieSearch() {
                     type="text"
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="rounded-xl h-11 md:w-[21.5rem] w-[18rem] bg-zinc-800 text-center text-white text-[16px] border border-neutral-400 "
+                    className="rounded-xl h-11 md:w-[21.5rem] w-[18rem] bg-gradient-to-r from-zinc-800 to-black text-center text-white text-[16px] border border-neutral-400 "
                     placeholder="Tapez votre film"
                 />
-                <button type="submit" className="ml-2 mt-2 md:mt-0 bg-green-400 p-2 rounded-xl text-black text-[16px]">Rechercher</button>
+                <button type="submit" className="ml-2 mt-2 md:mt-0 bg-green-500 p-2 rounded-xl text-black text-[16px]">Rechercher</button>
             </form>
             {error && <p className="text-red-500 mt-2">{error}</p>}
             {movies.length > 0 && (
@@ -108,7 +108,7 @@ export default function MovieSearch() {
                                 ))}
                             </div>
                             <button
-                                className="absolute top-4 right-4 bg-green-400 text-white rounded-full w-10 h-10 flex items-center justify-center"
+                                className="absolute top-4 right-4 bg-green-500 text-white rounded-full w-10 h-10 flex items-center justify-center"
                                 onClick={handleClose}
                                 aria-label="Close"
                             >
