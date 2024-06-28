@@ -292,7 +292,7 @@ export default function MovieDetails({ movie, onClose }) {
                 )}
             </div>
             {selectedPerson && (
-                <PersonDetails personId={selectedPerson} onClose={handlePersonDetailsClose} />
+                <PersonDetails personId={selectedPerson} onClose={handlePersonDetailsClose} renderStars={renderStars} />
             )}
         </div>
     );

@@ -1,17 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { fetchMovieDetails, fetchTrendingMovies } from '../utils/moviedb';
-import MovieDetails from '../components/MovieDetails';
-
 import { register } from "swiper/element-bundle";
+import { Link } from 'react-router-dom';
 
 register();
 
 export default function HomePage() {
     const [trending, setTrending] = useState([]);
     const [index, setIndex] = useState(0);
-    const [movieDetails, setMovieDetails] = useState({});
     const [loading, setLoading] = useState(true);
-    const [showDetails, setShowDetails] = useState(false);
     const [slides, setSlides] = useState(1);
     const [page] = useState(1);
 
@@ -24,17 +21,6 @@ export default function HomePage() {
         } catch (error) {
             console.error('Erreur dans la récupération des films:', error);
             setLoading(false);
-        }
-    };
-
-    const getMovieDetails = async (id) => {
-        try {
-            const data = await fetchMovieDetails(id);
-            if (data) {
-                setMovieDetails(data);
-            }
-        } catch (error) {
-            console.error('Erreur dans la récupération des détails:', error);
         }
     };
 
@@ -75,13 +61,6 @@ export default function HomePage() {
         };
     }, [page]);
 
-    useEffect(() => {
-        if (trending.length > 0) {
-            getMovieDetails(trending[index]?.id);
-        }
-    }, [index, trending]);
-
-
     return (
         <div className="flex flex-col min-h-screen text-white">
             <section className="flex-grow w-screen">
@@ -120,12 +99,13 @@ export default function HomePage() {
                                     </div>
 
                                     <p className="text-sm md:text-lg md:line-clamp-4 line-clamp-2 text-justify mb-4">{trending[index].overview}</p>
-                                    <button
-                                        className="bg-green-500 text-white font-bold md:text-lg py-2 md:py-3 px-4 md:px-6 rounded-lg hover:bg-green-600 transition duration-300"
-                                        onClick={() => setShowDetails(true)}
-                                    >
-                                        Voir détails
-                                    </button>
+                                    <Link to={`/film/${trending[index].id}`}>
+                                        <button
+                                            className="bg-green-500 text-white font-bold md:text-lg py-2 md:py-3 px-4 md:px-6 rounded-lg hover:bg-green-600 transition duration-300"
+                                        >
+                                            Voir détails
+                                        </button>
+                                    </Link>
                                 </div>
                                 <div className="md:hidden text-white p-4 bg-zinc-800 bg-opacity-50 rounded-lg shadow-xl">
                                     <h1 className="text-xl font-extrabold text-green-400 mb-2">{trending[index]?.title || "Titre non disponible"}</h1>
@@ -134,12 +114,13 @@ export default function HomePage() {
                                         {renderStars(trending[index]?.vote_average) || "Note inconnue"}
                                     </div>
                                     <p className="text-sm line-clamp-2 text-justify mb-4">{trending[index].overview}</p>
-                                    <button
-                                        className="bg-green-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-600 transition duration-300"
-                                        onClick={() => setShowDetails(true)}
-                                    >
-                                        Voir détails
-                                    </button>
+                                    <Link to={`/film/${trending[index].id}`}>
+                                        <button
+                                            className="bg-green-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-600 transition duration-300"
+                                        >
+                                            Voir détails
+                                        </button>
+                                    </Link>
                                 </div>
                             </div>
                         )}
@@ -182,12 +163,6 @@ export default function HomePage() {
                         </div>
 
                     </>
-                )}
-                {showDetails && (
-                    <MovieDetails
-                        movie={movieDetails}
-                        onClose={() => setShowDetails(false)}
-                    />
                 )}
             </section>
         </div>

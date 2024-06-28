@@ -9,6 +9,7 @@ import MoviesPage from './pages/MoviesPage.jsx';
 import FavoritePage from "./pages/FavoritePage.jsx";
 import LoginPage from './pages/LoginPage.jsx';
 import RegisterPage from './pages/RegisterPage.jsx';
+import MovieDetailPage from './pages/MovieDetailPage.jsx';
 
 const router = createBrowserRouter([
   {
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
       {
         element: <MoviesPage />,
         path: "/films",
+      },
+      {
+        element: <MovieDetailPage />,
+        path: "/film/:id",
       },
       {
         element: <TopRatedPage />,

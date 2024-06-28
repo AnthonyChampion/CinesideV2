@@ -70,7 +70,7 @@ export default function NavBar({ showSearch }) {
 
     return (
         <nav className="w-screen h-[7vh] relative z-20">
-            <div className="flex md:items-center md:justify-between px-4 md:px-10 pt-3 pb-4 text-white bg-[#111111] bg-opacity-50">
+            <div className="flex md:items-center md:justify-between px-4 md:px-10 pt-3 pb-3 text-white bg-[#111111]">
                 <div className="flex items-center md:justify-between justify-center w-full md:w-auto">
                     <div>
                         {openMenu && mobileContent}
@@ -85,7 +85,7 @@ export default function NavBar({ showSearch }) {
                         </Link>
                     </div>
                 </div>
-                <div className="hidden md:flex space-x-10 items-center">
+                <div className="hidden md:flex space-x-10 items-center uppercase">
                     <Link to="films" className="flex items-center space-x-1 hover:text-green-500 transition duration-300">
                         <IoFilm size={24} />
                         <span className="text-[16px]">Films</span>
@@ -101,7 +101,7 @@ export default function NavBar({ showSearch }) {
                     </Link>
                     <MovieSearch show={showSearch} />
                 </div>
-                <div className="hidden md:flex items-center space-x-2">
+                <div className="hidden md:flex items-center space-x-2 uppercase">
                     {isLoggedIn ? (
                         <button onClick={handleLogout} className="flex items-center space-x-1 hover:text-green-500 transition duration-300">
                             <IoLogOut size={24} />
