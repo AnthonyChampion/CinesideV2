@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { fetchPersonDetails, fetchPersonMovies } from "../utils/moviedb";
+import { Link } from 'react-router-dom';
 // import MovieDetails from './MovieDetails';
 
 export default function PersonDetails({ personId, onClose, renderStars }) {
@@ -9,7 +10,6 @@ export default function PersonDetails({ personId, onClose, renderStars }) {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [moviesToShow, setMoviesToShow] = useState(20);
-    const [selectedMovie, setSelectedMovie] = useState(null);
 
     const fetchPersonData = useCallback(async () => {
         try {
@@ -34,14 +34,6 @@ export default function PersonDetails({ personId, onClose, renderStars }) {
 
     const handleSeeMore = () => {
         setMoviesToShow(prev => prev + 20);
-    };
-
-    const openMovieDetails = (movie) => {
-        setSelectedMovie(movie);
-    };
-
-    const closeMovieDetails = () => {
-        setSelectedMovie(null);
     };
 
     return (
@@ -80,12 +72,12 @@ export default function PersonDetails({ personId, onClose, renderStars }) {
                         {movies.length > 0 && (
                             <div className="mt-8 w-full">
                                 <h3 className="text-xl font-bold pb-4 text-center">Filmographie</h3>
-                                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-6">
+                                <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-5 gap-6">
                                     {movies.slice(0, moviesToShow).map(movie => (
                                         <div
                                             key={movie.id}
                                             className="relative group cursor-pointer overflow-hidden rounded-lg shadow-lg"
-                                            onClick={() => openMovieDetails(movie)}
+
                                         >
                                             <img
                                                 className="w-full h-full object-cover transform transition duration-300 group-hover:scale-105"
@@ -96,19 +88,21 @@ export default function PersonDetails({ personId, onClose, renderStars }) {
                                                     e.target.src = "../src/assets/img_not_available.png";
                                                 }}
                                             />
-                                            <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
-                                                <div className="text-white">
-                                                    <h2 className="text-lg md:text-xl font-bold">{movie.title}</h2>
-                                                    <div className="flex flex-col mt-2">
-                                                        <div className="flex space-x-1">
-                                                            {/* {renderStars(movie.vote_average) || "Note inconnue"} */}
-                                                        </div>
-                                                        <div className="text-[14px] md:text-[16px]">
-                                                            {Math.round(movie.vote_average * 100) / 100} /10
+                                            <Link to={`/film/${movie.id}`}>
+                                                <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
+                                                    <div className="text-white">
+                                                        <h2 className="text-lg md:text-xl font-bold">{movie.title}</h2>
+                                                        <div className="flex flex-col mt-2">
+                                                            <div className="flex space-x-1">
+                                                                {renderStars(movie.vote_average) || "Note inconnue"}
+                                                            </div>
+                                                            <div className="text-[14px] md:text-[16px]">
+                                                                {Math.round(movie.vote_average * 100) / 100} /10
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </Link>
                                         </div>
                                     ))}
                                 </div>
@@ -126,13 +120,6 @@ export default function PersonDetails({ personId, onClose, renderStars }) {
                                 )}
                             </div>
                         )}
-
-                        {/* {selectedMovie && (
-                            <MovieDetails
-                                movie={selectedMovie}
-                                onClose={closeMovieDetails}
-                            />
-                        )} */}
                     </div>
                 ) : (
                     <div className="p-6 text-center text-lg">Pas de données disponibles</div>

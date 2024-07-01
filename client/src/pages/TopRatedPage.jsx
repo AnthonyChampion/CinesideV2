@@ -65,9 +65,18 @@ export default function TopratedMovies() {
                 <div className="relative w-screen h-screen overflow-hidden">
                     {/* Background image */}
                     <img
-                        src={`https://image.tmdb.org/t/p/original${toprated[index].backdrop_path}`}
+                        src={`https://image.tmdb.org/t/p/original${toprated[index]?.backdrop_path}`}
                         alt={toprated[index]?.title || "Movie Image"}
-                        className="w-full h-full object-cover"
+                        className="hidden md:block w-full h-full object-cover"
+                        onError={(e) => {
+                            e.target.onerror = null;
+                            e.target.src = "../src/assets/img_not_available.png";
+                        }}
+                    />
+                    <img
+                        src={`https://image.tmdb.org/t/p/original${toprated[index]?.poster_path}`}
+                        alt={toprated[index]?.title || "Movie Image"}
+                        className="md:hidden w-full h-[85%] object-cover -mt-10"
                         onError={(e) => {
                             e.target.onerror = null;
                             e.target.src = "../src/assets/img_not_available.png";
@@ -75,8 +84,9 @@ export default function TopratedMovies() {
                     />
                     {/* Overlay and movie details */}
                     <div className="absolute inset-0">
-                        <div className="absolute inset-0 bg-gradient-to-r from-black to-transparent"></div>
-                        <div className="absolute inset-0 bg-gradient-to-t from-[#111111] via-transparent to-transparent"></div>
+                        <div className="hidden md:block absolute inset-0 bg-gradient-to-r from-black to-transparent"></div>
+                        <div className="hidden md:block absolute inset-0 bg-gradient-to-t from-[#111111] via-transparent to-transparent"></div>
+                        <div className="md:hidden block h-[85%] absolute inset-0 bg-gradient-to-t from-[#111111] via-transparent to-transparent -mt-8"></div>
                     </div>
                     {/* Details section */}
                     <div className="hidden md:block absolute inset-0 space-y-6 md:top-[30vh] md:left-14 md:w-2/5 text-white p-4 md:p-6">
@@ -90,10 +100,21 @@ export default function TopratedMovies() {
                             </button>
                         </Link>
                     </div>
+                    <div className="md:hidden absolute space-y-3 top-[48vh] md:w-2/5 text-white p-4 md:p-6">
+                        <h1 className="md:text-3xl text-xl">Top TMDb</h1>
+                        <h2 className="text-xl font-bold md:text-5xl uppercase">{toprated[index]?.title || "Title not available"}</h2>
+                        <p className="md:text-lg">{toprated[index]?.release_date || "Release date unknown"}</p>
+                        <p className="text-sm md:text-lg md:line-clamp-2 line-clamp-2 text-justify">{toprated[index].overview || "Aucune description"}</p>
+                        <Link to={`/film/${toprated[index].id}`}>
+                            <button className="mt-10 text-white font-bold md:text-lg py-2 md:py-3 px-4 md:px-6 border-2 border-white rounded-lg hover:bg-green-600 transition duration-300">
+                                Voir détails
+                            </button>
+                        </Link>
+                    </div>
                 </div>
             )}
-            <div className="absolute flex text-4xl bottom-10 right-[14%] items-center space-x-2 cursor-pointer hover:scale-110" onClick={scrollToTop}>
-                <h2 className="text-4xl pb-6">Films les mieux notés</h2>
+            <div className="absolute flex text-4xl md:bottom-4 bottom-2 right-[2%]  md:right-[14%] items-center space-x-2 cursor-pointer hover:scale-110" onClick={scrollToTop}>
+                <h2 className="md:text-4xl text-lg pb-6">Films les mieux notés</h2>
                 <PiArrowBendRightDownBold />
             </div>
             <div ref={moviesList} className="md:py-4 py-4 md:px-4 flex-grow">
@@ -106,7 +127,7 @@ export default function TopratedMovies() {
                         >
                             <div className="relative rounded-xl overflow-hidden">
                                 <img
-                                    className="w-full h-[300px] object-cover transform transition duration-300 group-hover:scale-125"
+                                    className="w-full md:h-[300px] h-full object-contain transform transition duration-300 group-hover:scale-125"
                                     src={"https://image.tmdb.org/t/p/original" + data.backdrop_path}
                                     alt={data.title}
                                     onError={(e) => {
@@ -116,7 +137,7 @@ export default function TopratedMovies() {
                                 />
                             </div>
                             <div className="p-4">
-                                <h1 className="text-center line-clamp-2 text-white">{data.title}</h1>
+                                <h1 className="text-center line-clamp-2 text-white text-xl">{data.title}</h1>
                                 <div className="flex justify-center items-center space-x-1 mt-2">{renderStars(data.vote_average)}</div>
                             </div>
                         </div>

@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { searchMovies } from '../utils/moviedb';
 import { Link } from 'react-router-dom';
-// import MovieDetails from './MovieDetails';
 
 export default function MovieSearch() {
     const [searchTerm, setSearchTerm] = useState('');

@@ -79,7 +79,16 @@ export default function HomePage() {
                                 <img
                                     src={`https://image.tmdb.org/t/p/original${trending[index].backdrop_path}`}
                                     alt={trending[index]?.title || "Movie Image"}
-                                    className="w-full h-full object-cover"
+                                    className="hidden md:block w-full h-full object-cover"
+                                    onError={(e) => {
+                                        e.target.onerror = null;
+                                        e.target.src = "../src/assets/img_not_available.png";
+                                    }}
+                                />
+                                <img
+                                    src={`https://image.tmdb.org/t/p/original${trending[index].poster_path}`}
+                                    alt={trending[index]?.title || "Movie Image"}
+                                    className="md:hidden w-full h-[85%] object-cover -mt-20"
                                     onError={(e) => {
                                         e.target.onerror = null;
                                         e.target.src = "../src/assets/img_not_available.png";
@@ -87,8 +96,9 @@ export default function HomePage() {
                                 />
                                 {/* Overlay and movie details */}
                                 <div className="absolute inset-0">
-                                    <div className="absolute inset-0 bg-gradient-to-r from-black to-transparent"></div>
-                                    <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
+                                    <div className="hidden md:block absolute inset-0 bg-gradient-to-r from-black to-transparent"></div>
+                                    <div className="hidden md:block absolute inset-0 bg-gradient-to-t from-[#111111] via-transparent to-transparent"></div>
+                                    <div className="md:hidden block h-[85%] absolute inset-0 bg-gradient-to-t from-[#111111] via-transparent to-transparent -mt-20"></div>
                                 </div>
                                 {/* Details section */}
                                 <div className="hidden md:block absolute inset-0 space-y-6 md:top-[30vh] md:left-14 md:w-2/5 text-white p-4 md:p-6">
@@ -102,10 +112,21 @@ export default function HomePage() {
                                         </button>
                                     </Link>
                                 </div>
+                                <div className="md:hidden absolute space-y-3 top-[48vh] md:w-2/5 text-white p-4 md:p-6">
+                                    <h1 className="md:text-3xl text-xl">A l'affiche</h1>
+                                    <h2 className="text-xl font-bold md:text-5xl uppercase">{trending[index]?.title || "Title not available"}</h2>
+                                    <p className="md:text-lg">{trending[index]?.release_date || "Release date unknown"}</p>
+                                    <p className="text-sm md:text-lg md:line-clamp-2 line-clamp-2 text-justify">{trending[index].overview || "Aucune description"}</p>
+                                    <Link to={`/film/${trending[index].id}`}>
+                                        <button className="mt-10 text-white font-bold md:text-lg py-2 md:py-3 px-4 md:px-6 border-2 border-white rounded-lg hover:bg-green-600 transition duration-300">
+                                            Voir détails
+                                        </button>
+                                    </Link>
+                                </div>
                             </div>
                         )}
-                        <div className="absolute flex text-4xl bottom-10 right-[14%] items-center space-x-2 cursor-pointer hover:scale-110" onClick={scrollToTop}>
-                            <h2 className="text-4xl pb-6">Films en tendance</h2>
+                        <div className="absolute flex text-4xl bottom-4 right-[2%]  md:right-[14%] items-center space-x-2 cursor-pointer hover:scale-110" onClick={scrollToTop}>
+                            <h2 className="md:text-4xl text-lg pb-6">Films en tendance</h2>
                             <PiArrowBendRightDownBold />
                         </div>
 
@@ -121,7 +142,7 @@ export default function HomePage() {
                                     >
                                         <div className="relative rounded-xl overflow-hidden">
                                             <img
-                                                className="w-full h-[300px] object-cover transform transition duration-300 group-hover:scale-125"
+                                                className="w-full md:h-[300px] h-full object-contain transform transition duration-300 group-hover:scale-125"
                                                 src={"https://image.tmdb.org/t/p/original" + data.backdrop_path}
                                                 alt={data.title}
                                                 onError={(e) => {
@@ -138,11 +159,11 @@ export default function HomePage() {
                                 ))}
                                 <div className="flex justify-center space-x-4 mt-4 items-center h-[70%]">
                                     {currentPage > 1 && (
-                                        <button onClick={goToPrevPage} className="h-40 w-40 px-4 py-2 bg-green-500 text-white rounded-md">
+                                        <button onClick={goToPrevPage} className="md:h-40 md:w-40 h-20 w-28 px-4 py-2 bg-green-500 text-white rounded-md">
                                             Précédent
                                         </button>
                                     )}
-                                    <button onClick={goToNextPage} className="h-40 w-40 px-4 py-2 bg-green-500 text-white rounded-md">
+                                    <button onClick={goToNextPage} className="md:h-40 md:w-40 h-20 w-28 px-4 py-2 bg-green-500 text-white rounded-md">
                                         Suivant
                                     </button>
                                 </div>
