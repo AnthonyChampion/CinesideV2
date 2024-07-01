@@ -69,8 +69,8 @@ export default function NavBar({ showSearch }) {
 
 
     return (
-        <nav className="w-screen h-[7vh] relative z-20">
-            <div className="flex md:items-center md:justify-between px-4 md:px-10 pt-3 pb-3 text-white bg-[#111111]">
+        <nav className="w-screen h-[7vh] relative z-20 bg-[#111111] bg-opacity-40">
+            <div className="flex md:items-center md:justify-between px-4 md:px-10 pt-3 pb-3 text-white">
                 <div className="flex items-center md:justify-between justify-center w-full md:w-auto">
                     <div>
                         {openMenu && mobileContent}

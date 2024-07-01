@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { fetchMovieDetails } from '../utils/moviedb';
-import MovieDetails from '../components/MovieDetails';
+// import MovieDetails from '../components/MovieDetails';
 
 export default function Favorite() {
 
@@ -62,12 +62,12 @@ export default function Favorite() {
                     ))}
                 </div>
             )}
-            {showDetails && (
+            {/* {showDetails && (
                 <MovieDetails
                     movie={movieDetails}
                     onClose={() => setShowDetails(false)}
                 />
-            )}
+            )} */}
         </div>
     );
 }

@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { fetchPersonDetails, fetchPersonMovies } from "../utils/moviedb";
-import MovieDetails from './MovieDetails';
+// import MovieDetails from './MovieDetails';
 
 export default function PersonDetails({ personId, onClose, renderStars }) {
     const [person, setPerson] = useState(null);
@@ -101,7 +101,7 @@ export default function PersonDetails({ personId, onClose, renderStars }) {
                                                     <h2 className="text-lg md:text-xl font-bold">{movie.title}</h2>
                                                     <div className="flex flex-col mt-2">
                                                         <div className="flex space-x-1">
-                                                            {renderStars(movie.vote_average) || "Note inconnue"}
+                                                            {/* {renderStars(movie.vote_average) || "Note inconnue"} */}
                                                         </div>
                                                         <div className="text-[14px] md:text-[16px]">
                                                             {Math.round(movie.vote_average * 100) / 100} /10
@@ -127,12 +127,12 @@ export default function PersonDetails({ personId, onClose, renderStars }) {
                             </div>
                         )}
 
-                        {selectedMovie && (
+                        {/* {selectedMovie && (
                             <MovieDetails
                                 movie={selectedMovie}
                                 onClose={closeMovieDetails}
                             />
-                        )}
+                        )} */}
                     </div>
                 ) : (
                     <div className="p-6 text-center text-lg">Pas de données disponibles</div>

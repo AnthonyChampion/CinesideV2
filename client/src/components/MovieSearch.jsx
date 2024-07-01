@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
-import { fetchMovieDetails, searchMovies } from '../utils/moviedb';
-import MovieDetails from './MovieDetails';
+import { searchMovies } from '../utils/moviedb';
+import { Link } from 'react-router-dom';
+// import MovieDetails from './MovieDetails';
 
 export default function MovieSearch() {
     const [searchTerm, setSearchTerm] = useState('');
     const [movies, setMovies] = useState([]);
     const [error, setError] = useState('');
-    const [movieDetails, setMovieDetails] = useState({});
-    const [showDetails, setShowDetails] = useState(false);
 
     const handleSearch = async (event) => {
         event.preventDefault();
@@ -37,33 +36,6 @@ export default function MovieSearch() {
         setSearchTerm('');
     };
 
-    const handleMovieClick = async (movie) => {
-        try {
-            const data = await fetchMovieDetails(movie.id);
-            setMovieDetails(data);
-            setShowDetails(true);
-        } catch (error) {
-            console.error('Erreur dans la récupération des détails:', error);
-        }
-    };
-
-    const renderStars = (vote_average) => {
-        const totalStars = 5;
-        const filledStars = Math.round((vote_average / 10) * totalStars);
-        const emptyStars = totalStars - filledStars;
-
-        return (
-            <div className="flex space-x-1">
-                {[...Array(filledStars)].map((_, i) => (
-                    <span key={i} className="text-yellow-500">★</span>
-                ))}
-                {[...Array(emptyStars)].map((_, i) => (
-                    <span key={i} className="text-gray-400">★</span>
-                ))}
-            </div>
-        );
-    };
-
     return (
         <section>
             <form onSubmit={handleSearch} className="md:flex md:flex-row flex-col items-center">
@@ -71,7 +43,7 @@ export default function MovieSearch() {
                     type="text"
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="rounded-xl h-11 md:w-[21.5rem] w-[18rem] bg-gradient-to-r from-zinc-800 to-black text-center text-white text-[16px] border border-neutral-400 "
+                    className="rounded-xl h-11 md:w-[21.5rem] w-[18rem] bg-zinc-800 text-center text-white text-[16px] border border-neutral-400 "
                     placeholder="Tapez votre film"
                 />
                 <button type="submit" className="ml-2 mt-2 md:mt-0 bg-green-500 p-2 rounded-xl text-black text-[16px]">Rechercher</button>
@@ -86,7 +58,7 @@ export default function MovieSearch() {
                                     <div
                                         key={movie.id}
                                         className="relative flex flex-col md:h-[370px] h-[240px] justify-center items-center"
-                                        onClick={() => handleMovieClick(movie)}>
+                                    >
 
                                         <div className="relative group cursor-pointer overflow-hidden rounded-lg shadow-lg bg-zinc-800">
                                             <img
@@ -94,14 +66,12 @@ export default function MovieSearch() {
                                                 alt={movie.title}
                                                 className="md:w-[260px] md:h-[350px] w-[160px] h-[220px] object-cover rounded-xl"
                                             />
-                                            <div className="absolute inset-0 p-4 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end">
-                                                <h2 className="text-lg md:text-xl font-bold text-white">{movie.title}</h2>
-                                                <div className="flex items-center space-x-2 mt-2">
-                                                    <div className="flex space-x-1">
-                                                        {renderStars(movie.vote_average) || "Note inconnue"}
-                                                    </div>
+                                            <Link to={`/film/${movie.id}`}>
+                                                <div className="absolute inset-0 p-4 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end">
+                                                    <h2 className="text-lg md:text-xl text-white">{movie.title}</h2>
                                                 </div>
-                                            </div>
+                                            </Link>
+
                                         </div>
 
                                     </div>
@@ -117,12 +87,6 @@ export default function MovieSearch() {
                         </div>
                     </div>
                 </div>
-            )}
-            {showDetails && (
-                <MovieDetails
-                    movie={movieDetails}
-                    onClose={() => setShowDetails(false)}
-                />
             )}
         </section>
     );

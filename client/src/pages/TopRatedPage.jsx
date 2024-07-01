@@ -1,15 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { fetchTopRatedMovies, fetchMovieDetails } from '../utils/moviedb';
-import MovieDetails from '../components/MovieDetails';
+import { fetchTopRatedMovies } from '../utils/moviedb';
+import { Link } from 'react-router-dom';
+import { PiArrowBendRightDownBold } from 'react-icons/pi';
 
 export default function TopratedMovies() {
     const [toprated, setToprated] = useState([]);
-    const [page, setPage] = useState(1);
+    const [currentPage, setCurrentPage] = useState(1);
     const [index, setIndex] = useState(0);
-    const [selectMovie, setSelectedMovie] = useState(null);
-    const [showDetails, setShowDetails] = useState(false);
 
-    const moviesListRef = useRef(null);
+    const moviesList = useRef(null);
 
     const getTopratedMovies = async (page) => {
         try {
@@ -22,22 +21,23 @@ export default function TopratedMovies() {
     };
 
     useEffect(() => {
-        getTopratedMovies(page);
-    }, [page]);
+        getTopratedMovies(currentPage);
+    }, [currentPage]);
 
-    const handleMovieClick = async (movie) => {
-        try {
-            const data = await fetchMovieDetails(movie.id);
-            setSelectedMovie(data);
-            setShowDetails(true);
-        } catch (error) {
-            console.error('Erreur dans la récupération des détails:', error);
+    const goToNextPage = () => {
+        setCurrentPage(currentPage + 1);
+        scrollToTop();
+    };
+
+    const goToPrevPage = () => {
+        if (currentPage > 1) {
+            setCurrentPage(currentPage - 1);
         }
     };
 
     const scrollToTop = () => {
-        if (moviesListRef.current) {
-            moviesListRef.current.scrollIntoView({ behavior: 'smooth' });
+        if (moviesList.current) {
+            moviesList.current.scrollIntoView({ behavior: 'smooth' });
         }
     };
 
@@ -59,98 +59,87 @@ export default function TopratedMovies() {
     };
 
     return (
-        <section className="w-screen h-fit text-white flex flex-col items-center md:mt-16 mt-10">
+        <section className="w-screen h-fit text-white flex flex-col items-center">
 
             {toprated[index] && (
-                <div className="relative w-full overflow-hidden md:-mt-[8%] -mt-8">
+                <div className="relative w-screen h-screen overflow-hidden">
+                    {/* Background image */}
                     <img
-                        src={`https://image.tmdb.org/t/p/original${toprated[index]?.backdrop_path}`}
-                        alt={toprated[index]?.title || "Image de film"}
-                        className="w-full md:h-[650px] object-cover brightness-70"
+                        src={`https://image.tmdb.org/t/p/original${toprated[index].backdrop_path}`}
+                        alt={toprated[index]?.title || "Movie Image"}
+                        className="w-full h-full object-cover"
                         onError={(e) => {
                             e.target.onerror = null;
                             e.target.src = "../src/assets/img_not_available.png";
                         }}
                     />
-                    <div className="hidden md:block absolute inset-0 bg-gradient-to-t from-[#111111] via-transparent to-transparent"></div>
-                    <div className="hidden md:block absolute  md:bottom-20 md:left-14 text-white md:w-[35%] bg-zinc-900 bg-opacity-50 p-6 rounded-lg shadow-lg">
-                        <h2 className="font-bold text-green-500 text-xl md:text-4xl text-left mb-2 truncate">
-                            {toprated[index]?.title || "Titre non disponible"}
-                        </h2>
-
-                        <div className="flex flex-col text-sm md:text-lg mb-4 space-y-2">
-                            <p>{toprated[index]?.release_date || "Date de sortie inconnue"}</p>
-                            <div className="flex flex-row space-x-4 items-center">
-                                <div className="flex space-x-1">
-                                    {renderStars(toprated[index]?.vote_average) || "Note inconnue"}
-                                </div>
-                                <div className="text-lg">
-                                    {Math.round(toprated[index].vote_average * 100) / 100} /10
-                                </div>
-                            </div>
-                        </div>
-                        <p className="text-sm md:text-base mb-4 md:line-clamp-3 line-clamp-2 text-justify">
-                            {toprated[index]?.overview || "Aucune description disponible"}
-                        </p>
-                        <button
-                            className="bg-green-500 text-white font-bold text-sm md:text-base px-3 py-2 rounded-lg hover:bg-green-600 transition duration-300"
-                            onClick={() => handleMovieClick(toprated[index])}
-                        >
-                            Voir détails
-                        </button>
+                    {/* Overlay and movie details */}
+                    <div className="absolute inset-0">
+                        <div className="absolute inset-0 bg-gradient-to-r from-black to-transparent"></div>
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#111111] via-transparent to-transparent"></div>
                     </div>
-                    <div className="md:hidden text-white  bg-zinc-800 bg-opacity-50 p-6 rounded-lg shadow-lg">
-                        <h2 className="font-bold text-green-500 text-xl md:text-4xl text-left mb-2 truncate">
-                            {toprated[index]?.title || "Titre non disponible"}
-                        </h2>
-
-                        <div className="flex flex-col text-sm md:text-lg space-y-2 mb-4">
-
-                            <p>{toprated[index]?.release_date || "Date de sortie inconnue"}</p>
-                            <div className="flex flex-row space-x-4">
-                                <div className="flex space-x-1">
-                                    {renderStars(toprated[index]?.vote_average) || "Note inconnue"}
-                                </div>
-                                <div>
-                                    {Math.round(toprated[index].vote_average * 100) / 100} /10
-                                </div>
-                            </div>
-                        </div>
-                        <p className="text-sm mb-4 line-clamp-2 text-justify">
-                            {toprated[index]?.overview || "Aucune description disponible"}
-                        </p>
-                        <button
-                            className="bg-green-500 text-white font-bold text-sm px-3 py-2 rounded-lg hover:bg-green-600 transition duration-300"
-                            onClick={() => handleMovieClick(toprated[index])}
-                        >
-                            Voir détails
-                        </button>
+                    {/* Details section */}
+                    <div className="hidden md:block absolute inset-0 space-y-6 md:top-[30vh] md:left-14 md:w-2/5 text-white p-4 md:p-6">
+                        <h1 className="text-3xl">Top TMDb</h1>
+                        <h2 className="text-xl font-bold md:text-5xl uppercase">{toprated[index]?.title || "Title not available"}</h2>
+                        <p className="md:text-lg">{toprated[index]?.release_date || "Release date unknown"}</p>
+                        <p className="text-sm md:text-lg md:line-clamp-2 line-clamp-2 text-justify">{toprated[index].overview || "Aucune description"}</p>
+                        <Link to={`/film/${toprated[index].id}`}>
+                            <button className="mt-10 text-white font-bold md:text-lg py-2 md:py-3 px-4 md:px-6 border-2 border-white rounded-lg hover:bg-green-600 transition duration-300">
+                                Voir détails
+                            </button>
+                        </Link>
                     </div>
                 </div>
             )}
-            <div className="container mx-auto md:py-8 py-8 px-4" ref={moviesListRef}>
-                <div className="flex w-full">
-                    <h1 className="md:w-[25%] w-[60%] p-2 z-10 md:text-2xl text-lg text-center text-white border border-black px-4 rounded-lg bg-gradient-to-r from-zinc-800 to-black shadow-lg">
-                        Films les mieux notés
-                    </h1>
-                </div>
-                <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 mt-8">
-                    {toprated.map((movie, idx) => (
+            <div className="absolute flex text-4xl bottom-10 right-[14%] items-center space-x-2 cursor-pointer hover:scale-110" onClick={scrollToTop}>
+                <h2 className="text-4xl pb-6">Films les mieux notés</h2>
+                <PiArrowBendRightDownBold />
+            </div>
+            <div ref={moviesList} className="md:py-4 py-4 md:px-4 flex-grow">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    {toprated.map((data, idx) => (
                         <div
-                            key={movie.id}
-                            className="relative group cursor-pointer overflow-hidden rounded-lg shadow-lg"
+                            key={data.id}
+                            className="group flex flex-col cursor-pointer overflow-hidden rounded-xl bg-transparent transition-transform duration-300 transform hover:scale-105"
                             onClick={() => setIndex(idx)}
                         >
-                            <img
-                                className="w-full h-full p-2 bg-zinc-800 object-cover transform transition duration-300 group-hover:scale-105"
-                                src={"https://image.tmdb.org/t/p/w500" + movie.poster_path}
-                                alt={movie.title}
-                                onError={(e) => {
-                                    e.target.onerror = null;
-                                    e.target.src = "../src/assets/img_not_available.png";
-                                }}
-                            />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
+                            <div className="relative rounded-xl overflow-hidden">
+                                <img
+                                    className="w-full h-[300px] object-cover transform transition duration-300 group-hover:scale-125"
+                                    src={"https://image.tmdb.org/t/p/original" + data.backdrop_path}
+                                    alt={data.title}
+                                    onError={(e) => {
+                                        e.target.onerror = null;
+                                        e.target.src = "../src/assets/img_not_available.png";
+                                    }}
+                                />
+                            </div>
+                            <div className="p-4">
+                                <h1 className="text-center line-clamp-2 text-white">{data.title}</h1>
+                                <div className="flex justify-center items-center space-x-1 mt-2">{renderStars(data.vote_average)}</div>
+                            </div>
+                        </div>
+                    ))}
+                    <div className="flex justify-center space-x-4 mt-4 items-center h-[70%]">
+                        {currentPage > 1 && (
+                            <button onClick={goToPrevPage} className="h-40 w-40 px-4 py-2 bg-green-500 text-white rounded-md">
+                                Précédent
+                            </button>
+                        )}
+                        <button onClick={goToNextPage} className="h-40 w-40 px-4 py-2 bg-green-500 text-white rounded-md">
+                            Suivant
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    );
+}
+
+
+{/* <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
                                 <h2 className="text-lg md:text-xl font-bold text-white">{movie.title}</h2>
                                 <div className="flex items-center space-x-2 mt-2">
                                     <div className="flex flex-col">
@@ -162,39 +151,4 @@ export default function TopratedMovies() {
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                    ))}
-                </div>
-            </div>
-            <div className="flex justify-center space-x-8 mt-8 md:mt-2 mb-10">
-                {page > 1 && (
-                    <button
-                        className="bg-green-500 text-white font-bold md:text-lg p-2 md:p-3 w-40 md:w-56 rounded-lg hover:bg-green-600 transition duration-300"
-                        onClick={() => {
-                            setPage(page - 1);
-                            scrollToTop();
-                        }}
-                    >
-                        Films précédents
-                    </button>
-                )}
-                <button
-                    className="bg-green-500 text-white font-bold md:text-lg p-2 md:p-3 w-40 md:w-56 rounded-lg hover:bg-green-600 transition duration-300"
-                    onClick={() => {
-                        setPage(page + 1);
-                        scrollToTop();
-                    }}
-                >
-                    Films suivants
-                </button>
-            </div>
-            {showDetails && (
-                <MovieDetails
-                    movie={selectMovie}
-                    onClose={() => setShowDetails(false)}
-                />
-            )}
-        </section>
-    );
-}
+                            </div> */}
