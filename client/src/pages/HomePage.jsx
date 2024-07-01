@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { PiArrowBendRightDownBold } from "react-icons/pi";
 
 export default function HomePage() {
+
     const [trending, setTrending] = useState([]);
     const [index, setIndex] = useState(0);
     const [loading, setLoading] = useState(true);
@@ -53,6 +54,7 @@ export default function HomePage() {
     const goToPrevPage = () => {
         if (currentPage > 1) {
             setCurrentPage(currentPage - 1);
+            scrollToTop();
         }
     };
 
@@ -98,37 +100,54 @@ export default function HomePage() {
                                 <div className="absolute inset-0">
                                     <div className="hidden md:block absolute inset-0 bg-gradient-to-r from-black to-transparent"></div>
                                     <div className="hidden md:block absolute inset-0 bg-gradient-to-t from-[#111111] via-transparent to-transparent"></div>
-                                    <div className="md:hidden block h-[85%] absolute inset-0 bg-gradient-to-t from-[#111111] via-transparent to-transparent -mt-20"></div>
+                                    <div className="md:hidden block h-[86%] absolute inset-0 bg-gradient-to-t from-[#111111] via-transparent to-transparent -mt-20"></div>
                                 </div>
                                 {/* Details section */}
                                 <div className="hidden md:block absolute inset-0 space-y-6 md:top-[30vh] md:left-14 md:w-2/5 text-white p-4 md:p-6">
                                     <h1 className="text-3xl">A l'affiche</h1>
                                     <h2 className="text-xl font-bold md:text-5xl uppercase">{trending[index]?.title || "Title not available"}</h2>
-                                    <p className="md:text-lg">{trending[index]?.release_date || "Release date unknown"}</p>
+                                    <p className="md:text-lg">{trending[index]?.release_date || "Date de sortie inconnue"}</p>
+                                    <div className="flex mt-2 space-x-2 items-center">
+                                        <div className="flex space-x-1">
+                                            {renderStars(trending[index]?.vote_average) || "Note inconnue"}
+                                        </div>
+                                        <div className="text-[14px] md:text-[16px]">
+                                            {Math.round(trending[index]?.vote_average * 100) / 100} /10
+                                        </div>
+                                    </div>
                                     <p className="text-sm md:text-lg md:line-clamp-2 line-clamp-2 text-justify">{trending[index].overview || "Aucune description"}</p>
                                     <Link to={`/film/${trending[index].id}`}>
-                                        <button className="mt-10 text-white font-bold md:text-lg py-2 md:py-3 px-4 md:px-6 border-2 border-white rounded-lg hover:bg-green-600 transition duration-300">
+                                        <button className="mt-10 text-white rounded-sm md:text-lg py-2 md:py-3 px-4 md:px-6 border-2 border-white hover:bg-green-600 transition duration-300">
                                             Voir détails
                                         </button>
                                     </Link>
                                 </div>
-                                <div className="md:hidden absolute space-y-3 top-[48vh] md:w-2/5 text-white p-4 md:p-6">
-                                    <h1 className="md:text-3xl text-xl">A l'affiche</h1>
+                                <div className="md:hidden absolute space-y-2 top-[55vh] md:w-2/5 text-white p-4 md:p-6">
+                                    <h1 className="md:text-3xl text-md">A l'affiche</h1>
                                     <h2 className="text-xl font-bold md:text-5xl uppercase">{trending[index]?.title || "Title not available"}</h2>
-                                    <p className="md:text-lg">{trending[index]?.release_date || "Release date unknown"}</p>
-                                    <p className="text-sm md:text-lg md:line-clamp-2 line-clamp-2 text-justify">{trending[index].overview || "Aucune description"}</p>
+                                    <p className="md:text-lg">{trending[index]?.release_date || "Date de sortie inconnue"}</p>
+                                    <div className="flex mt-2 space-x-2 items-center">
+                                        <div className="flex space-x-1">
+                                            {renderStars(trending[index]?.vote_average) || "Note inconnue"}
+                                        </div>
+                                        <div className="text-[14px] md:text-[16px]">
+                                            {Math.round(trending[index]?.vote_average * 100) / 100} /10
+                                        </div>
+                                    </div>
+
                                     <Link to={`/film/${trending[index].id}`}>
-                                        <button className="mt-10 text-white font-bold md:text-lg py-2 md:py-3 px-4 md:px-6 border-2 border-white rounded-lg hover:bg-green-600 transition duration-300">
+                                        <button className="mt-4 text-white rounded-sm md:text-lg py-2 md:py-3 px-4 md:px-6 border-2 border-white hover:bg-green-600 transition duration-300">
                                             Voir détails
                                         </button>
                                     </Link>
                                 </div>
                             </div>
                         )}
-                        <div className="absolute flex text-4xl bottom-4 right-[2%]  md:right-[14%] items-center space-x-2 cursor-pointer hover:scale-110" onClick={scrollToTop}>
-                            <h2 className="md:text-4xl text-lg pb-6">Films en tendance</h2>
-                            <PiArrowBendRightDownBold />
+                        <div className="absolute flex items-center space-x-2 cursor-pointer transition-transform transform hover:scale-110 bottom-4 right-4 md:bottom-6 md:right-14" onClick={scrollToTop}>
+                            <h2 className="text-lg md:text-4xl font-semibold pb-6 md:pb-0 text-white">Films en tendance</h2>
+                            <PiArrowBendRightDownBold className="text-lg md:text-4xl text-white" />
                         </div>
+
 
 
                         {/* Grid of movie posters */}
@@ -153,7 +172,6 @@ export default function HomePage() {
                                         </div>
                                         <div className="p-4">
                                             <h1 className="text-center line-clamp-2 text-white">{data.title}</h1>
-                                            <div className="flex justify-center items-center space-x-1 mt-2">{renderStars(data.vote_average)}</div>
                                         </div>
                                     </div>
                                 ))}

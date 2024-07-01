@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { useParams, useNavigate, Link } from 'react-router-dom';
+import React, { useEffect, useRef, useState } from 'react';
+import { useParams, Link } from 'react-router-dom';
 import { fetchMovieDetails } from '../utils/moviedb';
 import PersonDetails from '../components/PersonDetails';
 import useMovieData from '../hooks/useMovieData';
@@ -8,7 +8,8 @@ const MovieDetailPage = () => {
     const { id } = useParams();
     const movieId = parseInt(id);
 
-    const navigate = useNavigate();
+    const movieList = useRef(null);
+
     const { credits, similarMovies, trailer, watchProviders, loading, error } = useMovieData(movieId);
     const [movie, setMovie] = useState(null);
     const [favorites, setFavorites] = useState(() => JSON.parse(localStorage.getItem('favorites')) || []);
@@ -48,6 +49,12 @@ const MovieDetailPage = () => {
         setSelectedPerson(null);
     };
 
+    const scrollToTop = () => {
+        if (movieList.current) {
+            movieList.current.scrollIntoView({ behavior: 'smooth' });
+        }
+    };
+
     const renderStars = (vote_average) => {
         const totalStars = 5;
         const filledStars = Math.round((vote_average / 10) * totalStars);
@@ -66,7 +73,7 @@ const MovieDetailPage = () => {
     };
 
     return (
-        <div className="flex flex-col items-center justify-center text-white font-Roboto">
+        <div ref={movieList} className="flex flex-col items-center justify-center text-white font-Roboto">
             {loading ? (
                 <div className="flex justify-center items-center h-screen">
                     <div className="spinner-border animate-spin inline-block w-8 h-8 border-4 rounded-full text-green-500" role="status">
@@ -117,18 +124,21 @@ const MovieDetailPage = () => {
                             )}
                         </div>
                     </div>
-                    <div className="md:mt-8 mt-3 px-3 md:px-0">
+                    <div className="md:mt-6 mt-3 px-3 space-y-2 md:px-0">
+                        {renderStars(movie.vote_average)}
                         <div className="flex items-center space-x-4">
-                            <div className="flex space-x-1">
-                                {renderStars(movie.vote_average)}
+
+                            <div className="flex space-x-2 items-center">
+                                <p className="md:text-lg">Note :</p>
+
                             </div>
-                            <div className="text-lg">
+                            <div className="text-md">
                                 {Math.round(movie.vote_average * 100) / 100} / 10
                             </div>
                         </div>
-                        <p className="md:text-lg">Popularity: {Math.round(movie.popularity * 100) / 100}%</p>
+                        <p className="md:text-lg">Popularity : {Math.round(movie.popularity)} %</p>
                     </div>
-                    <div className="mt-8 px-3 md:px-0">
+                    <div className="mt-8 md:mt-12 px-3 md:px-0">
                         {Object.keys(watchProviders).length > 0 && (
                             <div>
                                 <h3 className="md:text-2xl">Plateformes:</h3>
@@ -156,13 +166,13 @@ const MovieDetailPage = () => {
                         )}
                     </div>
 
-                    <div className="mt-8 px-3 md:px-0">
+                    <div className="mt-8 md:mt-12  px-3 md:px-0">
                         <h2 className="md:text-2xl">Synopsis</h2>
                         <p className="md:text-lg text-justify">{movie.overview}</p>
                     </div>
 
                     {credits && credits.length > 0 && (
-                        <div className="mt-8 px-3 md:px-0">
+                        <div className="mt-8 md:mt-12  px-3 md:px-0">
                             <h3 className="md:text-2xl">Distribution</h3>
                             <ul className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-4">
                                 {credits.slice(0, 8).map(actor => (
@@ -186,9 +196,9 @@ const MovieDetailPage = () => {
                     )}
 
                     {trailer.length > 0 && (
-                        <div className="mt-8 px-3 md:px-0 flex-col md:w-2/4 w-full justify-center">
+                        <div className="mt-8 md:mt-12 px-3 md:px-0 flex-col w-full justify-center">
                             <h3 className="md:text-2xl">Bande annonce</h3>
-                            <div className="mt-4">
+                            <div className="mt-4 flex-col md:pr-[15vw] md:pl-[15vw]">
                                 <iframe
                                     width="100%"
                                     height="315"
@@ -196,13 +206,14 @@ const MovieDetailPage = () => {
                                     title={trailer[0].name}
                                     frameBorder="0"
                                     allowFullScreen
+                                    className='justify-center'
                                 ></iframe>
-                                <p className="md:text-lg mt-2">{trailer[0].name}</p>
+                                <p className="md:text-lg mt-2 text-center">{trailer[0].name}</p>
                             </div>
                         </div>
                     )}
 
-                    <div className="mt-8 px-3 md:px-0">
+                    <div className="mt-8 md:mt-12  px-3 md:px-0">
                         <h3 className="md:text-2xl">Recommandations</h3>
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-4">
                             {similarMovies.slice(0, 16).map(similarMovie => (
@@ -220,7 +231,8 @@ const MovieDetailPage = () => {
                                             e.target.src = "../src/assets/img_not_available.png";
                                         }}
                                     />
-                                    <Link to={`/film/${similarMovie.id}`}>
+                                    <Link to={`/film/${similarMovie.id}`}
+                                        onClick={scrollToTop}>
                                         <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
                                             <h2 className="text-lg md:text-xl line-clamp-2">{similarMovie.title}</h2>
                                         </div>
