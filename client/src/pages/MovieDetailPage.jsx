@@ -136,9 +136,8 @@ const MovieDetailPage = () => {
                                 {Math.round(movie.vote_average * 100) / 100} / 10
                             </div>
                         </div>
-                        <p className="md:text-lg">Popularity : {Math.round(movie.popularity)} %</p>
                     </div>
-                    <div className="mt-8 md:mt-12 px-3 md:px-0">
+                    <div className="mt-8 md:mt-8 px-3 md:px-0">
                         {Object.keys(watchProviders).length > 0 && (
                             <div>
                                 <h3 className="md:text-2xl">Plateformes:</h3>
@@ -201,7 +200,7 @@ const MovieDetailPage = () => {
                             <div className="mt-4 flex-col md:pr-[15vw] md:pl-[15vw]">
                                 <iframe
                                     width="100%"
-                                    height="315"
+                                    height="400"
                                     src={`https://www.youtube.com/embed/${trailer[0].key}`}
                                     title={trailer[0].name}
                                     frameBorder="0"

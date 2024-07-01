@@ -9,6 +9,7 @@ export default function TopratedMovies() {
     const [index, setIndex] = useState(0);
 
     const moviesList = useRef(null);
+    const topPage = useRef(null);
 
     const getTopratedMovies = async (page) => {
         try {
@@ -41,6 +42,12 @@ export default function TopratedMovies() {
         }
     };
 
+    const scrollTopPage = () => {
+        if (topPage.current) {
+            topPage.current.scrollIntoView({ behavior: 'smooth' });
+        }
+    };
+
     const renderStars = (vote_average) => {
         const totalStars = 5;
         const filledStars = Math.round((vote_average / 10) * totalStars);
@@ -62,7 +69,7 @@ export default function TopratedMovies() {
         <section className="w-screen h-fit text-white flex flex-col items-center">
 
             {toprated[index] && (
-                <div className="relative w-screen h-screen overflow-hidden">
+                <div ref={topPage} className="relative w-screen h-screen overflow-hidden">
                     {/* Background image */}
                     <img
                         src={`https://image.tmdb.org/t/p/original${toprated[index]?.backdrop_path}`}
@@ -142,7 +149,8 @@ export default function TopratedMovies() {
                             className="group flex flex-col cursor-pointer overflow-hidden rounded-xl bg-transparent transition-transform duration-300 transform hover:scale-105"
                             onClick={() => setIndex(idx)}
                         >
-                            <div className="relative rounded-xl overflow-hidden">
+                            <div className="relative rounded-xl overflow-hidden"
+                                onClick={scrollTopPage}>
                                 <img
                                     className="w-full md:h-[300px] h-full object-contain transform transition duration-300 group-hover:scale-125"
                                     src={"https://image.tmdb.org/t/p/original" + data.backdrop_path}
