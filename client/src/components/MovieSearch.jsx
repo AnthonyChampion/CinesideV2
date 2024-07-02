@@ -83,7 +83,7 @@ export default function MovieSearch() {
                                             />
                                             <Link to={`/film/${movie.id}`} onClick={handleClose}>
                                                 <div className="absolute inset-0 p-4 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end">
-                                                    <h2 className="normal-case font-bold text-lg md:text-xl text-white text-center">{movie.title}</h2>
+                                                    <h2 className="normal-case font-bold text-lg md:text-xl text-white">{movie.title}</h2>
                                                     <div className="flex mt-2 space-x-2 items-center">
                                                         <div className="flex space-x-2">
                                                             {renderStars(movie.vote_average) || "Note inconnue"}

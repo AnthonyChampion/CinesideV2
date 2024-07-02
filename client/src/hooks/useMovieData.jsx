@@ -8,6 +8,7 @@ import {
 
 const useMovieData = (movieId) => {
     const [credits, setCredits] = useState(null);
+    const [crew, setCrew] = useState(null);
     const [similarMovies, setSimilarMovies] = useState([]);
     const [trailer, setTrailer] = useState([]);
     const [watchProviders, setWatchProviders] = useState({});
@@ -18,6 +19,16 @@ const useMovieData = (movieId) => {
         try {
             const creditsData = await fetchMovieCredits(movieId);
             setCredits(creditsData.cast);
+            console.log(credits)
+        } catch (error) {
+            setError('Erreur dans la récupération des crédits');
+        }
+    }, []);
+
+    const updateCrew = useCallback(async (movieId) => {
+        try {
+            const creditsData = await fetchMovieCredits(movieId);
+            setCrew(creditsData.crew);
             console.log(credits)
         } catch (error) {
             setError('Erreur dans la récupération des crédits');
@@ -58,14 +69,15 @@ const useMovieData = (movieId) => {
                 updateCredits(movieId),
                 updateSimilarMovies(movieId),
                 updateTrailer(movieId),
-                updateWatchProviders(movieId)
+                updateWatchProviders(movieId),
+                updateCrew(movieId)
             ]);
             setLoading(false);
         } catch (error) {
             setError('Erreur dans la récupération des informations du film');
             setLoading(false);
         }
-    }, [updateCredits, updateSimilarMovies, updateTrailer, updateWatchProviders]);
+    }, [updateCredits, updateCrew, updateSimilarMovies, updateTrailer, updateWatchProviders]);
 
     useEffect(() => {
         if (movieId) {
@@ -73,7 +85,7 @@ const useMovieData = (movieId) => {
         }
     }, [movieId, updateAllMovieData]);
 
-    return { credits, similarMovies, trailer, watchProviders, loading, error, updateAllMovieData };
+    return { credits, crew, similarMovies, trailer, watchProviders, loading, error, updateAllMovieData };
 };
 
 export default useMovieData;

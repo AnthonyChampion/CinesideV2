@@ -10,7 +10,7 @@ const MovieDetailPage = () => {
 
     const movieList = useRef(null);
 
-    const { credits, similarMovies, trailer, watchProviders, loading, error } = useMovieData(movieId);
+    const { credits, crew, similarMovies, trailer, watchProviders, loading, error } = useMovieData(movieId);
     const [movie, setMovie] = useState(null);
     const [favorites, setFavorites] = useState(() => JSON.parse(localStorage.getItem('favorites')) || []);
     const [selectedPerson, setSelectedPerson] = useState(null);
@@ -63,10 +63,10 @@ const MovieDetailPage = () => {
 
         return (
             <div className="flex space-x-1">
-                {[...Array(filledStars)].map((_, i) => (
+                {Array.from({ length: filledStars }, (_, i) => (
                     <span key={i} className="text-yellow-500">★</span>
                 ))}
-                {[...Array(emptyStars)].map((_, i) => (
+                {Array.from({ length: emptyStars }, (_, i) => (
                     <span key={i} className="text-gray-400">★</span>
                 ))}
             </div>
@@ -87,8 +87,8 @@ const MovieDetailPage = () => {
                 <div className="w-full md:max-w-7xl md:px-4 md:py-8 py-4">
                     <div className="relative w-full md:h-[500px]">
                         <img
-                            src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`}
-                            alt={movie.title}
+                            src={`https://image.tmdb.org/t/p/original${movie?.backdrop_path}`}
+                            alt={movie?.title}
                             className="w-full h-full object-cover md:rounded-lg shadow-lg"
                             onError={(e) => {
                                 e.target.onerror = null;
@@ -96,8 +96,8 @@ const MovieDetailPage = () => {
                             }}
                         />
                         <img
-                            src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
-                            alt={movie.title}
+                            src={`https://image.tmdb.org/t/p/original${movie?.poster_path}`}
+                            alt={movie?.title}
                             className="hidden md:block absolute right-10 -bottom-[40%] w-[250px] h-[350px] object-cover"
                             onError={(e) => {
                                 e.target.onerror = null;
@@ -114,19 +114,30 @@ const MovieDetailPage = () => {
                     </div>
 
                     <div className="mt-8 px-3 md:px-0">
-                        <h1 className="text-3xl md:text-5xl uppercase font-bold w-[75%]">{movie.title || "Title Not Available"}</h1>
+                        <h1 className="text-3xl md:text-5xl uppercase font-bold w-[75%]">{movie?.title || "Title Not Available"}</h1>
                         <div className="md:flex md:flex-row flex-col md:space-x-10 md:space-y-0 space-y-2 mt-2">
-                            <p className="md:text-lg">Sortie: {movie.release_date}</p>
-                            <p className="md:text-lg">{movie.runtime} min</p>
-                            {movie.genres && (
+                            <p className="md:text-lg">Sortie: {movie?.release_date}</p>
+                            <p className="md:text-lg">{movie?.runtime} min</p>
+                            {movie?.genres && (
                                 <p className="md:text-lg">
-                                    {movie.genres.map(genre => genre.name).join(' | ')}
+                                    {movie?.genres.map(genre => genre.name).join(' | ')}
                                 </p>
                             )}
                         </div>
                     </div>
+                    {crew && crew?.length > 0 && (
+                        <div className="mt-2 flex space-x-4 items-end">
+                            <h3 className="md:text-lg">Réalisateur:</h3>
+                            <ul className="md:text-lg">
+
+                                {crew.filter(cast => cast.job === "Director").map(cast => (
+                                    <li key={cast?.id}>{cast?.name}</li>
+                                ))}
+                            </ul>
+                        </div>
+                    )}
                     <div className="md:mt-6 mt-3 px-3 space-y-2 md:px-0">
-                        {renderStars(movie.vote_average)}
+                        {renderStars(movie?.vote_average)}
                         <div className="flex items-center space-x-4">
 
                             <div className="flex space-x-2 items-center">
@@ -134,21 +145,21 @@ const MovieDetailPage = () => {
 
                             </div>
                             <div className="text-md">
-                                {Math.round(movie.vote_average * 100) / 100} / 10
+                                {Math.round(movie?.vote_average * 100) / 100} / 10
                             </div>
                         </div>
                     </div>
                     <div className="mt-8 md:mt-8 px-3 md:px-0">
-                        {Object.keys(watchProviders).length > 0 && (
+                        {Object.keys(watchProviders)?.length > 0 && (
                             <div>
                                 <h3 className="md:text-2xl">Plateformes:</h3>
                                 <div className="flex flex-wrap items-center gap-4 mt-4">
                                     {watchProviders.flatrate && watchProviders.flatrate.length > 0 ? (
                                         watchProviders.flatrate.map(provider => (
-                                            <div key={provider.provider_id} className="flex items-center space-x-2">
+                                            <div key={provider?.provider_id} className="flex items-center space-x-2">
                                                 <img
-                                                    src={`https://image.tmdb.org/t/p/w200${provider.logo_path}`}
-                                                    alt={provider.provider_name}
+                                                    src={`https://image.tmdb.org/t/p/w200${provider?.logo_path}`}
+                                                    alt={provider?.provider_name}
                                                     className="w-12 h-12 object-contain"
                                                     onError={(e) => {
                                                         e.target.onerror = null;
@@ -168,28 +179,18 @@ const MovieDetailPage = () => {
 
                     <div className="mt-8 md:mt-12  px-3 md:px-0">
                         <h2 className="md:text-2xl">Synopsis</h2>
-                        <p className="md:text-lg text-justify">{movie.overview}</p>
+                        <p className="md:text-lg text-justify">{movie?.overview}</p>
                     </div>
 
-                    {credits && credits.length > 0 && (
+                    {credits && credits?.length > 0 && (
                         <div className="mt-8 md:mt-12 px-3 md:px-0">
                             <h3 className="md:text-2xl">Distribution</h3>
-                            <div>
-                                <h4>Directors:</h4>
-                                <ul>
-
-                                    {credits.filter(cast => cast.job === "Director").map(cast => (
-                                        <li key={cast.id}>{cast.name}</li>
-                                    ))}
-                                </ul>
-                            </div>
                             <ul className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-4">
-
                                 {credits.slice(0, 8).map(actor => (
-                                    <li key={actor.id} className="flex flex-col items-center space-y-2">
+                                    <li key={actor?.id} className="flex flex-col items-center space-y-2">
                                         <img
-                                            src={`https://image.tmdb.org/t/p/w200${actor.profile_path}`}
-                                            alt={actor.name}
+                                            src={`https://image.tmdb.org/t/p/w200${actor?.profile_path}`}
+                                            alt={actor?.name}
                                             className="w-32 h-32 rounded-full object-cover cursor-pointer"
                                             onError={(e) => {
                                                 e.target.onerror = null;
@@ -197,8 +198,8 @@ const MovieDetailPage = () => {
                                             }}
                                             onClick={() => handleCastClick(actor.id)}
                                         />
-                                        <p className="font-semibold text-center">{actor.name}</p>
-                                        <p className="text-sm text-gray-500 text-center">{actor.character}</p>
+                                        <p className="font-semibold text-center">{actor?.name}</p>
+                                        <p className="text-sm text-gray-500 text-center">{actor?.character}</p>
                                     </li>
                                 ))}
                             </ul>
@@ -207,20 +208,20 @@ const MovieDetailPage = () => {
 
 
 
-                    {trailer.length > 0 && (
+                    {trailer?.length > 0 && (
                         <div className="mt-8 md:mt-12 px-3 md:px-0 flex-col w-full justify-center">
                             <h3 className="md:text-2xl">Bande annonce</h3>
                             <div className="mt-4 flex-col md:pr-[15vw] md:pl-[15vw]">
                                 <iframe
                                     width="100%"
                                     height="400"
-                                    src={`https://www.youtube.com/embed/${trailer[0].key}`}
+                                    src={`https://www.youtube.com/embed/${trailer[0]?.key}`}
                                     title={trailer[0].name}
                                     frameBorder="0"
                                     allowFullScreen
                                     className='justify-center'
                                 ></iframe>
-                                <p className="md:text-lg mt-2 text-center">{trailer[0].name}</p>
+                                <p className="md:text-lg mt-2 text-center">{trailer[0]?.name}</p>
                             </div>
                         </div>
                     )}
@@ -230,23 +231,23 @@ const MovieDetailPage = () => {
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-4">
                             {similarMovies.slice(0, 16).map(similarMovie => (
                                 <div
-                                    key={similarMovie.id}
+                                    key={similarMovie?.id}
                                     className="relative group cursor-pointer overflow-hidden rounded-lg shadow-lg"
 
                                 >
                                     <img
                                         className="w-full h-full object-cover transform transition duration-300 group-hover:scale-105"
-                                        src={`https://image.tmdb.org/t/p/w500${similarMovie.poster_path}`}
-                                        alt={similarMovie.title}
+                                        src={`https://image.tmdb.org/t/p/w500${similarMovie?.poster_path}`}
+                                        alt={similarMovie?.title}
                                         onError={(e) => {
                                             e.target.onerror = null;
                                             e.target.src = "../src/assets/img_not_available.png";
                                         }}
                                     />
-                                    <Link to={`/film/${similarMovie.id}`}
+                                    <Link to={`/film/${similarMovie?.id}`}
                                         onClick={scrollToTop}>
                                         <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
-                                            <h2 className="text-lg md:text-xl line-clamp-2">{similarMovie.title}</h2>
+                                            <h2 className="text-lg md:text-xl line-clamp-2">{similarMovie?.title}</h2>
                                         </div>
                                     </Link>
                                 </div>
