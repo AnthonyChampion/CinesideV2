@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const userRouter = require('./router/userRouter');
+const favoriteRouter = require("./router/favoriteRouter");
 const authMiddleware = require('./middleware/authMiddleware');
 
 // On charge les variables d'environnements
@@ -14,6 +15,7 @@ app.use(bodyParser.json());
 
 // On redirige la requête vers le router (en passant avant par le middleware)
 app.use('/users', authMiddleware, userRouter);
+app.use("/favorites", favoriteRouter);
 
 // On ecoute que le serveur est bien lancé sur lon bon port
 app.listen(process.env.PORT, () => {
