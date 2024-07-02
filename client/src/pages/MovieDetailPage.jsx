@@ -15,6 +15,7 @@ const MovieDetailPage = () => {
     const [favorites, setFavorites] = useState(() => JSON.parse(localStorage.getItem('favorites')) || []);
     const [selectedPerson, setSelectedPerson] = useState(null);
 
+
     useEffect(() => {
         const fetchMovie = async () => {
             try {
@@ -88,7 +89,7 @@ const MovieDetailPage = () => {
                         <img
                             src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`}
                             alt={movie.title}
-                            className="w-full h-full object-cover rounded-lg shadow-lg"
+                            className="w-full h-full object-cover md:rounded-lg shadow-lg"
                             onError={(e) => {
                                 e.target.onerror = null;
                                 e.target.src = "../src/assets/img_not_available.png";
@@ -97,7 +98,7 @@ const MovieDetailPage = () => {
                         <img
                             src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
                             alt={movie.title}
-                            className="hidden md:block absolute right-10 -bottom-[40%] w-[250px] h-[350px] object-cover rounded-lg"
+                            className="hidden md:block absolute right-10 -bottom-[40%] w-[250px] h-[350px] object-cover"
                             onError={(e) => {
                                 e.target.onerror = null;
                                 e.target.src = "../src/assets/img_not_available.png";
@@ -171,9 +172,19 @@ const MovieDetailPage = () => {
                     </div>
 
                     {credits && credits.length > 0 && (
-                        <div className="mt-8 md:mt-12  px-3 md:px-0">
+                        <div className="mt-8 md:mt-12 px-3 md:px-0">
                             <h3 className="md:text-2xl">Distribution</h3>
+                            <div>
+                                <h4>Directors:</h4>
+                                <ul>
+
+                                    {credits.filter(cast => cast.job === "Director").map(cast => (
+                                        <li key={cast.id}>{cast.name}</li>
+                                    ))}
+                                </ul>
+                            </div>
                             <ul className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-4">
+
                                 {credits.slice(0, 8).map(actor => (
                                     <li key={actor.id} className="flex flex-col items-center space-y-2">
                                         <img
@@ -193,6 +204,8 @@ const MovieDetailPage = () => {
                             </ul>
                         </div>
                     )}
+
+
 
                     {trailer.length > 0 && (
                         <div className="mt-8 md:mt-12 px-3 md:px-0 flex-col w-full justify-center">

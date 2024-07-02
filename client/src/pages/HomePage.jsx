@@ -1,10 +1,10 @@
-// HomePage.jsx
-
 import React, { useEffect, useRef, useState } from 'react';
 import { fetchTrendingMovies } from '../utils/moviedb';
 import { Link } from 'react-router-dom';
+import TrailerMovie from "../components/TrailerMovie";
 import { PiArrowBendRightDownBold } from 'react-icons/pi';
-import TrailerMovie from "../components/TrailerMovie"
+import { IoArrowUndoOutline } from "react-icons/io5";
+import { IoArrowRedoOutline } from "react-icons/io5";
 
 export default function HomePage() {
     const [trending, setTrending] = useState([]);
@@ -209,20 +209,30 @@ export default function HomePage() {
                                             />
                                         </div>
                                         <div className="p-4">
-                                            <h1 className="text-center line-clamp-2 text-white">{data.title}</h1>
+                                            <h1 className="text-xl font-bold text-center line-clamp-2 text-white">{data.title}</h1>
                                         </div>
                                     </div>
                                 ))}
-                                <div className="flex justify-center space-x-4 mt-4 items-center h-[70%]">
+                                <div className="flex justify-center items-center space-x-5 mt-6 h-[70%]">
                                     {currentPage > 1 && (
-                                        <button onClick={goToPrevPage} className="md:h-40 md:w-40 h-20 w-28 px-4 py-2 bg-green-500 text-white rounded-md">
-                                            Précédent
+                                        <button
+                                            onClick={goToPrevPage}
+                                            className="flex items-center justify-center md:h-20 md:w-30 h-16 w-24 px-4 py-2 bg-green-500 text-white rounded-md shadow-md hover:bg-green-600 transition duration-300 ease-in-out transform hover:-translate-y-1"
+                                        >
+                                            <IoArrowUndoOutline size={50} className="mr-2" />
+
                                         </button>
                                     )}
-                                    <button onClick={goToNextPage} className="md:h-40 md:w-40 h-20 w-28 px-4 py-2 bg-green-500 text-white rounded-md">
-                                        Suivant
+                                    <button
+                                        onClick={goToNextPage}
+                                        className="flex items-center justify-center md:h-20 md:w-30 h-16 w-24 px-4 py-2 bg-green-500 text-white rounded-md shadow-md hover:bg-green-600 transition duration-300 ease-in-out transform hover:-translate-y-1"
+                                    >
+                                        <IoArrowRedoOutline size={50} className="mr-2" />
+
                                     </button>
                                 </div>
+
+
                             </div>
                         </div>
                     </>

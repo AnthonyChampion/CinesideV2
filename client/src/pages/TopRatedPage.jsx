@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { fetchTopRatedMovies } from '../utils/moviedb';
 import { Link } from 'react-router-dom';
 import { PiArrowBendRightDownBold } from 'react-icons/pi';
+import { IoArrowRedoOutline, IoArrowUndoOutline } from 'react-icons/io5';
 
 export default function TopratedMovies() {
     const [toprated, setToprated] = useState([]);
@@ -96,26 +97,7 @@ export default function TopratedMovies() {
                         <div className="md:hidden block h-[38%] absolute inset-0 bg-gradient-to-t from-[#111111] via-transparent to-transparent -mt-8"></div>
                     </div>
                     {/* Details section */}
-                    <div className="hidden md:block absolute inset-0 space-y-6 md:top-[30vh] md:left-14 md:w-2/5 text-white p-4 md:p-6">
-                        <h1 className="text-3xl">Top TMDb</h1>
-                        <h2 className="text-xl font-bold md:text-5xl uppercase">{toprated[index]?.title || "Title not available"}</h2>
-                        <p className="md:text-lg">{toprated[index]?.release_date || "Release date unknown"}</p>
-                        <div className="flex mt-2 space-x-2 items-center">
-                            <div className="flex space-x-1">
-                                {renderStars(toprated[index]?.vote_average) || "Note inconnue"}
-                            </div>
-                            <div className="text-[14px] md:text-[16px]">
-                                {Math.round(toprated[index]?.vote_average * 100) / 100} /10
-                            </div>
-                        </div>
-                        <p className="text-sm md:text-lg md:line-clamp-2 line-clamp-2 text-justify">{toprated[index].overview || "Aucune description"}</p>
-                        <Link to={`/film/${toprated[index].id}`}>
-                            <button className="mt-10 text-white rounded-sm  md:text-lg py-2 md:py-3 px-4 md:px-6 border-2 border-white hover:bg-green-600 transition duration-300">
-                                Voir détails
-                            </button>
-                        </Link>
-                    </div>
-                    <div className="md:hidden space-y-3  md:w-2/5 text-white p-4 md:p-6">
+                    <div className="absolute inset-0 md:space-y-6 space-y-3 md:top-[30vh] top-[35vh] md:left-14 md:w-2/5 text-white p-4 md:p-6">
                         <h1 className="md:text-3xl text-md">Top TMDb</h1>
                         <h2 className="text-xl font-bold md:text-5xl uppercase">{toprated[index]?.title || "Title not available"}</h2>
                         <p className="md:text-lg">{toprated[index]?.release_date || "Release date unknown"}</p>
@@ -127,17 +109,17 @@ export default function TopratedMovies() {
                                 {Math.round(toprated[index]?.vote_average * 100) / 100} /10
                             </div>
                         </div>
-                        <p className="text-md md:text-lg md:line-clamp-2 line-clamp-4 text-justify">{toprated[index].overview || "Aucune description"}</p>
+                        <p className="text-sm md:text-lg line-clamp-2 text-justify">{toprated[index].overview || "Aucune description"}</p>
                         <Link to={`/film/${toprated[index].id}`}>
-                            <button className="mt-10 text-white rounded-sm md:text-lg py-2 md:py-3 px-4 md:px-6 border-2 border-white hover:bg-green-600 transition duration-300">
+                            <button className="md:mt-10 mt-8 text-white rounded-sm  md:text-lg py-2 md:py-3 px-4 md:px-6 border-2 border-white hover:bg-green-600 transition duration-300">
                                 Voir détails
                             </button>
                         </Link>
                     </div>
                 </div>
             )}
-            <div className="absolute flex items-center space-x-2 cursor-pointer transition-transform transform hover:scale-110 bottom-4 right-4 md:bottom-6 md:right-14" onClick={scrollToTop}>
-                <h2 className="text-lg md:text-4xl font-semibold pb-6 md:pb-0 text-white">Films en mieux notés</h2>
+            <div className="absolute flex items-center space-x-2 cursor-pointer transition-transform transform hover:scale-110 bottom-0 right-4 md:bottom-6 md:right-14" onClick={scrollToTop}>
+                <h2 className="text-lg md:text-4xl font-semibold pb-6 md:pb-0 text-white">Films les mieux notés</h2>
                 <PiArrowBendRightDownBold className="text-lg md:text-4xl text-white" />
             </div>
 
@@ -162,7 +144,7 @@ export default function TopratedMovies() {
                                 />
                             </div>
                             <div className="p-4">
-                                <h1 className="text-center line-clamp-2 text-white text-xl">{data.title}</h1>
+                                <h1 className="text-center line-clamp-2 text-white text-xl font-bold">{data.title}</h1>
                                 <div className="flex justify-center mt-2 space-x-2 items-center">
                                     <div className="flex space-x-1">
                                         {renderStars(toprated[index]?.vote_average) || "Note inconnue"}
@@ -175,16 +157,25 @@ export default function TopratedMovies() {
                             </div>
                         </div>
                     ))}
-                    <div className="flex justify-center space-x-4 mt-4 items-center h-[70%]">
+                    <div className="flex justify-center items-center space-x-5 mt-6 h-[70%]">
                         {currentPage > 1 && (
-                            <button onClick={goToPrevPage} className="h-40 w-40 px-4 py-2 bg-green-500 text-white rounded-md">
-                                Précédent
+                            <button
+                                onClick={goToPrevPage}
+                                className="flex items-center justify-center md:h-20 md:w-30 h-16 w-24 px-4 py-2 bg-green-500 text-white rounded-md shadow-md hover:bg-green-600 transition duration-300 ease-in-out transform hover:-translate-y-1"
+                            >
+                                <IoArrowUndoOutline size={50} className="mr-2" />
+
                             </button>
                         )}
-                        <button onClick={goToNextPage} className="h-40 w-40 px-4 py-2 bg-green-500 text-white rounded-md">
-                            Suivant
+                        <button
+                            onClick={goToNextPage}
+                            className="flex items-center justify-center md:h-20 md:w-30 h-16 w-24 px-4 py-2 bg-green-500 text-white rounded-md shadow-md hover:bg-green-600 transition duration-300 ease-in-out transform hover:-translate-y-1"
+                        >
+                            <IoArrowRedoOutline size={50} className="mr-2" />
+
                         </button>
                     </div>
+
                 </div>
 
             </div>

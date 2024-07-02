@@ -155,7 +155,7 @@ export default function MoviesPage() {
                                     <Link to={`/film/${movie.id}`}>
                                         <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
                                             <div className="text-white">
-                                                <h2 className="text-lg md:text-xl font-bold">{movie.title}</h2>
+                                                <h2 className="text-md md:text-xl font-bold">{movie.title}</h2>
                                                 <div className="flex flex-col mt-2">
                                                     <div className="flex space-x-1">
                                                         {renderStars(movie.vote_average) || "Note inconnue"}

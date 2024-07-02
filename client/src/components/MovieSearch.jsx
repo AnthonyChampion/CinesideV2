@@ -35,6 +35,23 @@ export default function MovieSearch() {
         setSearchTerm('');
     };
 
+    const renderStars = (vote_average) => {
+        const totalStars = 5;
+        const filledStars = Math.round((vote_average / 10) * totalStars);
+        const emptyStars = totalStars - filledStars;
+
+        return (
+            <div className="flex space-x-1">
+                {[...Array(filledStars)].map((_, i) => (
+                    <span key={i} className="text-yellow-500">★</span>
+                ))}
+                {[...Array(emptyStars)].map((_, i) => (
+                    <span key={i} className="text-gray-400">★</span>
+                ))}
+            </div>
+        );
+    };
+
     return (
         <section>
             <form onSubmit={handleSearch} className="md:flex md:flex-row flex-col items-center">
@@ -52,27 +69,32 @@ export default function MovieSearch() {
                 <div className="fixed inset-0 z-50 h-screen flex justify-center items-center bg-black bg-opacity-70 p-4 md:p-8 lg:p-6">
                     <div className="bg-white text-black rounded-lg overflow-scroll noscroll-bar h-full w-full md:w-3/4 lg:w-3/4">
                         <div className="relative">
-                            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 overflow-y-auto ">
+                            <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 overflow-y-auto p-4">
                                 {movies.map((movie) => (
                                     <div
                                         key={movie.id}
-                                        className="relative flex flex-col md:h-[370px] h-[240px] justify-center items-center"
+                                        className="relative flex flex-col justify-center items-center h-[260px] md:h-[370px]"
                                     >
-
-                                        <div className="relative group cursor-pointer overflow-hidden rounded-lg shadow-lg bg-zinc-800">
+                                        <div className="relative group cursor-pointer overflow-hidden rounded-lg shadow-lg bg-zinc-800 w-full h-full">
                                             <img
                                                 src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
                                                 alt={movie.title}
-                                                className="md:w-[260px] md:h-[350px] w-[160px] h-[220px] object-cover rounded-xl"
+                                                className="object-cover rounded-lg w-full h-full"
                                             />
-                                            <Link to={`/film/${movie.id}`}>
+                                            <Link to={`/film/${movie.id}`} onClick={handleClose}>
                                                 <div className="absolute inset-0 p-4 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end">
-                                                    <h2 className="text-lg md:text-xl text-white">{movie.title}</h2>
+                                                    <h2 className="normal-case font-bold text-lg md:text-xl text-white text-center">{movie.title}</h2>
+                                                    <div className="flex mt-2 space-x-2 items-center">
+                                                        <div className="flex space-x-2">
+                                                            {renderStars(movie.vote_average) || "Note inconnue"}
+                                                        </div>
+                                                        <div className="text-[14px] text-white">
+                                                            {Math.round(movie.vote_average * 100) / 100} /10
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </Link>
-
                                         </div>
-
                                     </div>
                                 ))}
                             </div>

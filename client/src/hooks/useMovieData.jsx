@@ -4,7 +4,6 @@ import {
     fetchSimilarMovies,
     fetchMovieTrailer,
     fetchWatchProviders,
-    fetchMovieDetails
 } from '../utils/moviedb';
 
 const useMovieData = (movieId) => {
@@ -19,6 +18,7 @@ const useMovieData = (movieId) => {
         try {
             const creditsData = await fetchMovieCredits(movieId);
             setCredits(creditsData.cast);
+            console.log(credits)
         } catch (error) {
             setError('Erreur dans la récupération des crédits');
         }
