@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { searchMovies } from '../utils/moviedb';
 import { Link } from 'react-router-dom';
+import { IoSearch } from "react-icons/io5";
 
 export default function MovieSearch() {
     const [searchTerm, setSearchTerm] = useState('');
@@ -54,16 +55,18 @@ export default function MovieSearch() {
 
     return (
         <section>
-            <form onSubmit={handleSearch} className="md:flex md:flex-row flex-col items-center">
-                <input
-                    type="text"
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    className="h-11 md:w-[21.5rem] w-[18rem] bg-zinc-800 rounded-sm text-center text-white text-[16px] border border-neutral-400 "
-                    placeholder="Tapez votre film"
-                />
-                <button type="submit" className="h-11 ml-2 mt-2 md:mt-0 rounded-sm bg-green-500 p-2 text-black text-[16px]">Rechercher</button>
-            </form>
+            <div className="flex">
+                <form onSubmit={handleSearch} className="relative md:flex md:flex-row flex-col items-center">
+                    <input
+                        type="text"
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                        className="h-11 md:w-[10rem] w-[10rem] bg-zinc-800 bg-opacity-50 rounded-md text-center text-white text-[16px] border-2 border-white pr-10" // Add padding to the right for the icon
+                        placeholder="Recherche"
+                    />
+                    <IoSearch className="absolute right-3 text-white" style={{ top: '50%', transform: 'translateY(-50%)' }} />
+                </form>
+            </div>
             {error && <p className="text-red-500 mt-2">{error}</p>}
             {movies.length > 0 && (
                 <div className="fixed inset-0 z-50 h-screen flex justify-center items-center bg-black bg-opacity-70 p-4 md:p-8 lg:p-6">
@@ -73,7 +76,7 @@ export default function MovieSearch() {
                                 {movies.map((movie) => (
                                     <div
                                         key={movie.id}
-                                        className="relative flex flex-col justify-center items-center h-[260px] md:h-[370px]"
+                                        className="relative flex flex-col justify-center items-center h-[220px] md:h-[400px]"
                                     >
                                         <div className="relative group cursor-pointer overflow-hidden rounded-lg shadow-lg bg-zinc-800 w-full h-full">
                                             <img

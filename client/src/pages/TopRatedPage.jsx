@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { fetchTopRatedMovies } from '../utils/moviedb';
 import { Link } from 'react-router-dom';
-import { PiArrowBendRightDownBold } from 'react-icons/pi';
+import { IoMdArrowDropdownCircle } from "react-icons/io";
 import { IoArrowRedoOutline, IoArrowUndoOutline } from 'react-icons/io5';
 
 export default function TopratedMovies() {
@@ -67,7 +67,7 @@ export default function TopratedMovies() {
     };
 
     return (
-        <section className="w-screen h-fit text-white flex flex-col items-center">
+        <section className="w-screen h-fit text-white flex flex-col items-center bg-[#111111] -mt-[10vh] pt-[10vh] md:pt-0">
 
             {toprated[index] && (
                 <div ref={topPage} className="relative w-screen h-screen overflow-hidden">
@@ -111,16 +111,16 @@ export default function TopratedMovies() {
                         </div>
                         <p className="text-sm md:text-lg line-clamp-2 text-justify">{toprated[index].overview || "Aucune description"}</p>
                         <Link to={`/film/${toprated[index].id}`}>
-                            <button className="md:mt-10 mt-8 text-white rounded-sm  md:text-lg py-2 md:py-3 px-4 md:px-6 border-2 border-white hover:bg-green-600 transition duration-300">
+                            <button className="md:mt-10 mt-8 text-white rounded-sm md:text-lg py-2 md:py-3 px-4 md:px-6 bg-green-500 border-2 border-green-500 hover:bg-white hover:border-2 hover:border-white hover:text-black transition duration-300">
                                 Voir détails
                             </button>
                         </Link>
                     </div>
                 </div>
             )}
-            <div className="absolute flex items-center space-x-2 cursor-pointer transition-transform transform hover:scale-110 bottom-0 right-4 md:bottom-6 md:right-14" onClick={scrollToTop}>
-                <h2 className="text-lg md:text-4xl font-semibold pb-6 md:pb-0 text-white">Films les mieux notés</h2>
-                <PiArrowBendRightDownBold className="text-lg md:text-4xl text-white" />
+            <div className="absolute flex items-center space-x-2 pb-6 md:pb-2 cursor-pointer transition-transform transform hover:scale-110 bottom-0 right-4 md:bottom-6 md:right-14" onClick={scrollToTop}>
+                <h2 className="text-lg md:text-4xl font-semibold text-white">Films les mieux notés</h2>
+                <IoMdArrowDropdownCircle size={30} />
             </div>
 
             <div ref={moviesList} className="md:py-4 py-4 md:px-4 flex-grow">

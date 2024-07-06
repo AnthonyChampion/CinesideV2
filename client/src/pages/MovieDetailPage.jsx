@@ -74,7 +74,7 @@ const MovieDetailPage = () => {
     };
 
     return (
-        <div ref={movieList} className="flex flex-col items-center justify-center text-white font-Roboto">
+        <div ref={movieList} className="flex flex-col items-center justify-center text-white font-Roboto bg-[#111111] -mt-[10vh] pt-[10vh]">
             {loading ? (
                 <div className="flex justify-center items-center h-screen">
                     <div className="spinner-border animate-spin inline-block w-8 h-8 border-4 rounded-full text-green-500" role="status">
@@ -127,7 +127,7 @@ const MovieDetailPage = () => {
                     </div>
                     {crew && crew?.length > 0 && (
                         <div className="mt-2 flex space-x-4 items-end">
-                            <h3 className="md:text-lg">Réalisateur:</h3>
+                            <h3 className="md:text-lg px-3 md:px-0">Réalisateur:</h3>
                             <ul className="md:text-lg">
 
                                 {crew.filter(cast => cast.job === "Director").map(cast => (
@@ -210,18 +210,18 @@ const MovieDetailPage = () => {
 
                     {trailer?.length > 0 && (
                         <div className="mt-8 md:mt-12 px-3 md:px-0 flex-col w-full justify-center">
-                            <h3 className="md:text-2xl">Bande annonce</h3>
+                            <h3 className="md:text-2xl">Vidéo</h3>
                             <div className="mt-4 flex-col md:pr-[15vw] md:pl-[15vw]">
                                 <iframe
                                     width="100%"
                                     height="400"
-                                    src={`https://www.youtube.com/embed/${trailer[0]?.key}`}
+                                    src={`https://www.youtube.com/embed/${trailer[1]?.key}`}
                                     title={trailer[0].name}
                                     frameBorder="0"
                                     allowFullScreen
                                     className='justify-center'
                                 ></iframe>
-                                <p className="md:text-lg mt-2 text-center">{trailer[0]?.name}</p>
+                                <p className="md:text-lg mt-2 text-center">{trailer[1]?.name}</p>
                             </div>
                         </div>
                     )}

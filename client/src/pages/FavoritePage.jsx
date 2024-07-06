@@ -31,7 +31,7 @@ export default function Favorite() {
 
 
     return (
-        <div className="p-6 text-white w-screen">
+        <div className="p-6 text-white w-screen h-screen bg-[#111111]">
             <h1 className="text-3xl text-center mt-10">Mes films favoris</h1>
             {favorites.length === 0 ? (
                 <p className="text-center mt-4">Vous n'avez pas encore de films favoris.</p>

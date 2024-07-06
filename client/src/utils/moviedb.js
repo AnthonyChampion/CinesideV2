@@ -3,7 +3,6 @@ import axios from "axios";
 const apiKey = `${import.meta.env.VITE_API_KEY}`;
 
 const trendingMoviesEndpoint = `https://api.themoviedb.org/3/movie/now_playing?api_key=${apiKey}`;
-const upcomingMoviesEndpoint = `https://api.themoviedb.org/3/movie/upcoming?api_key=${apiKey}`;
 const topRatedMoviesEndpoint = `https://api.themoviedb.org/3/movie/top_rated?api_key=${apiKey}`;
 const genresOfMovies = `https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}`;
 const popularMovies = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}`;
@@ -11,6 +10,7 @@ const searchMoviesEndPoint = `https://api.themoviedb.org/3/search/movie?api_key=
 
 const movieDetailsEndpoint = movieId => `https://api.themoviedb.org/3/movie/${movieId}?api_key=${apiKey}`;
 const movieCreditsEndpoint = movieId => `https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=${apiKey}`;
+const releaseDates = movieId => `https://api.themoviedb.org/3/movie/${movieId}/release_dates?api_key=${apiKey}`;
 const similarMoviesEndpoint = movieId => `https://api.themoviedb.org/3/movie/${movieId}/similar?api_key=${apiKey}`;
 const movieTrailer = movieId => `https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=${apiKey}`;
 const watchProviders = movieId => `https://api.themoviedb.org/3/movie/${movieId}/watch/providers?api_key=${apiKey}`;
@@ -36,9 +36,6 @@ const apiCall = async (endpoint, params) => {
 
 export const fetchTrendingMovies = (page = 1) => {
     return apiCall(trendingMoviesEndpoint, { language: "fr-FR", page: `${page}` });
-}
-export const fetchUpcommingMovies = () => {
-    return apiCall(upcomingMoviesEndpoint, { language: "fr-FR" });
 }
 export const fetchGenresOfMovies = () => {
     return apiCall(genresOfMovies, { language: "fr-FR" });
@@ -74,4 +71,7 @@ export const fetchPersonDetails = async (personId) => {
 }
 export const fetchPersonMovies = async (personId) => {
     return apiCall(personMoviesEndpoint(personId));
+}
+export const fetchReleaseDates = async (movieId) => {
+    return apiCall(releaseDates(movieId));
 }

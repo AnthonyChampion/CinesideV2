@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { fetchGenresOfMovies, fetchMoviesByGenre, fetchMovieDetails } from '../utils/moviedb';
-// import MovieDetails from '../components/MovieDetails';
+import { fetchGenresOfMovies, fetchMoviesByGenre } from '../utils/moviedb';
 import { Link } from 'react-router-dom';
+import { IoStar } from 'react-icons/io5';
 
 export default function MoviesPage() {
     const [filters, setFilters] = useState([]);
@@ -9,6 +9,7 @@ export default function MoviesPage() {
     const [moviesFiltered, setMoviesFiltered] = useState([]);
     const [page, setPage] = useState(1);
     const [loading, setLoading] = useState(true);
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
     const moviesListRef = useRef(null);
     const MOVIES_PER_PAGE = 10;
@@ -17,6 +18,7 @@ export default function MoviesPage() {
         setActiveFilter({ id: filterId, name: filterName });
         setPage(1);
         setLoading(true);
+        setIsDropdownOpen(false);
     };
 
     const handleResetFilter = () => {
@@ -24,6 +26,7 @@ export default function MoviesPage() {
         setMoviesFiltered([]);
         setPage(1);
         setLoading(true);
+        setIsDropdownOpen(false);
     };
 
     const getGenresOfMovies = async () => {
@@ -83,7 +86,6 @@ export default function MoviesPage() {
         }
     };
 
-
     const handleLoadMoreMovies = () => {
         setPage(prevPage => prevPage + 1);
         setLoading(true);
@@ -108,29 +110,39 @@ export default function MoviesPage() {
     };
 
     return (
-        <section className="w-screen">
-            <div className="w-full flex flex-wrap justify-center p-2 space-x-3 z-10 md:mt-2 mt-5">
-
-                <div className="list-none">
-                    <button
-                        className={`text-s md:text-base lg:text-lg text-white p-2 md:px-4 md:py-2 rounded-lg hover:scale-110 ${!activeFilter ? 'text-gray-400 bg-gray-400' : 'bg-transparent'}`}
-                        onClick={handleResetFilter}
+        <section className="w-screen bg-[#111111] -mt-[10vh] pt-[10vh] ">
+            <div className="flex justify-start p-2 space-x-3 z-10 mt-5">
+                <div className="relative list-none flex space-x-6">
+                    <button type='button'
+                        className="text-s md:text-base lg:text-lg text-white p-2 md:px-4 ml-6 md:py-2 rounded-lg hover:scale-110 bg-zinc-700 hover:bg-green-500 hover:text-white"
+                        onClick={() => setIsDropdownOpen(prev => !prev)}
                     >
-                        Aucun filtre
+                        Genre
                     </button>
+                    {isDropdownOpen && (
+                        <div className="absolute top-full mt-2 ml-4 md:w-48 w-[21rem] bg-zinc-800 text-white rounded-lg shadow-lg z-20">
+                            <button type="button"
+                                className={`w-full p-2 text-center hover:bg-green-500 ${!activeFilter ? 'text-gray-400 bg-gray-600' : 'bg-transparent'}`}
+                                onClick={handleResetFilter}
+                            >
+                                Aucun filtre
+                            </button>
+                            {filters.map((filter) => (
+                                <button
+                                    key={filter.id}
+                                    className={`w-full text-center text-lg p-2 hover:bg-green-500 ${activeFilter && activeFilter.id === filter.id ? 'bg-green-500 text-white' : 'bg-transparent'}`}
+                                    onClick={() => handleClickFilter(filter.id, filter.name)}
+                                >
+                                    {filter.name}
+                                </button>
+                            ))}
+                        </div>
+                    )}
+                    <Link to="/top_TMDB" className="flex space-x-1 text-s md:text-base lg:text-lg text-white p-2 md:px-4 ml-6 md:py-2 rounded-lg hover:scale-110 bg-zinc-700 hover:bg-green-500 hover:text-white">
+                        <IoStar size={24} />
+                        <button type="button" className="">Top TMDb</button>
+                    </Link>
                 </div>
-
-                {filters.map((filter) => (
-                    <div key={filter.id} className="list-none">
-                        <button
-                            className={`text-s md:text-base lg:text-lg text-white p-2 md:px-4 md:py-2 rounded-lg hover:text-green-500 hover:scale-110 ${activeFilter && activeFilter.id === filter.id ? 'bg-green-500 text-green-500' : 'bg-transparent'}`}
-                            onClick={() => handleClickFilter(filter.id, filter.name)}
-                        >
-                            {filter.name}
-                        </button>
-                    </div>
-                ))}
-
             </div>
 
             <div ref={moviesListRef}>
@@ -141,7 +153,6 @@ export default function MoviesPage() {
                                 <div
                                     key={movie.id}
                                     className="relative group cursor-pointer overflow-hidden rounded-lg shadow-lg"
-
                                 >
                                     <img
                                         className="w-full h-full p-2 bg-zinc-800 object-cover transform transition duration-300 group-hover:scale-105"
@@ -167,13 +178,12 @@ export default function MoviesPage() {
                                             </div>
                                         </div>
                                     </Link>
-
                                 </div>
                             ))}
                         </div>
                         {moviesFiltered.length > 0 && (
                             <div className="flex justify-center mt-8 md:mt-14">
-                                <button
+                                <button type="button"
                                     className="bg-green-500 text-white font-bold md:text-lg p-2 md:p-3 w-40 md:w-56 rounded-lg hover:bg-green-600 transition duration-300"
                                     onClick={handleLoadMoreMovies}
                                 >

@@ -11,6 +11,7 @@ import LoginPage from './pages/LoginPage.jsx';
 import RegisterPage from './pages/RegisterPage.jsx';
 import MovieDetailPage from './pages/MovieDetailPage.jsx';
 
+
 const router = createBrowserRouter([
   {
     element: <App />,
