@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from "axios";
 import { Link } from 'react-router-dom';
 
 export default function LoginPage() {
@@ -6,22 +7,26 @@ export default function LoginPage() {
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
 
-    const handleLogin = (e) => {
+    const handleLogin = async (e) => {
         e.preventDefault();
 
-        // Réinitialiser les erreurs
         setError('');
 
-        // Validation simple
         if (!email || !password) {
             setError('Veuillez remplir tous les champs');
             return;
         }
 
-        // Ajouter ici la logique de connexion, comme appeler une API
+        try {
+            const response = await axios.post(`${import.meta.env.PORT}/users`, { email, password });
 
-        console.log('Email:', email);
-        console.log('Password:', password);
+            console.log('Connexion effectuée !', response);
+
+
+        } catch (error) {
+            console.error('Erreur lors de la connexion:', error.message);
+            setError(error.response ? error.response.message : 'Erreur lors de la connexion');
+        }
     };
 
     return (
@@ -38,6 +43,7 @@ export default function LoginPage() {
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             className="w-full p-2 border border-gray-300 rounded"
+                            required
                         />
                     </div>
                     <div className="mb-4">
@@ -48,6 +54,7 @@ export default function LoginPage() {
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             className="w-full p-2 border border-gray-300 rounded"
+                            required
                         />
                     </div>
                     <button

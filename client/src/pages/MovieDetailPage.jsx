@@ -127,8 +127,8 @@ const MovieDetailPage = () => {
                     </div>
                     {crew && crew?.length > 0 && (
                         <div className="mt-2 flex space-x-4 items-end">
-                            <h3 className="md:text-lg px-3 md:px-0">Réalisateur:</h3>
-                            <ul className="md:text-lg">
+                            <h3 className="md:text-lg px-3 md:px-0">Réalisateur(s):</h3>
+                            <ul className="md:text-lg flex space-x-2">
 
                                 {crew.filter(cast => cast.job === "Director").map(cast => (
                                     <li key={cast?.id}>{cast?.name}</li>

@@ -8,6 +8,7 @@ import { IoArrowRedoOutline } from "react-icons/io5";
 import { TbPlayerPlay } from "react-icons/tb";
 
 export default function HomePage() {
+
     const [trending, setTrending] = useState([]);
     const [index, setIndex] = useState(0);
     const [loading, setLoading] = useState(true);
@@ -16,8 +17,8 @@ export default function HomePage() {
     const movieList = useRef(null);
     const topPage = useRef(null);
 
-    const [showTrailer, setShowTrailer] = useState(false); // State to manage showing Trailer component
-    const [selectedMovieId, setSelectedMovieId] = useState(null); // State to store selected movie ID
+    const [showTrailer, setShowTrailer] = useState(false);
+    const [selectedMovieId, setSelectedMovieId] = useState(null);
 
     useEffect(() => {
         const getTrendingMovies = async () => {
@@ -25,7 +26,7 @@ export default function HomePage() {
                 setLoading(true);
                 const data = await fetchTrendingMovies(currentPage);
                 setTrending(data.results);
-                setIndex(0); // Reset index to show the first movie on page change
+                setIndex(0);
                 setLoading(false);
             } catch (error) {
                 console.error('Error fetching trending movies:', error);
@@ -35,6 +36,7 @@ export default function HomePage() {
 
         getTrendingMovies();
     }, [currentPage]);
+
 
     const renderStars = (vote_average) => {
         const totalStars = 5;
@@ -99,7 +101,7 @@ export default function HomePage() {
                     <>
                         {trending[index] && (
                             <div className="relative w-screen h-screen overflow-hidden">
-                                {/* Background image */}
+
                                 <img
                                     src={`https://image.tmdb.org/t/p/original${trending[index].backdrop_path}`}
                                     alt={trending[index]?.title || "Movie Image"}
@@ -118,13 +120,11 @@ export default function HomePage() {
                                         e.target.src = "../src/assets/img_not_available.png";
                                     }}
                                 />
-                                {/* Overlay and movie details */}
                                 <div className="absolute inset-0">
                                     <div className="absolute inset-0 bg-gradient-to-r from-black to-transparent"></div>
                                     <div className="absolute inset-0 bg-gradient-to-t from-[#111111] via-[transparent] to-transparent"></div>
                                     <div className="md:hidden block h-[86%] absolute inset-0 bg-gradient-to-t from-[#111111] via-transparent to-transparent -mt-20"></div>
                                 </div>
-                                {/* Details section */}
                                 <div className="absolute inset-0 space-y-2 top-[35vh] md:space-y-6 md:top-[30vh] md:left-14 md:w-2/5 w-full text-white md:p-6 p-4">
                                     <h1 className="md:text-3xl text-md">A l'affiche</h1>
                                     <h2 className="font-bold text-xl md:text-5xl uppercase">{trending[index]?.title || "Title not available"}</h2>
@@ -137,6 +137,7 @@ export default function HomePage() {
                                             {Math.round(trending[index]?.vote_average * 100) / 100} /10
                                         </div>
                                     </div>
+                                    <p></p>
                                     <p className="text-sm md:text-lg md:line-clamp-2 line-clamp-2 text-justify">{trending[index].overview || "Aucune description"}</p>
                                     <div className="flex space-x-4">
                                         <button
@@ -162,8 +163,6 @@ export default function HomePage() {
                             <h2 className="text-lg md:text-4xl font-semibold text-white">Films en tendance</h2>
                             <IoMdArrowDropdownCircle size={30} />
                         </div>
-
-                        {/* Grid of movie posters */}
                         <div ref={movieList} className="md:py-4 py-4 md:px-4 flex-grow">
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                                 {trending.map((data, idx) => (
@@ -207,15 +206,11 @@ export default function HomePage() {
 
                                     </button>
                                 </div>
-
-
                             </div>
                         </div>
                     </>
                 )}
             </section>
-
-            {/* Conditional rendering of Trailer component */}
             {showTrailer && <TrailerMovie movieId={selectedMovieId} onClose={handleCloseTrailer} />}
         </div>
     );

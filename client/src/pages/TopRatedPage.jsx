@@ -71,7 +71,6 @@ export default function TopratedMovies() {
 
             {toprated[index] && (
                 <div ref={topPage} className="relative w-screen h-screen overflow-hidden">
-                    {/* Background image */}
                     <img
                         src={`https://image.tmdb.org/t/p/original${toprated[index]?.backdrop_path}`}
                         alt={toprated[index]?.title || "Movie Image"}
@@ -90,13 +89,11 @@ export default function TopratedMovies() {
                             e.target.src = "../src/assets/img_not_available.png";
                         }}
                     />
-                    {/* Overlay and movie details */}
                     <div className="absolute inset-0">
                         <div className="hidden md:block absolute inset-0 bg-gradient-to-r from-black to-transparent"></div>
                         <div className="hidden md:block absolute inset-0 bg-gradient-to-t from-[#111111] via-transparent to-transparent"></div>
                         <div className="md:hidden block h-[38%] absolute inset-0 bg-gradient-to-t from-[#111111] via-transparent to-transparent -mt-8"></div>
                     </div>
-                    {/* Details section */}
                     <div className="absolute inset-0 md:space-y-6 space-y-3 md:top-[30vh] top-[35vh] md:left-14 md:w-2/5 text-white p-4 md:p-6">
                         <h1 className="md:text-3xl text-md">Top TMDb</h1>
                         <h2 className="text-xl font-bold md:text-5xl uppercase">{toprated[index]?.title || "Title not available"}</h2>

@@ -117,7 +117,7 @@ export default function MoviesPage() {
                         className="text-s md:text-base lg:text-lg text-white p-2 md:px-4 ml-6 md:py-2 rounded-lg hover:scale-110 bg-zinc-700 hover:bg-green-500 hover:text-white"
                         onClick={() => setIsDropdownOpen(prev => !prev)}
                     >
-                        Genre
+                        <p>Genres</p>
                     </button>
                     {isDropdownOpen && (
                         <div className="absolute top-full mt-2 ml-4 md:w-48 w-[21rem] bg-zinc-800 text-white rounded-lg shadow-lg z-20">
@@ -125,7 +125,7 @@ export default function MoviesPage() {
                                 className={`w-full p-2 text-center hover:bg-green-500 ${!activeFilter ? 'text-gray-400 bg-gray-600' : 'bg-transparent'}`}
                                 onClick={handleResetFilter}
                             >
-                                Aucun filtre
+                                <p>Aucun filtre</p>
                             </button>
                             {filters.map((filter) => (
                                 <button
@@ -146,33 +146,39 @@ export default function MoviesPage() {
             </div>
 
             <div ref={moviesListRef}>
-                {loading && moviesFiltered.length === 0 ? <p className="text-center text-white pt-2">Chargement...</p> : (
+                {loading && moviesFiltered.length === 0 ? (
+                    <p className="text-center text-white pt-2">Chargement...</p>
+                ) : (
                     <>
-                        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 mt-4 md:mt-6 m-8">
+                        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 mt-6 m-6">
                             {moviesFiltered.map((movie) => (
                                 <div
                                     key={movie.id}
-                                    className="relative group cursor-pointer overflow-hidden rounded-lg shadow-lg"
+                                    className="relative group cursor-pointer overflow-hidden rounded-lg shadow-lg bg-zinc-800"
                                 >
-                                    <img
-                                        className="w-full h-full p-2 bg-zinc-800 object-cover transform transition duration-300 group-hover:scale-105"
-                                        src={"https://image.tmdb.org/t/p/w500" + movie.poster_path}
-                                        alt={movie.title}
-                                        onError={(e) => {
-                                            e.target.onerror = null;
-                                            e.target.src = "../src/assets/img_not_available.png";
-                                        }}
-                                    />
                                     <Link to={`/film/${movie.id}`}>
-                                        <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
+                                        <img
+                                            className="w-full md:h-[75%] object-cover transform transition duration-300 group-hover:scale-105"
+                                            src={"https://image.tmdb.org/t/p/w500" + movie.poster_path}
+                                            alt={movie.title}
+                                            onError={(e) => {
+                                                e.target.onerror = null;
+                                                e.target.src = "../src/assets/img_not_available.png";
+                                            }}
+                                        />
+                                        <div className="p-4">
                                             <div className="text-white">
-                                                <h2 className="text-md md:text-xl font-bold">{movie.title}</h2>
-                                                <div className="flex flex-col mt-2">
+                                                <h2 className="text-md md:text-xl font-bold truncate">{movie.title}</h2>
+                                                <div className="flex flex-col mt-2 space-y-2">
                                                     <div className="flex space-x-1">
                                                         {renderStars(movie.vote_average) || "Note inconnue"}
                                                     </div>
-                                                    <div className="text-[14px] md:text-[16px]">
+                                                    <div className="text-[14px] md:text-[14px]">
                                                         {Math.round(movie.vote_average * 100) / 100} /10
+                                                    </div>
+
+                                                    <div className="text-sm md:text-md mt-1">
+                                                        Sortie: {new Date(movie.release_date).toLocaleDateString()}
                                                     </div>
                                                 </div>
                                             </div>
@@ -181,6 +187,7 @@ export default function MoviesPage() {
                                 </div>
                             ))}
                         </div>
+
                         {moviesFiltered.length > 0 && (
                             <div className="flex justify-center mt-8 md:mt-14">
                                 <button type="button"
@@ -194,6 +201,7 @@ export default function MoviesPage() {
                     </>
                 )}
             </div>
+
         </section>
     );
 }

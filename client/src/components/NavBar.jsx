@@ -1,16 +1,19 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext';
 import { FaTimes } from 'react-icons/fa';
 import { TiThMenuOutline } from 'react-icons/ti';
-import { IoLogIn, IoLogOut, IoHeart, IoFilm } from 'react-icons/io5';
+import { IoLogIn, IoLogOut, IoHeart } from 'react-icons/io5';
 import { RiMovie2Line } from "react-icons/ri";
 import MovieSearch from './MovieSearch';
 
+
 export default function NavBar({ showSearch }) {
+
+    const { auth, logout } = useAuth();
     const [filterModalIsOpen, setFilterModalIsOpen] = useState(false);
     const [openMenu, setOpenMenu] = useState(false);
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     function openModal() {
         setFilterModalIsOpen(!filterModalIsOpen);
@@ -21,7 +24,7 @@ export default function NavBar({ showSearch }) {
     }
 
     const handleLogout = () => {
-        setIsLoggedIn(false);
+        logout();
     }
 
     const mobileContent = (
@@ -33,14 +36,17 @@ export default function NavBar({ showSearch }) {
                         <span>Films</span>
                     </Link>
                 </li>
+
+                {auth && (
+                    <li className="py-4 flex justify-center items-center">
+                        <Link to="favoris" onClick={() => { setOpenMenu(false); }} className="transition duration-300 ease-in-out transform hover:scale-105 flex items-center">
+                            <IoHeart className="mr-2" size={24} />
+                            <span>Mes favoris</span>
+                        </Link>
+                    </li>
+                )}
                 <li className="py-4 flex justify-center items-center">
-                    <Link to="favoris" onClick={() => { setOpenMenu(false); }} className="transition duration-300 ease-in-out transform hover:scale-105 flex items-center">
-                        <IoHeart className="mr-2" size={24} />
-                        <span>Mes favoris</span>
-                    </Link>
-                </li>
-                <li className="py-4 flex justify-center items-center">
-                    {isLoggedIn ? (
+                    {auth ? (
                         <button onClick={() => { handleLogout(); setOpenMenu(false); }} className="transition duration-300 ease-in-out transform hover:scale-105 flex items-center">
                             <IoLogOut className="mr-2" size={24} />
                             <span>Déconnexion</span>
@@ -84,17 +90,19 @@ export default function NavBar({ showSearch }) {
                         <RiMovie2Line size={24} />
                         <span className="text-[16px]">Films</span>
                     </Link>
-                    <Link to="favoris" className="flex items-center space-x-2 hover:text-green-500 transition duration-300">
-                        <IoHeart size={24} />
-                        <span className="text-[16px]">Favoris</span>
-                    </Link>
+                    {auth && (
+                        <Link to="favoris" className="flex items-center space-x-2 hover:text-green-500 transition duration-300">
+                            <IoHeart size={24} />
+                            <span className="text-[16px]">Favoris</span>
+                        </Link>
+                    )}
                     <MovieSearch show={showSearch} />
                 </div>
                 <div className="hidden md:flex items-center space-x-2 uppercase">
-                    {isLoggedIn ? (
+                    {auth ? (
                         <button onClick={handleLogout} className="flex items-center space-x-1 hover:text-green-500 transition duration-300">
                             <IoLogOut size={24} />
-                            <span className="text-[16px]">Déconnexion</span>
+                            <span className="text-[16px] uppercase">Déconnexion</span>
                         </button>
                     ) : (
                         <Link to="connexion" className="flex items-center space-x-1 hover:text-green-500 transition duration-300">
