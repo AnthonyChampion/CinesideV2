@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const cors = require("cors");
 const userRouter = require('./router/userRouter');
 const favoriteRouter = require("./router/favoriteRouter");
 const authMiddleware = require('./middleware/authMiddleware');
@@ -12,6 +13,8 @@ const app = express();
 
 // On le configure pour qu'il utilise le format json
 app.use(bodyParser.json());
+
+app.use(cors({ origin: [process.env.PORT], credentials: true }));
 
 // On redirige la requête vers le router (en passant avant par le middleware)
 app.use('/users', authMiddleware, userRouter);

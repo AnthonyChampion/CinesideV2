@@ -1,10 +1,10 @@
 {
-  "name": "snippet-server-express-typeorm-javascript-mysql",
+  "name": "server",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon src/index.js"
+    "dev": "nodemon src/index.js"
   },
   "keywords": [],
   "author": "",
@@ -17,6 +17,7 @@
     "@babel/preset-env": "^7.24.7",
     "argon2": "^0.40.3",
     "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "jsonwebtoken": "^9.0.2",
