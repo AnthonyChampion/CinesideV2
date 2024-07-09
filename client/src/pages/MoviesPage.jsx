@@ -126,7 +126,7 @@ export default function MoviesPage() {
                         <>
                             <button className="p-2 font-semibold flex items-center gap-1">
                                 <FiFilter />
-                                Genres
+                                Genre
                             </button>
                         </>}
                         className="text-white text-center flex justify-center bg-zinc-700 mt-4 md:ml-10 md:w-[40%] w-[95%]">
@@ -136,7 +136,7 @@ export default function MoviesPage() {
                                 onClick={handleResetFilter}
                             >
                                 <button type="button" className="md:text-xl hover:bg-green-500 p-3 rounded-lg">
-                                    Aucun filtre
+                                    No filter
                                 </button>
                             </li>
                             {filters.map((filter) => (
@@ -163,7 +163,7 @@ export default function MoviesPage() {
 
             <div ref={moviesListRef}>
                 {loading && moviesFiltered.length === 0 && !showTopRated ? (
-                    <p className="text-center text-white pt-2">Chargement...</p>
+                    <p className="text-center text-white pt-2">Loading...</p>
                 ) : showTopRated ? (
                     <Toprated />
                 ) : (
@@ -174,7 +174,7 @@ export default function MoviesPage() {
                                     key={movie.id}
                                     className="relative group cursor-pointer border-none overflow-hidden rounded-lg shadow-lg bg-zinc-800"
                                 >
-                                    <Link to={`/film/${movie.id}`}>
+                                    <Link to={`/movie/${movie.id}`}>
                                         <img
                                             className="w-full md:h-[420px] object-cover rounded-lg transform transition duration-300 group-hover:scale-105"
                                             src={"https://image.tmdb.org/t/p/w500" + movie.poster_path}
@@ -209,7 +209,7 @@ export default function MoviesPage() {
                                     className="bg-green-500 text-white font-bold md:text-lg p-2 md:p-3 w-40 md:w-56 rounded-lg hover:bg-green-600 transition duration-300"
                                     onClick={handleLoadMoreMovies}
                                 >
-                                    Films suivants
+                                    More movies
                                 </Button>
                             </div>
                         )}

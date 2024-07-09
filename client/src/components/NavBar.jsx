@@ -33,23 +33,23 @@ export default function NavBar({ showSearch }) {
         <div className="md:hidden z-10 block absolute justify-center w-full right-0 top-[3rem] transition-transform transform">
             <ul className={`h-screen text-center text-white text-xl pt-8 md:bg-zinc-900 md:bg-opacity-20 bg-[#111111] transition-transform transform ${openMenu ? 'translate-x-0 ' : 'translate-x-full'}`}>
                 <li className="py-4 flex justify-center items-center">
-                    <Link to="films" onClick={() => { openModal(); setOpenMenu(false); }} className="transition duration-300 ease-in-out transform hover:scale-105 flex items-center">
+                    <Link to="movies" onClick={() => { openModal(); setOpenMenu(false); }} className="transition duration-300 ease-in-out transform hover:scale-105 flex items-center">
                         <RiMovie2Line className="mr-2" size={24} />
-                        <span>Films</span>
+                        <span>Movies</span>
                     </Link>
                 </li>
                 <li className="py-4 flex justify-center items-center">
-                    <Link to="filmsavenir" onClick={() => { openModal(); setOpenMenu(false); }} className="transition duration-300 ease-in-out transform hover:scale-105 flex items-center">
+                    <Link to="upcoming" onClick={() => { openModal(); setOpenMenu(false); }} className="transition duration-300 ease-in-out transform hover:scale-105 flex items-center">
                         <TbMovie className="mr-2" size={24} />
-                        <span>A venir</span>
+                        <span>Upcoming</span>
                     </Link>
                 </li>
 
                 {auth && (
                     <li className="py-4 flex justify-center items-center">
-                        <Link to="favoris" onClick={() => { setOpenMenu(false); }} className="transition duration-300 ease-in-out transform hover:scale-105 flex items-center">
+                        <Link to="favorites" onClick={() => { setOpenMenu(false); }} className="transition duration-300 ease-in-out transform hover:scale-105 flex items-center">
                             <IoHeart className="mr-2" size={24} />
-                            <span>Mes favoris</span>
+                            <span>Favorites</span>
                         </Link>
                     </li>
                 )}
@@ -57,12 +57,12 @@ export default function NavBar({ showSearch }) {
                     {auth ? (
                         <Button onClick={() => { handleLogout(); setOpenMenu(false); }} className="transition duration-300 ease-in-out transform hover:scale-105 flex items-center">
                             <IoLogOut className="mr-2" size={24} />
-                            <span>Déconnexion</span>
+                            <span>Logout</span>
                         </Button>
                     ) : (
-                        <Link to="connexion" onClick={() => { setOpenMenu(false); }} className="transition duration-300 ease-in-out transform hover:scale-105 flex items-center">
+                        <Link to="signin" onClick={() => { setOpenMenu(false); }} className="transition duration-300 ease-in-out transform hover:scale-105 flex items-center">
                             <IoLogIn className="mr-2" size={24} />
-                            <span>Connexion</span>
+                            <span>Login</span>
                         </Link>
                     )}
                 </li>
@@ -94,18 +94,18 @@ export default function NavBar({ showSearch }) {
                     </div>
                 </div>
                 <div className="hidden md:flex space-x-10 items-center uppercase">
-                    <Link to="films" className="flex items-center space-x-2 hover:text-green-400 transition duration-300">
+                    <Link to="movies" className="flex items-center space-x-2 hover:text-green-400 transition duration-300">
                         <RiMovie2Line size={24} />
-                        <span className="text-[16px]">Films</span>
+                        <span className="text-[16px]">Movies</span>
                     </Link>
-                    <Link to="filmsavenir" className="flex items-center space-x-2 hover:text-green-400 transition duration-300">
+                    <Link to="upcoming" className="flex items-center space-x-2 hover:text-green-400 transition duration-300">
                         <TbMovie size={24} />
-                        <span className="text-[16px]">A venir</span>
+                        <span className="text-[16px]">Upcoming</span>
                     </Link>
                     {auth && (
-                        <Link to="favoris" className="flex items-center space-x-2 hover:text-green-400 transition duration-300">
+                        <Link to="favorites" className="flex items-center space-x-2 hover:text-green-400 transition duration-300">
                             <IoHeart size={24} />
-                            <span className="text-[16px]">Favoris</span>
+                            <span className="text-[16px]">Favorites</span>
                         </Link>
                     )}
                     <MovieSearch show={showSearch} />
@@ -114,12 +114,12 @@ export default function NavBar({ showSearch }) {
                     {auth ? (
                         <Button onClick={handleLogout} className="flex items-center space-x-1 hover:text-green-400 transition duration-300">
                             <IoLogOut size={24} />
-                            <span className="text-[16px] uppercase">Déconnexion</span>
+                            <span className="text-[16px] uppercase">Logout</span>
                         </Button>
                     ) : (
-                        <Link to="connexion" className="flex items-center space-x-1 hover:text-green-400 transition duration-300">
+                        <Link to="signin" className="flex items-center space-x-1 hover:text-green-400 transition duration-300">
                             <IoLogIn size={24} />
-                            <span className="text-[16px]">Connexion</span>
+                            <span className="text-[16px]">Login</span>
                         </Link>
                     )}
                 </div>

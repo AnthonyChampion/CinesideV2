@@ -9,16 +9,13 @@ export default function RegisterPage() {
     const handleRegister = (e) => {
         e.preventDefault();
 
-        // Réinitialiser les erreurs
         setError('');
 
-        // Validation simple
         if (!name || !email || !password) {
             setError('Veuillez remplir tous les champs');
             return;
         }
 
-        // Ajouter ici la logique d'enregistrement, comme appeler une API
 
         console.log('Name:', name);
         console.log('Email:', email);
@@ -28,11 +25,11 @@ export default function RegisterPage() {
     return (
         <div className="fixed inset-0 flex justify-center items-center bg-[#111111]">
             <div className="bg-zinc-800 bg-opacity-80 p-8 rounded-lg shadow-lg w-full max-w-md -mt-6">
-                <h1 className="text-2xl font-bold text-white mb-4">Inscription</h1>
+                <h1 className="text-2xl font-bold text-white mb-4">Sign Up</h1>
                 {error && <p className="text-red-500 mb-4">{error}</p>}
                 <form onSubmit={handleRegister}>
                     <div className="mb-4">
-                        <label htmlFor="name" className="block text-white mb-2">Nom</label>
+                        <label htmlFor="name" className="block text-white mb-2">Name</label>
                         <input
                             type="text"
                             id="name"
@@ -52,7 +49,7 @@ export default function RegisterPage() {
                         />
                     </div>
                     <div className="mb-4">
-                        <label htmlFor="password" className="block text-white mb-2">Mot de passe</label>
+                        <label htmlFor="password" className="block text-white mb-2">Password</label>
                         <input
                             type="password"
                             id="password"
@@ -65,7 +62,7 @@ export default function RegisterPage() {
                         type="submit"
                         className="w-full bg-green-500 text-white font-bold py-2 px-4 rounded hover:bg-green-600 transition duration-300"
                     >
-                        S'inscrire
+                        Sign Up
                     </button>
                 </form>
             </div>

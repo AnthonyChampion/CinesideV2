@@ -32,7 +32,7 @@ export default function LoginPage() {
     return (
         <div className="fixed inset-0 flex justify-center items-center bg-[#111111]">
             <div className="bg-zinc-800 bg-opacity-80 p-8 rounded-lg shadow-lg w-full max-w-md -mt-10">
-                <h1 className="text-2xl font-bold text-white mb-4">Connexion</h1>
+                <h1 className="text-2xl font-bold text-white mb-4">Sign In</h1>
                 {error && <p className="text-red-500 mb-4">{error}</p>}
                 <form onSubmit={handleLogin}>
                     <div className="mb-4">
@@ -47,7 +47,7 @@ export default function LoginPage() {
                         />
                     </div>
                     <div className="mb-4">
-                        <label htmlFor="password" className="block text-white mb-2">Mot de passe</label>
+                        <label htmlFor="password" className="block text-white mb-2">Password</label>
                         <input
                             type="password"
                             id="password"
@@ -61,11 +61,11 @@ export default function LoginPage() {
                         type="submit"
                         className="w-full bg-green-500 text-white font-bold py-2 px-4 rounded hover:bg-green-600 transition duration-300"
                     >
-                        Se connecter
+                        Sign In
                     </button>
                 </form>
                 <p className="mt-4 text-white text-center">
-                    Vous n'avez pas de compte ? <Link to="/inscription" className="text-green-500 hover:underline">S'inscrire</Link>
+                    Don't have an account ? <Link to="/signup" className="text-green-500 hover:underline">Sign up</Link>
                 </p>
             </div>
         </div>

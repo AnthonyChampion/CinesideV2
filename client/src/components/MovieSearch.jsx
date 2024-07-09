@@ -62,7 +62,7 @@ export default function MovieSearch() {
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                         className="h-11 md:w-[15rem] w-[10rem] bg-zinc-800 bg-opacity-50 rounded-md text-center text-white text-[16px] border-2 border-white pr-10 "
-                        placeholder="Recherche"
+                        placeholder="Search"
                     />
                     <IoSearch className="absolute right-3 text-white" style={{ top: '50%', transform: 'translateY(-50%)' }} />
                 </form>
@@ -89,7 +89,7 @@ export default function MovieSearch() {
                                                     <h2 className="normal-case font-bold text-lg md:text-xl text-white">{movie.title}</h2>
                                                     <div className="flex mt-2 space-x-2 items-center">
                                                         <div className="flex space-x-2">
-                                                            {renderStars(movie.vote_average) || "Note inconnue"}
+                                                            {renderStars(movie.vote_average) || "N/A"}
                                                         </div>
                                                         <div className="text-[14px] text-white">
                                                             {Math.round(movie.vote_average * 100) / 100} /10

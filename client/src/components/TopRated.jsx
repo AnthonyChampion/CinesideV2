@@ -67,7 +67,7 @@ export default function TopratedMovies() {
                             key={movie.id}
                             className="relative group cursor-pointer border-none overflow-hidden rounded-lg shadow-lg bg-zinc-800"
                         >
-                            <Link to={`/film/${movie.id}`}>
+                            <Link to={`/movie/${movie.id}`}>
                                 <img
                                     className="w-full md:h-[420px] object-cover rounded-lg transform transition duration-300 group-hover:scale-105"
                                     src={"https://image.tmdb.org/t/p/w500" + movie.poster_path}
@@ -82,7 +82,7 @@ export default function TopratedMovies() {
                                         <h2 className="text-md md:text-xl font-bold truncate">{movie.title}</h2>
                                         <div className="flex flex-col space-y-1">
                                             <div className="flex md:flex-row flex-col md:justify-between md:items-center">
-                                                {renderStars(movie.vote_average) || "Note inconnue"}
+                                                {renderStars(movie.vote_average) || "N/A"}
                                                 <p className="md:text-md text-sm">{Math.round(movie.vote_average * 100) / 100} /10</p>
                                             </div>
                                             <div className="text-sm md:text-md">
@@ -103,7 +103,7 @@ export default function TopratedMovies() {
                             onClick={goToPrevPage}
                             className="flex items-center justify-center md:h-20 md:w-32 h-16 w-24 px-4 py-2 bg-green-500 text-white rounded-md shadow-md hover:bg-green-600 transition duration-300 ease-in-out transform hover:-translate-y-1"
                         >
-                            Page précédente
+                            Previous Page
 
                         </Button>
                     )}
@@ -111,7 +111,7 @@ export default function TopratedMovies() {
                         onClick={goToNextPage}
                         className="flex items-center justify-center md:h-20 md:w-32 h-16 w-24 px-4 py-2 bg-green-500 text-white rounded-md shadow-md hover:bg-green-600 transition duration-300 ease-in-out transform hover:-translate-y-1"
                     >
-                        Page suivante
+                        Next Page
 
                     </Button>
                 </div>

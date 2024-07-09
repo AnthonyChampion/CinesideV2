@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { fetchMovieDetails } from '../utils/moviedb';
-// import MovieDetails from '../components/MovieDetails';
 
 export default function Favorite() {
 
@@ -23,7 +22,6 @@ export default function Favorite() {
         try {
             const data = await fetchMovieDetails(movie.id);
             setMovieDetails(data);
-            setShowDetails(true);
         } catch (error) {
             console.error('Erreur dans la récupération des détails:', error);
         }
@@ -32,9 +30,9 @@ export default function Favorite() {
 
     return (
         <div className="p-6 text-white w-screen h-screen bg-[#111111]">
-            <h1 className="text-3xl text-center mt-10">Mes films favoris</h1>
+            <h1 className="text-3xl text-center mt-10">My Favorites Movies</h1>
             {favorites.length === 0 ? (
-                <p className="text-center mt-4">Vous n'avez pas encore de films favoris.</p>
+                <p className="text-center mt-4">No movies yet</p>
             ) : (
                 <div className="flex flex-wrap justify-center mt-10">
                     {favorites.map(movie => (
@@ -54,7 +52,7 @@ export default function Favorite() {
                                     onClick={() => removeFavorite(movie.id)}
                                     className="bg-red-500 text-white px-2 w-full py-1 mt-2 rounded"
                                 >
-                                    Supprimer
+                                    Delete
                                 </button>
                             </div>
 
@@ -62,12 +60,6 @@ export default function Favorite() {
                     ))}
                 </div>
             )}
-            {/* {showDetails && (
-                <MovieDetails
-                    movie={movieDetails}
-                    onClose={() => setShowDetails(false)}
-                />
-            )} */}
         </div>
     );
 }
