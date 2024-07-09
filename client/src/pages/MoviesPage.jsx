@@ -2,8 +2,9 @@ import React, { useEffect, useState, useRef } from 'react';
 import { fetchGenresOfMovies, fetchMoviesByGenre } from '../utils/moviedb';
 import { Link } from 'react-router-dom';
 import { IoStar } from 'react-icons/io5';
-import { Button, Card, Dropdown } from "flowbite-react";
-import TopratedPage from './TopRatedPage';
+import { FiFilter } from "react-icons/fi";
+import { Button, Card, MegaMenu } from "flowbite-react";
+import Toprated from '../components/TopRated';
 
 export default function MoviesPage() {
     const [filters, setFilters] = useState([]);
@@ -120,32 +121,43 @@ export default function MoviesPage() {
     return (
         <section className="w-screen bg-[#111111] -mt-[10vh] pt-[10vh] ">
             <div className="flex justify-center p-2 space-x-3 z-10 mt-5 pl-5 ">
-                <Dropdown label="Genres" size="xl" className="text-black p-2 h-[50%] w-[50%] flex flex-wrap items-center  md:px-4 md:py-2 rounded-lg bg-zinc-700 text-xl">
-                    <Dropdown.Item className=" hover:bg-transparent">
-                        <Button type="button"
-                            size="xl"
-                            className="w-full p-2 text-lg text-center text-black"
-                            onClick={handleResetFilter}
-                        >
-                            Aucun filtre
-                        </Button>
-                    </Dropdown.Item >
-                    {filters.map((filter) => (
-                        <Dropdown.Item key={filter.id} className=" hover:bg-transparent">
-                            <Button
-                                className={`w-full text-center text-lg p-2 text-white ${activeFilter && activeFilter.id === filter.id ? 'bg-green-500 text-black' : 'bg-transparent'}`}
-                                size="xl"
-                                onClick={() => handleClickFilter(filter.id, filter.name)}
+                <MegaMenu className="rounded-lg text-white bg-cyan-700">
+                    <MegaMenu.Dropdown toggle={
+                        <>
+                            <button className="p-2 font-semibold flex items-center gap-1">
+                                <FiFilter />
+                                Genres
+                            </button>
+                        </>}
+                        className="text-white text-center flex justify-center bg-zinc-700 mt-4 md:ml-10 md:w-[40%] w-[95%]">
+                        <ul className="grid grid-cols-3 md:grid-cols-4 bg-zinc-700">
+                            <li
+                                className="w-full p-2 text-center text-black"
+                                onClick={handleResetFilter}
                             >
-                                {filter.name}
-                            </Button>
-                        </Dropdown.Item>
-                    ))}
-                </Dropdown>
-                <Button className="flex items-center" size="xl" onClick={handleClick}>
+                                <button type="button" className="md:text-xl hover:bg-green-500 p-3 rounded-lg">
+                                    Aucun filtre
+                                </button>
+                            </li>
+                            {filters.map((filter) => (
+                                <li key={filter.id}
+                                    className={`w-full text-center p-2 text-white ${activeFilter && activeFilter.id === filter.id ? ' text-black' : 'bg-transparent'}`}
+                                    onClick={() => handleClickFilter(filter.id, filter.name)}
+                                >
+                                    <button type='button' className="md:text-xl hover:bg-green-500 p-3 rounded-lg">
+                                        {filter.name}
+                                    </button>
+
+                                </li>
+                            ))}
+                        </ul>
+                    </MegaMenu.Dropdown >
+                </MegaMenu>
+                <button className="p-2 pl-4 pr-4 font-semibold text-white rounded-lg flex items-center gap-1 bg-cyan-700"
+                    onClick={handleClick}>
                     <IoStar size={16} />
                     <p>Top TMDb</p>
-                </Button>
+                </button>
 
             </div>
 
@@ -153,7 +165,7 @@ export default function MoviesPage() {
                 {loading && moviesFiltered.length === 0 && !showTopRated ? (
                     <p className="text-center text-white pt-2">Chargement...</p>
                 ) : showTopRated ? (
-                    <TopratedPage />
+                    <Toprated />
                 ) : (
                     <>
                         <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2 m-6">
@@ -164,7 +176,7 @@ export default function MoviesPage() {
                                 >
                                     <Link to={`/film/${movie.id}`}>
                                         <img
-                                            className="w-full object-cover rounded-lg transform transition duration-300 group-hover:scale-105"
+                                            className="w-full h-[420px] object-cover rounded-lg transform transition duration-300 group-hover:scale-105"
                                             src={"https://image.tmdb.org/t/p/w500" + movie.poster_path}
                                             alt={movie.title}
                                             onError={(e) => {
@@ -176,15 +188,12 @@ export default function MoviesPage() {
                                             <div className="text-white">
                                                 <h2 className="text-md md:text-xl font-bold truncate">{movie.title}</h2>
                                                 <div className="flex flex-col mt-2 space-y-2">
-                                                    <div className="flex space-x-1">
+                                                    <div className="flex gap-4">
                                                         {renderStars(movie.vote_average) || "Note inconnue"}
-                                                    </div>
-                                                    <div className="text-[14px] md:text-[14px]">
                                                         {Math.round(movie.vote_average * 100) / 100} /10
                                                     </div>
-
                                                     <div className="text-sm md:text-md mt-1">
-                                                        Sortie: {new Date(movie.release_date).toLocaleDateString()}
+                                                        {new Date(movie.release_date).toLocaleDateString()}
                                                     </div>
                                                 </div>
                                             </div>

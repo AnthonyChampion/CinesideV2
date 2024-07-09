@@ -7,7 +7,6 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext.jsx';
 
 import HomePage from './pages/HomePage.jsx';
-import TopRatedPage from './pages/TopRatedPage.jsx';
 import MoviesPage from './pages/MoviesPage.jsx';
 import FavoritePage from "./pages/FavoritePage.jsx";
 import LoginPage from './pages/LoginPage.jsx';

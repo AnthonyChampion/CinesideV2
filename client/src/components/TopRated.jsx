@@ -1,13 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { fetchTopRatedMovies } from '../utils/moviedb';
 import { Link } from 'react-router-dom';
-import { IoArrowRedoOutline, IoArrowUndoOutline } from 'react-icons/io5';
 import { Button, Card } from 'flowbite-react';
 
 export default function TopratedMovies() {
     const [toprated, setToprated] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
-    const [index, setIndex] = useState(0);
+    const [setIndex] = useState(0);
 
     const moviesList = useRef(null);
 
@@ -70,7 +69,7 @@ export default function TopratedMovies() {
                         >
                             <Link to={`/film/${movie.id}`}>
                                 <img
-                                    className="w-full object-cover rounded-lg transform transition duration-300 group-hover:scale-105"
+                                    className="w-full h-[420px] object-cover rounded-lg transform transition duration-300 group-hover:scale-105"
                                     src={"https://image.tmdb.org/t/p/w500" + movie.poster_path}
                                     alt={movie.title}
                                     onError={(e) => {
@@ -82,15 +81,12 @@ export default function TopratedMovies() {
                                     <div className="text-white">
                                         <h2 className="text-md md:text-xl font-bold truncate">{movie.title}</h2>
                                         <div className="flex flex-col mt-2 space-y-2">
-                                            <div className="flex space-x-1">
+                                            <div className="flex gap-4">
                                                 {renderStars(movie.vote_average) || "Note inconnue"}
-                                            </div>
-                                            <div className="text-[14px] md:text-[14px]">
                                                 {Math.round(movie.vote_average * 100) / 100} /10
                                             </div>
-
                                             <div className="text-sm md:text-md mt-1">
-                                                Sortie: {new Date(movie.release_date).toLocaleDateString()}
+                                                {new Date(movie.release_date).toLocaleDateString()}
                                             </div>
                                         </div>
                                     </div>
@@ -105,17 +101,17 @@ export default function TopratedMovies() {
                     {currentPage > 1 && (
                         <Button
                             onClick={goToPrevPage}
-                            className="flex items-center justify-center md:h-20 md:w-30 h-16 w-24 px-4 py-2 bg-green-500 text-white rounded-md shadow-md hover:bg-green-600 transition duration-300 ease-in-out transform hover:-translate-y-1"
+                            className="flex items-center justify-center md:h-20 md:w-32 h-16 w-24 px-4 py-2 bg-green-500 text-white rounded-md shadow-md hover:bg-green-600 transition duration-300 ease-in-out transform hover:-translate-y-1"
                         >
-                            <IoArrowUndoOutline size={50} className="mr-2" />
+                            Page précédente
 
                         </Button>
                     )}
                     <Button
                         onClick={goToNextPage}
-                        className="flex items-center justify-center md:h-20 md:w-30 h-16 w-24 px-4 py-2 bg-green-500 text-white rounded-md shadow-md hover:bg-green-600 transition duration-300 ease-in-out transform hover:-translate-y-1"
+                        className="flex items-center justify-center md:h-20 md:w-32 h-16 w-24 px-4 py-2 bg-green-500 text-white rounded-md shadow-md hover:bg-green-600 transition duration-300 ease-in-out transform hover:-translate-y-1"
                     >
-                        <IoArrowRedoOutline size={50} className="mr-2" />
+                        Page suivante
 
                     </Button>
                 </div>

@@ -142,7 +142,7 @@ export default function HomePage() {
                                     <p className="text-sm md:text-lg md:line-clamp-2 line-clamp-2 text-justify">{trending[index].overview || "Aucune description"}</p>
                                     <div className="flex space-x-4">
                                         <Button
-                                            className="mt-10 text-white border-2 border-white  rounded-sm md:text-lg py-2 md:py-3 px-4 md:px-6 hover:bg-green-800 transition duration-300"
+                                            className="mt-10 text-white border-2 border-white bg-transparent  rounded-sm md:text-lg py-2 md:py-3 px-4 md:px-6 hover:bg-cyan-700 transition duration-300"
                                             onClick={() => handleShowTrailer(trending[index].id)}
                                         >
                                             <div className="flex space-x-1 items-center">
@@ -152,7 +152,7 @@ export default function HomePage() {
 
                                         </Button>
                                         <Link to={`/film/${trending[index].id}`}>
-                                            <Button className="mt-10 text-white rounded-sm md:text-lg py-2 md:py-3 px-4 md:px-6 bg-green-500 border-2 border-green-500 hover:bg-white hover:border-2 hover:border-white hover:text-black transition duration-300">
+                                            <Button className="mt-10 text-white rounded-sm md:text-lg py-2 md:py-3 px-4 md:px-6 bg-green-500 border-2 border-green-500 hover:border-2 hover:border-white hover:text-white transition duration-300">
                                                 Voir détails
                                             </Button>
                                         </Link>
@@ -193,17 +193,17 @@ export default function HomePage() {
                                     {currentPage > 1 && (
                                         <Button
                                             onClick={goToPrevPage}
-                                            className="flex items-center justify-center md:h-20 md:w-30 h-16 w-24 px-4 py-2 bg-green-500 text-white rounded-md shadow-md hover:bg-green-600 transition duration-300 ease-in-out transform hover:-translate-y-1"
+                                            className="flex items-center justify-center md:h-20 md:w-32 h-16 w-24 px-4 py-2 bg-green-500 text-white rounded-md shadow-md hover:bg-green-600 transition duration-300 ease-in-out transform hover:-translate-y-1"
                                         >
-                                            <IoArrowUndoOutline size={50} className="mr-2" />
+                                            Page précédente
 
                                         </Button>
                                     )}
                                     <Button
                                         onClick={goToNextPage}
-                                        className="flex items-center justify-center md:h-20 md:w-30 h-16 w-24 px-4 py-2 bg-green-500 text-white rounded-md shadow-md hover:bg-green-600 transition duration-300 ease-in-out transform hover:-translate-y-1"
+                                        className="flex items-center justify-center md:h-20 md:w-32 h-16 w-24 px-4 py-2 bg-green-500 text-white rounded-md shadow-md hover:bg-green-600 transition duration-300 ease-in-out transform hover:-translate-y-1"
                                     >
-                                        <IoArrowRedoOutline size={50} className="mr-2" />
+                                        Page suivante
 
                                     </Button>
                                 </div>
