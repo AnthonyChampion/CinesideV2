@@ -3,8 +3,6 @@ import { fetchTrendingMovies } from '../utils/moviedb';
 import { Link } from 'react-router-dom';
 import TrailerMovie from "../components/TrailerMovie";
 import { IoMdArrowDropdownCircle } from "react-icons/io";
-import { IoArrowUndoOutline } from "react-icons/io5";
-import { IoArrowRedoOutline } from "react-icons/io5";
 import { TbPlayerPlay } from "react-icons/tb";
 import { Button } from 'flowbite-react';
 

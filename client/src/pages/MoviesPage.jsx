@@ -176,7 +176,7 @@ export default function MoviesPage() {
                                 >
                                     <Link to={`/film/${movie.id}`}>
                                         <img
-                                            className="w-full h-[420px] object-cover rounded-lg transform transition duration-300 group-hover:scale-105"
+                                            className="w-full md:h-[420px] object-cover rounded-lg transform transition duration-300 group-hover:scale-105"
                                             src={"https://image.tmdb.org/t/p/w500" + movie.poster_path}
                                             alt={movie.title}
                                             onError={(e) => {
@@ -187,12 +187,12 @@ export default function MoviesPage() {
                                         <div className="mt-4">
                                             <div className="text-white">
                                                 <h2 className="text-md md:text-xl font-bold truncate">{movie.title}</h2>
-                                                <div className="flex flex-col mt-2 space-y-2">
-                                                    <div className="flex gap-4">
+                                                <div className="flex flex-col space-y-1">
+                                                    <div className="flex md:flex-row flex-col md:justify-between md:items-center">
                                                         {renderStars(movie.vote_average) || "Note inconnue"}
-                                                        {Math.round(movie.vote_average * 100) / 100} /10
+                                                        <p className="md:text-md text-sm">{Math.round(movie.vote_average * 100) / 100} /10</p>
                                                     </div>
-                                                    <div className="text-sm md:text-md mt-1">
+                                                    <div className="text-sm md:text-md">
                                                         {new Date(movie.release_date).toLocaleDateString()}
                                                     </div>
                                                 </div>

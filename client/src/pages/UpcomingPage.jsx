@@ -1,45 +1,34 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { fetchTopRatedMovies } from '../utils/moviedb';
+import { fetchUpcomingMovies } from '../utils/moviedb';
 import { Link } from 'react-router-dom';
 import { Button, Card } from 'flowbite-react';
 
-export default function TopratedMovies() {
-    const [toprated, setToprated] = useState([]);
-    const [currentPage, setCurrentPage] = useState(1);
+export default function HomePage() {
+
+    const [upcoming, setUpcoming] = useState([]);
     const [setIndex] = useState(0);
+    const [loading, setLoading] = useState(true);
+    const [currentPage, setCurrentPage] = useState(1);
 
-    const moviesList = useRef(null);
-
-    const getTopratedMovies = async (page) => {
-        try {
-            const data = await fetchTopRatedMovies(page);
-            setToprated(data.results);
-            setIndex(0);
-        } catch (error) {
-            console.error('Erreur dans la récupération des films:', error);
-        }
-    };
+    const movieList = useRef(null);
 
     useEffect(() => {
-        getTopratedMovies(currentPage);
+        const getUpcomingMovies = async () => {
+            try {
+                setLoading(true);
+                const data = await fetchUpcomingMovies(currentPage);
+                setUpcoming(data.results);
+                setIndex(0);
+                setLoading(false);
+            } catch (error) {
+                console.error('Error fetching trending movies:', error);
+                setLoading(false);
+            }
+        };
+
+        getUpcomingMovies();
     }, [currentPage]);
 
-    const goToNextPage = () => {
-        setCurrentPage(currentPage + 1);
-        scrollToTop();
-    };
-
-    const goToPrevPage = () => {
-        if (currentPage > 1) {
-            setCurrentPage(currentPage - 1);
-        }
-    };
-
-    const scrollToTop = () => {
-        if (moviesList.current) {
-            moviesList.current.scrollIntoView({ behavior: 'smooth' });
-        }
-    };
 
     const renderStars = (vote_average) => {
         const totalStars = 5;
@@ -58,11 +47,29 @@ export default function TopratedMovies() {
         );
     };
 
+    const goToNextPage = () => {
+        setCurrentPage(currentPage + 1);
+        scrollToTop();
+    };
+
+    const goToPrevPage = () => {
+        if (currentPage > 1) {
+            setCurrentPage(currentPage - 1);
+            scrollToTop();
+        }
+    };
+
+    const scrollToTop = () => {
+        if (movieList.current) {
+            movieList.current.scrollIntoView({ behavior: 'smooth' });
+        }
+    };
+
     return (
-        <section className="w-screen h-fit text-white flex flex-col items-center bg-[#111111]">
-            <div ref={moviesList} className="flex-grow">
+        <section className="w-screen h-fit text-white flex flex-col items-center bg-[#111111] -mt-[10vh] pt-[10vh]">
+            <div ref={movieList} className="flex-grow">
                 <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2 m-6">
-                    {toprated.map((movie) => (
+                    {upcoming.map((movie) => (
                         <Card
                             key={movie.id}
                             className="relative group cursor-pointer border-none overflow-hidden rounded-lg shadow-lg bg-zinc-800"
@@ -80,13 +87,15 @@ export default function TopratedMovies() {
                                 <div className="mt-4">
                                     <div className="text-white">
                                         <h2 className="text-md md:text-xl font-bold truncate">{movie.title}</h2>
-                                        <div className="flex flex-col space-y-1">
-                                            <div className="flex md:flex-row flex-col md:justify-between md:items-center">
-                                                {renderStars(movie.vote_average) || "Note inconnue"}
-                                                <p className="md:text-md text-sm">{Math.round(movie.vote_average * 100) / 100} /10</p>
-                                            </div>
-                                            <div className="text-sm md:text-md">
-                                                {new Date(movie.release_date).toLocaleDateString()}
+                                        <div className="flex flex-col mt-2 space-y-2">
+                                            <div className="flex flex-col space-y-1">
+                                                <div className="flex md:flex-row flex-col md:justify-between md:items-center">
+                                                    {renderStars(movie.vote_average) || "Note inconnue"}
+                                                    <p className="md:text-md text-sm">{Math.round(movie.vote_average * 100) / 100} /10</p>
+                                                </div>
+                                                <div className="text-sm md:text-md">
+                                                    {new Date(movie.release_date).toLocaleDateString()}
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

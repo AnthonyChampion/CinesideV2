@@ -6,6 +6,7 @@ import { FaTimes } from 'react-icons/fa';
 import { TiThMenuOutline } from 'react-icons/ti';
 import { IoLogIn, IoLogOut, IoHeart } from 'react-icons/io5';
 import { RiMovie2Line } from "react-icons/ri";
+import { TbMovie } from "react-icons/tb";
 import MovieSearch from './MovieSearch';
 import { Button } from 'flowbite-react';
 
@@ -35,6 +36,12 @@ export default function NavBar({ showSearch }) {
                     <Link to="films" onClick={() => { openModal(); setOpenMenu(false); }} className="transition duration-300 ease-in-out transform hover:scale-105 flex items-center">
                         <RiMovie2Line className="mr-2" size={24} />
                         <span>Films</span>
+                    </Link>
+                </li>
+                <li className="py-4 flex justify-center items-center">
+                    <Link to="filmsavenir" onClick={() => { openModal(); setOpenMenu(false); }} className="transition duration-300 ease-in-out transform hover:scale-105 flex items-center">
+                        <TbMovie className="mr-2" size={24} />
+                        <span>A venir</span>
                     </Link>
                 </li>
 
@@ -90,6 +97,10 @@ export default function NavBar({ showSearch }) {
                     <Link to="films" className="flex items-center space-x-2 hover:text-green-400 transition duration-300">
                         <RiMovie2Line size={24} />
                         <span className="text-[16px]">Films</span>
+                    </Link>
+                    <Link to="filmsavenir" className="flex items-center space-x-2 hover:text-green-400 transition duration-300">
+                        <TbMovie size={24} />
+                        <span className="text-[16px]">A venir</span>
                     </Link>
                     {auth && (
                         <Link to="favoris" className="flex items-center space-x-2 hover:text-green-400 transition duration-300">

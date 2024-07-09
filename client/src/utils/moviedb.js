@@ -4,6 +4,7 @@ const apiKey = import.meta.env.VITE_API_KEY;
 
 const trendingMoviesEndpoint = `https://api.themoviedb.org/3/movie/now_playing?api_key=${apiKey}`;
 const topRatedMoviesEndpoint = `https://api.themoviedb.org/3/movie/top_rated?api_key=${apiKey}`;
+const upcomingMoviesEndpoint = `https://api.themoviedb.org/3/movie/upcoming?api_key=${apiKey}`;
 const genresOfMovies = `https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}`;
 const popularMovies = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}`;
 const searchMoviesEndPoint = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}`;
@@ -35,6 +36,10 @@ const apiCall = async (endpoint, params = {}) => {
 
 export const fetchTrendingMovies = (page = 1) => {
     return apiCall(trendingMoviesEndpoint, { page });
+};
+
+export const fetchUpcomingMovies = (page = 1) => {
+    return apiCall(upcomingMoviesEndpoint, { page });
 };
 
 export const fetchGenresOfMovies = () => {
