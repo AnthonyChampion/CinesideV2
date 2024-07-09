@@ -19,7 +19,6 @@ const useMovieData = (movieId) => {
         try {
             const creditsData = await fetchMovieCredits(movieId);
             setCredits(creditsData.cast);
-            console.log(credits)
         } catch (error) {
             setError('Erreur dans la récupération des crédits');
         }
@@ -29,7 +28,6 @@ const useMovieData = (movieId) => {
         try {
             const creditsData = await fetchMovieCredits(movieId);
             setCrew(creditsData.crew);
-            console.log(credits)
         } catch (error) {
             setError('Erreur dans la récupération des crédits');
         }

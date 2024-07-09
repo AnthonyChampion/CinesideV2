@@ -2,14 +2,16 @@ import React, { useEffect, useState, useRef } from 'react';
 import { fetchGenresOfMovies, fetchMoviesByGenre } from '../utils/moviedb';
 import { Link } from 'react-router-dom';
 import { IoStar } from 'react-icons/io5';
+import { Button, Card, Dropdown } from "flowbite-react";
+import TopratedPage from './TopRatedPage';
 
 export default function MoviesPage() {
     const [filters, setFilters] = useState([]);
     const [activeFilter, setActiveFilter] = useState(null);
     const [moviesFiltered, setMoviesFiltered] = useState([]);
+    const [showTopRated, setShowTopRated] = useState(false); // Updated to control top-rated movies display
     const [page, setPage] = useState(1);
     const [loading, setLoading] = useState(true);
-    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
     const moviesListRef = useRef(null);
     const MOVIES_PER_PAGE = 10;
@@ -18,7 +20,7 @@ export default function MoviesPage() {
         setActiveFilter({ id: filterId, name: filterName });
         setPage(1);
         setLoading(true);
-        setIsDropdownOpen(false);
+        setShowTopRated(false); // Ensure top-rated movies are hidden when filtering
     };
 
     const handleResetFilter = () => {
@@ -26,7 +28,7 @@ export default function MoviesPage() {
         setMoviesFiltered([]);
         setPage(1);
         setLoading(true);
-        setIsDropdownOpen(false);
+        setShowTopRated(false); // Ensure top-rated movies are hidden when resetting filter
     };
 
     const getGenresOfMovies = async () => {
@@ -77,8 +79,10 @@ export default function MoviesPage() {
     }, []);
 
     useEffect(() => {
-        getMoviesFiltered(page, activeFilter?.id || null);
-    }, [page, activeFilter]);
+        if (!showTopRated) {
+            getMoviesFiltered(page, activeFilter?.id || null);
+        }
+    }, [page, activeFilter, showTopRated]);
 
     const scrollToTop = () => {
         if (moviesListRef.current) {
@@ -90,6 +94,10 @@ export default function MoviesPage() {
         setPage(prevPage => prevPage + 1);
         setLoading(true);
         scrollToTop();
+    };
+
+    const handleClick = () => {
+        setShowTopRated(true);
     };
 
     const renderStars = (vote_average) => {
@@ -111,54 +119,52 @@ export default function MoviesPage() {
 
     return (
         <section className="w-screen bg-[#111111] -mt-[10vh] pt-[10vh] ">
-            <div className="flex justify-start p-2 space-x-3 z-10 mt-5">
-                <div className="relative list-none flex space-x-6">
-                    <button type='button'
-                        className="text-s md:text-base lg:text-lg text-white p-2 md:px-4 ml-6 md:py-2 rounded-lg hover:scale-110 bg-zinc-700 hover:bg-green-500 hover:text-white"
-                        onClick={() => setIsDropdownOpen(prev => !prev)}
-                    >
-                        <p>Genres</p>
-                    </button>
-                    {isDropdownOpen && (
-                        <div className="absolute top-full mt-2 ml-4 md:w-48 w-[21rem] bg-zinc-800 text-white rounded-lg shadow-lg z-20">
-                            <button type="button"
-                                className={`w-full p-2 text-center hover:bg-green-500 ${!activeFilter ? 'text-gray-400 bg-gray-600' : 'bg-transparent'}`}
-                                onClick={handleResetFilter}
+            <div className="flex justify-center p-2 space-x-3 z-10 mt-5 pl-5 ">
+                <Dropdown label="Genres" size="xl" className="text-black p-2 h-[50%] w-[50%] flex flex-wrap items-center  md:px-4 md:py-2 rounded-lg bg-zinc-700 text-xl">
+                    <Dropdown.Item className=" hover:bg-transparent">
+                        <Button type="button"
+                            size="xl"
+                            className="w-full p-2 text-lg text-center text-black"
+                            onClick={handleResetFilter}
+                        >
+                            Aucun filtre
+                        </Button>
+                    </Dropdown.Item >
+                    {filters.map((filter) => (
+                        <Dropdown.Item key={filter.id} className=" hover:bg-transparent">
+                            <Button
+                                className={`w-full text-center text-lg p-2 text-white ${activeFilter && activeFilter.id === filter.id ? 'bg-green-500 text-black' : 'bg-transparent'}`}
+                                size="xl"
+                                onClick={() => handleClickFilter(filter.id, filter.name)}
                             >
-                                <p>Aucun filtre</p>
-                            </button>
-                            {filters.map((filter) => (
-                                <button
-                                    key={filter.id}
-                                    className={`w-full text-center text-lg p-2 hover:bg-green-500 ${activeFilter && activeFilter.id === filter.id ? 'bg-green-500 text-white' : 'bg-transparent'}`}
-                                    onClick={() => handleClickFilter(filter.id, filter.name)}
-                                >
-                                    {filter.name}
-                                </button>
-                            ))}
-                        </div>
-                    )}
-                    <Link to="/top_TMDB" className="flex space-x-1 text-s md:text-base lg:text-lg text-white p-2 md:px-4 ml-6 md:py-2 rounded-lg hover:scale-110 bg-zinc-700 hover:bg-green-500 hover:text-white">
-                        <IoStar size={24} />
-                        <button type="button" className="">Top TMDb</button>
-                    </Link>
-                </div>
+                                {filter.name}
+                            </Button>
+                        </Dropdown.Item>
+                    ))}
+                </Dropdown>
+                <Button className="flex items-center" size="xl" onClick={handleClick}>
+                    <IoStar size={16} />
+                    <p>Top TMDb</p>
+                </Button>
+
             </div>
 
             <div ref={moviesListRef}>
-                {loading && moviesFiltered.length === 0 ? (
+                {loading && moviesFiltered.length === 0 && !showTopRated ? (
                     <p className="text-center text-white pt-2">Chargement...</p>
+                ) : showTopRated ? (
+                    <TopratedPage />
                 ) : (
                     <>
-                        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 mt-6 m-6">
+                        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2 m-6">
                             {moviesFiltered.map((movie) => (
-                                <div
+                                <Card
                                     key={movie.id}
-                                    className="relative group cursor-pointer overflow-hidden rounded-lg shadow-lg bg-zinc-800"
+                                    className="relative group cursor-pointer border-none overflow-hidden rounded-lg shadow-lg bg-zinc-800"
                                 >
                                     <Link to={`/film/${movie.id}`}>
                                         <img
-                                            className="w-full md:h-[75%] object-cover transform transition duration-300 group-hover:scale-105"
+                                            className="w-full object-cover rounded-lg transform transition duration-300 group-hover:scale-105"
                                             src={"https://image.tmdb.org/t/p/w500" + movie.poster_path}
                                             alt={movie.title}
                                             onError={(e) => {
@@ -166,7 +172,7 @@ export default function MoviesPage() {
                                                 e.target.src = "../src/assets/img_not_available.png";
                                             }}
                                         />
-                                        <div className="p-4">
+                                        <div className="mt-4">
                                             <div className="text-white">
                                                 <h2 className="text-md md:text-xl font-bold truncate">{movie.title}</h2>
                                                 <div className="flex flex-col mt-2 space-y-2">
@@ -184,18 +190,18 @@ export default function MoviesPage() {
                                             </div>
                                         </div>
                                     </Link>
-                                </div>
+                                </Card>
                             ))}
                         </div>
 
                         {moviesFiltered.length > 0 && (
                             <div className="flex justify-center mt-8 md:mt-14">
-                                <button type="button"
+                                <Button type="button"
                                     className="bg-green-500 text-white font-bold md:text-lg p-2 md:p-3 w-40 md:w-56 rounded-lg hover:bg-green-600 transition duration-300"
                                     onClick={handleLoadMoreMovies}
                                 >
                                     Films suivants
-                                </button>
+                                </Button>
                             </div>
                         )}
                     </>

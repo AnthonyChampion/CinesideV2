@@ -61,7 +61,7 @@ export default function MovieSearch() {
                         type="text"
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
-                        className="h-11 md:w-[10rem] w-[10rem] bg-zinc-800 bg-opacity-50 rounded-md text-center text-white text-[16px] border-2 border-white pr-10" // Add padding to the right for the icon
+                        className="h-11 md:w-[15rem] w-[10rem] bg-zinc-800 bg-opacity-50 rounded-md text-center text-white text-[16px] border-2 border-white pr-10 "
                         placeholder="Recherche"
                     />
                     <IoSearch className="absolute right-3 text-white" style={{ top: '50%', transform: 'translateY(-50%)' }} />

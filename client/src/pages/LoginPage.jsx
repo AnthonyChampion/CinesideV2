@@ -18,7 +18,7 @@ export default function LoginPage() {
         }
 
         try {
-            const response = await axios.post(`${import.meta.env.PORT}/users`, { email, password });
+            const response = await axios.post(`${import.meta.env.SERVER_PORT}/login`, { email, password });
 
             console.log('Connexion effectuée !', response);
 

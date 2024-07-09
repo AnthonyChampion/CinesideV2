@@ -6,6 +6,7 @@ import { IoMdArrowDropdownCircle } from "react-icons/io";
 import { IoArrowUndoOutline } from "react-icons/io5";
 import { IoArrowRedoOutline } from "react-icons/io5";
 import { TbPlayerPlay } from "react-icons/tb";
+import { Button } from 'flowbite-react';
 
 export default function HomePage() {
 
@@ -140,7 +141,7 @@ export default function HomePage() {
                                     <p></p>
                                     <p className="text-sm md:text-lg md:line-clamp-2 line-clamp-2 text-justify">{trending[index].overview || "Aucune description"}</p>
                                     <div className="flex space-x-4">
-                                        <button
+                                        <Button
                                             className="mt-10 text-white border-2 border-white  rounded-sm md:text-lg py-2 md:py-3 px-4 md:px-6 hover:bg-green-800 transition duration-300"
                                             onClick={() => handleShowTrailer(trending[index].id)}
                                         >
@@ -149,11 +150,11 @@ export default function HomePage() {
                                                 <p>Bande annonce</p>
                                             </div>
 
-                                        </button>
+                                        </Button>
                                         <Link to={`/film/${trending[index].id}`}>
-                                            <button className="mt-10 text-white rounded-sm md:text-lg py-2 md:py-3 px-4 md:px-6 bg-green-500 border-2 border-green-500 hover:bg-white hover:border-2 hover:border-white hover:text-black transition duration-300">
+                                            <Button className="mt-10 text-white rounded-sm md:text-lg py-2 md:py-3 px-4 md:px-6 bg-green-500 border-2 border-green-500 hover:bg-white hover:border-2 hover:border-white hover:text-black transition duration-300">
                                                 Voir détails
-                                            </button>
+                                            </Button>
                                         </Link>
                                     </div>
                                 </div>
@@ -190,21 +191,21 @@ export default function HomePage() {
                                 ))}
                                 <div className="flex justify-center items-center space-x-5 mt-6 h-[70%]">
                                     {currentPage > 1 && (
-                                        <button
+                                        <Button
                                             onClick={goToPrevPage}
                                             className="flex items-center justify-center md:h-20 md:w-30 h-16 w-24 px-4 py-2 bg-green-500 text-white rounded-md shadow-md hover:bg-green-600 transition duration-300 ease-in-out transform hover:-translate-y-1"
                                         >
                                             <IoArrowUndoOutline size={50} className="mr-2" />
 
-                                        </button>
+                                        </Button>
                                     )}
-                                    <button
+                                    <Button
                                         onClick={goToNextPage}
                                         className="flex items-center justify-center md:h-20 md:w-30 h-16 w-24 px-4 py-2 bg-green-500 text-white rounded-md shadow-md hover:bg-green-600 transition duration-300 ease-in-out transform hover:-translate-y-1"
                                     >
                                         <IoArrowRedoOutline size={50} className="mr-2" />
 
-                                    </button>
+                                    </Button>
                                 </div>
                             </div>
                         </div>

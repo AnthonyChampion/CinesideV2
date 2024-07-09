@@ -7,6 +7,7 @@ import { TiThMenuOutline } from 'react-icons/ti';
 import { IoLogIn, IoLogOut, IoHeart } from 'react-icons/io5';
 import { RiMovie2Line } from "react-icons/ri";
 import MovieSearch from './MovieSearch';
+import { Button } from 'flowbite-react';
 
 
 export default function NavBar({ showSearch }) {
@@ -47,10 +48,10 @@ export default function NavBar({ showSearch }) {
                 )}
                 <li className="py-4 flex justify-center items-center">
                     {auth ? (
-                        <button onClick={() => { handleLogout(); setOpenMenu(false); }} className="transition duration-300 ease-in-out transform hover:scale-105 flex items-center">
+                        <Button onClick={() => { handleLogout(); setOpenMenu(false); }} className="transition duration-300 ease-in-out transform hover:scale-105 flex items-center">
                             <IoLogOut className="mr-2" size={24} />
                             <span>Déconnexion</span>
-                        </button>
+                        </Button>
                     ) : (
                         <Link to="connexion" onClick={() => { setOpenMenu(false); }} className="transition duration-300 ease-in-out transform hover:scale-105 flex items-center">
                             <IoLogIn className="mr-2" size={24} />
@@ -81,17 +82,17 @@ export default function NavBar({ showSearch }) {
                     <div className="flex items-center space-x-1 pl-4 md:pl-0">
                         <img src="../src/assets/cinelogo.png" className="w-7 h-7" alt="cinelogo" />
                         <Link className="text-2xl font-bold" to="/">
-                            <span className="text-green-500">ine</span>side
+                            <span className="text-green-400">ine</span>side
                         </Link>
                     </div>
                 </div>
                 <div className="hidden md:flex space-x-10 items-center uppercase">
-                    <Link to="films" className="flex items-center space-x-2 hover:text-green-500 transition duration-300">
+                    <Link to="films" className="flex items-center space-x-2 hover:text-green-400 transition duration-300">
                         <RiMovie2Line size={24} />
                         <span className="text-[16px]">Films</span>
                     </Link>
                     {auth && (
-                        <Link to="favoris" className="flex items-center space-x-2 hover:text-green-500 transition duration-300">
+                        <Link to="favoris" className="flex items-center space-x-2 hover:text-green-400 transition duration-300">
                             <IoHeart size={24} />
                             <span className="text-[16px]">Favoris</span>
                         </Link>
@@ -100,12 +101,12 @@ export default function NavBar({ showSearch }) {
                 </div>
                 <div className="hidden md:flex items-center space-x-2 uppercase">
                     {auth ? (
-                        <button onClick={handleLogout} className="flex items-center space-x-1 hover:text-green-500 transition duration-300">
+                        <Button onClick={handleLogout} className="flex items-center space-x-1 hover:text-green-400 transition duration-300">
                             <IoLogOut size={24} />
                             <span className="text-[16px] uppercase">Déconnexion</span>
-                        </button>
+                        </Button>
                     ) : (
-                        <Link to="connexion" className="flex items-center space-x-1 hover:text-green-500 transition duration-300">
+                        <Link to="connexion" className="flex items-center space-x-1 hover:text-green-400 transition duration-300">
                             <IoLogIn size={24} />
                             <span className="text-[16px]">Connexion</span>
                         </Link>

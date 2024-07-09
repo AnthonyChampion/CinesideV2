@@ -15,7 +15,6 @@ const MovieDetailPage = () => {
     const [favorites, setFavorites] = useState(() => JSON.parse(localStorage.getItem('favorites')) || []);
     const [selectedPerson, setSelectedPerson] = useState(null);
 
-
     useEffect(() => {
         const fetchMovie = async () => {
             try {
@@ -129,7 +128,6 @@ const MovieDetailPage = () => {
                         <div className="mt-2 flex space-x-4 items-end">
                             <h3 className="md:text-lg px-3 md:px-0">Réalisateur(s):</h3>
                             <ul className="md:text-lg flex space-x-2">
-
                                 {crew.filter(cast => cast.job === "Director").map(cast => (
                                     <li key={cast?.id}>{cast?.name}</li>
                                 ))}
@@ -139,10 +137,8 @@ const MovieDetailPage = () => {
                     <div className="md:mt-6 mt-3 px-3 space-y-2 md:px-0">
                         {renderStars(movie?.vote_average)}
                         <div className="flex items-center space-x-4">
-
                             <div className="flex space-x-2 items-center">
                                 <p className="md:text-lg">Note :</p>
-
                             </div>
                             <div className="text-md">
                                 {Math.round(movie?.vote_average * 100) / 100} / 10
@@ -206,9 +202,7 @@ const MovieDetailPage = () => {
                         </div>
                     )}
 
-
-
-                    {trailer?.length > 0 && (
+                    {trailer && trailer.length > 0 && (
                         <div className="mt-8 md:mt-12 px-3 md:px-0 flex-col w-full justify-center">
                             <h3 className="md:text-2xl">Vidéo</h3>
                             <div className="mt-4 flex-col md:pr-[15vw] md:pl-[15vw]">
@@ -226,34 +220,34 @@ const MovieDetailPage = () => {
                         </div>
                     )}
 
-                    <div className="mt-8 md:mt-12  px-3 md:px-0">
-                        <h3 className="md:text-2xl">Recommandations</h3>
-                        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-4">
-                            {similarMovies.slice(0, 16).map(similarMovie => (
-                                <div
-                                    key={similarMovie?.id}
-                                    className="relative group cursor-pointer overflow-hidden rounded-lg shadow-lg"
-
-                                >
-                                    <img
-                                        className="w-full h-full object-cover transform transition duration-300 group-hover:scale-105"
-                                        src={`https://image.tmdb.org/t/p/w500${similarMovie?.poster_path}`}
-                                        alt={similarMovie?.title}
-                                        onError={(e) => {
-                                            e.target.onerror = null;
-                                            e.target.src = "../src/assets/img_not_available.png";
-                                        }}
-                                    />
-                                    <Link to={`/film/${similarMovie?.id}`}
-                                        onClick={scrollToTop}>
-                                        <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
-                                            <h2 className="text-lg md:text-xl line-clamp-2">{similarMovie?.title}</h2>
-                                        </div>
-                                    </Link>
-                                </div>
-                            ))}
+                    {similarMovies && similarMovies.length > 0 && (
+                        <div className="mt-8 md:mt-12  px-3 md:px-0">
+                            <h3 className="md:text-2xl">Recommandations</h3>
+                            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-4">
+                                {similarMovies.slice(0, 16).map(similarMovie => (
+                                    <div
+                                        key={similarMovie?.id}
+                                        className="relative group cursor-pointer overflow-hidden rounded-lg shadow-lg"
+                                    >
+                                        <img
+                                            className="w-full h-full object-cover transform transition duration-300 group-hover:scale-105"
+                                            src={`https://image.tmdb.org/t/p/w500${similarMovie?.poster_path}`}
+                                            alt={similarMovie?.title}
+                                            onError={(e) => {
+                                                e.target.onerror = null;
+                                                e.target.src = "../src/assets/img_not_available.png";
+                                            }}
+                                        />
+                                        <Link to={`/film/${similarMovie?.id}`} onClick={scrollToTop}>
+                                            <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
+                                                <h2 className="text-lg md:text-xl line-clamp-2">{similarMovie?.title}</h2>
+                                            </div>
+                                        </Link>
+                                    </div>
+                                ))}
+                            </div>
                         </div>
-                    </div>
+                    )}
 
                     {selectedPerson && (
                         <PersonDetails
