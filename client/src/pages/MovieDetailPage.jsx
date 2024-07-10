@@ -174,7 +174,7 @@ const MovieDetailPage = () => {
                     </div>
 
                     <div className="mt-8 md:mt-12  px-3 md:px-0">
-                        <h2 className="md:text-2xl">Synopsis</h2>
+                        <h2 className="md:text-2xl pb-2">Synopsis</h2>
                         <p className="md:text-lg text-justify">{movie?.overview}</p>
                     </div>
 
@@ -209,13 +209,13 @@ const MovieDetailPage = () => {
                                 <iframe
                                     width="100%"
                                     height="400"
-                                    src={`https://www.youtube.com/embed/${trailer[0]?.key}`}
+                                    src={`https://www.youtube.com/embed/${trailer[1]?.key}`}
                                     title={trailer[0].name}
                                     frameBorder="0"
                                     allowFullScreen
                                     className='justify-center'
                                 ></iframe>
-                                <p className="md:text-lg mt-2 text-center">{trailer[0]?.name}</p>
+                                <p className="md:text-lg mt-2 text-center">{trailer[1]?.name}</p>
                             </div>
                         </div>
                     )}

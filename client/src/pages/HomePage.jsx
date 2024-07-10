@@ -124,7 +124,7 @@ export default function HomePage() {
                                     <div className="absolute inset-0 bg-gradient-to-t from-[#111111] via-[transparent] to-transparent"></div>
                                     <div className="md:hidden block h-[86%] absolute inset-0 bg-gradient-to-t from-[#111111] via-transparent to-transparent -mt-20"></div>
                                 </div>
-                                <div className="absolute inset-0 space-y-2 top-[35vh] md:space-y-6 md:top-[30vh] md:left-14 md:w-2/5 w-full text-white md:p-6 p-4">
+                                <div className="absolute inset-0 space-y-2 top-[44vh] md:space-y-6 md:top-[30vh] md:left-14 md:w-2/5 w-full text-white md:p-6 p-4">
                                     <h1 className="md:text-3xl text-md">A l'affiche</h1>
                                     <h2 className="font-bold text-xl md:text-5xl uppercase">{trending[index]?.title || "Title not available"}</h2>
                                     <p className="md:text-lg">Sortie: {trending[index]?.release_date || "Date de sortie inconnue"}</p>
@@ -137,10 +137,10 @@ export default function HomePage() {
                                         </div>
                                     </div>
                                     <p></p>
-                                    <p className="text-sm md:text-lg md:line-clamp-2 line-clamp-2 text-justify">{trending[index].overview || "Aucune description"}</p>
+                                    <p className="hidden md:visible text-sm md:text-lg md:line-clamp-2 line-clamp-2 text-justify">{trending[index].overview || "Aucune description"}</p>
                                     <div className="flex space-x-4">
                                         <Button
-                                            className="mt-10 text-white border-2 border-white bg-transparent  rounded-sm md:text-lg py-2 md:py-3 px-4 md:px-6 hover:bg-cyan-700 transition duration-300"
+                                            className="md:mt-10 text-white border-2 border-white bg-transparent  rounded-sm md:text-lg py-2 md:py-3 px-4 md:px-6 hover:bg-cyan-700 transition duration-300"
                                             onClick={() => handleShowTrailer(trending[index].id)}
                                         >
                                             <div className="flex space-x-1 items-center">
@@ -150,18 +150,19 @@ export default function HomePage() {
 
                                         </Button>
                                         <Link to={`/film/${trending[index].id}`}>
-                                            <Button className="mt-10 text-white rounded-sm md:text-lg py-2 md:py-3 px-4 md:px-6 bg-green-500 border-2 border-green-500 hover:border-2 hover:border-white hover:text-white transition duration-300">
+                                            <Button className="md:mt-10 text-white rounded-sm md:text-lg py-2 md:py-3 px-4 md:px-6 bg-green-500 border-2 border-green-500 hover:border-2 hover:border-white hover:text-white transition duration-800">
                                                 Voir en détails
                                             </Button>
                                         </Link>
                                     </div>
                                 </div>
+                                <div className="md:absolute flex items-center justify-end space-x-2 mt-6 pr-3 md:pb-2 cursor-pointer transition-transform transform hover:scale-110 md:bottom-6 md:right-14" onClick={scrollToTop}>
+                                    <h2 className="text-lg md:text-4xl font-semibold text-white">Plus de films</h2>
+                                    <IoMdArrowDropdownCircle size={30} />
+                                </div>
                             </div>
                         )}
-                        <div className="absolute flex items-center space-x-2 pb-4 md:pb-2 cursor-pointer transition-transform transform hover:scale-110 bottom-0 right-4 md:bottom-6 md:right-14" onClick={scrollToTop}>
-                            <h2 className="text-lg md:text-4xl font-semibold text-white">Plus de films</h2>
-                            <IoMdArrowDropdownCircle size={30} />
-                        </div>
+
                         <div ref={movieList} className="md:py-4 py-4 md:px-4 flex-grow">
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                                 {trending.map((data, idx) => (

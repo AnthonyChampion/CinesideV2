@@ -11,7 +11,7 @@ const Trailer = ({ movieId, onClose }) => {
             try {
                 const trailer = await fetchMovieTrailer(movieId);
                 if (trailer.results.length > 0) {
-                    setTrailerKey(trailer.results[0].key);
+                    setTrailerKey(trailer.results[1].key);
                 }
             } catch (error) {
                 console.error('Error fetching trailer:', error);

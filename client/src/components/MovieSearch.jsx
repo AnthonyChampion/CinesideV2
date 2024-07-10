@@ -57,15 +57,17 @@ export default function MovieSearch() {
     return (
         <section>
             <div className="flex">
-                <form onSubmit={handleSearch} className="relative md:flex md:flex-row flex-col items-center">
-                    <input
-                        type="text"
-                        value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
-                        className="h-11 md:w-[15rem] w-[10rem] bg-zinc-800 bg-opacity-50 rounded-md text-center text-white text-[16px] pr-10 "
-                        placeholder="RECHERCHE"
-                    />
-                    <IoSearch className="absolute right-3 text-white" style={{ top: '50%', transform: 'translateY(-50%)' }} />
+                <form className="max-w-md mx-auto md:w-[22rem] w-[20rem]" onSubmit={handleSearch}>
+                    <label htmlFor="" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Recherche</label>
+                    <div className="relative">
+                        <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                            <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                                <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                            </svg>
+                        </div>
+                        <input type="search" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-cyan-700 focus:border-cyan-700 " placeholder="Recherchez un film" required />
+                        <button type="submit" className="text-white absolute end-2.5 bottom-2.5 bg-cyan-700 hover:bg-green-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Recherche</button>
+                    </div>
                 </form>
             </div>
             {error && <p className="text-red-500 mt-2">{error}</p>}
@@ -82,7 +84,7 @@ export default function MovieSearch() {
                                     >
                                         <Link to={`/film/${movie.id}`}>
                                             <img
-                                                className="w-full md:h-[350px] object-cover rounded-lg transform transition duration-300 group-hover:scale-105"
+                                                className="w-full md:h-[350px] h-[180px] object-cover rounded-lg transform transition duration-300 group-hover:scale-105"
                                                 src={"https://image.tmdb.org/t/p/w500" + movie.poster_path}
                                                 alt={movie.title}
                                                 onError={(e) => {
@@ -90,9 +92,9 @@ export default function MovieSearch() {
                                                     e.target.src = "../src/assets/img_not_available.png";
                                                 }}
                                             />
-                                            <div className="mt-4">
-                                                <div className="text-white">
-                                                    <h2 className="text-md md:text-xl font-bold normal-case truncate">{movie.title}</h2>
+                                            <div className="md:mt-4 mt-2">
+                                                <div className="text-white text-start">
+                                                    <h2 className="text-[16px] md:text-xl font-bold normal-case truncate">{movie.title}</h2>
                                                     <div className="flex flex-col space-y-1">
                                                         <div className="flex md:flex-row flex-col md:justify-between md:items-center">
                                                             {renderStars(movie.vote_average) || "Note inconnue"}
@@ -122,3 +124,15 @@ export default function MovieSearch() {
         </section>
     );
 }
+
+
+{/* <form onSubmit={handleSearch} className="relative md:flex md:flex-row flex-col items-center">
+                    <input
+                        type="text"
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                        className="h-11 md:w-[15rem] w-[15rem] bg-zinc-800 bg-opacity-50 rounded-md text-center text-white text-[16px] pr-10 "
+                        placeholder="RECHERCHE"
+                    />
+                    <IoSearch className="absolute right-3 text-white" style={{ top: '50%', transform: 'translateY(-50%)' }} />
+                </form> */}
