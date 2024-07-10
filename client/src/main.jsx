@@ -26,27 +26,27 @@ const router = createBrowserRouter([
       },
       {
         element: <UpcomingPage />,
-        path: "/upcoming",
+        path: "/filmsavenir",
       },
       {
         element: <LoginPage />,
-        path: "/signin",
+        path: "/connexion",
       },
       {
         element: <RegisterPage />,
-        path: "/signup",
+        path: "/inscription",
       },
       {
         element: <MoviesPage />,
-        path: "/movies",
+        path: "/films",
       },
       {
         element: <MovieDetailPage />,
-        path: "/movie/:id",
+        path: "/film/:id",
       },
       {
         element: <FavoritePage />,
-        path: "/favorites",
+        path: "/favoris",
       },
     ],
   },

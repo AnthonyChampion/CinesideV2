@@ -30,9 +30,9 @@ export default function Favorite() {
 
     return (
         <div className="p-6 text-white w-screen h-screen bg-[#111111]">
-            <h1 className="text-3xl text-center mt-10">My Favorites Movies</h1>
+            <h1 className="text-3xl text-center mt-10">Mes Films favoris</h1>
             {favorites.length === 0 ? (
-                <p className="text-center mt-4">No movies yet</p>
+                <p className="text-center mt-4">Vous n'avez pas encore de films favoris</p>
             ) : (
                 <div className="flex flex-wrap justify-center mt-10">
                     {favorites.map(movie => (
@@ -52,7 +52,7 @@ export default function Favorite() {
                                     onClick={() => removeFavorite(movie.id)}
                                     className="bg-red-500 text-white px-2 w-full py-1 mt-2 rounded"
                                 >
-                                    Delete
+                                    Supprimer
                                 </button>
                             </div>
 

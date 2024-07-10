@@ -93,7 +93,7 @@ export default function HomePage() {
                 {loading && currentPage === 1 ? (
                     <div className="flex justify-center items-center h-screen">
                         <div className="spinner-border animate-spin inline-block w-8 h-8 border-4 rounded-full text-green-500" role="status">
-                            <span className="visually-hidden">Loading...</span>
+                            <span className="visually-hidden">Chargement...</span>
                         </div>
                     </div>
                 ) : (
@@ -125,9 +125,9 @@ export default function HomePage() {
                                     <div className="md:hidden block h-[86%] absolute inset-0 bg-gradient-to-t from-[#111111] via-transparent to-transparent -mt-20"></div>
                                 </div>
                                 <div className="absolute inset-0 space-y-2 top-[35vh] md:space-y-6 md:top-[30vh] md:left-14 md:w-2/5 w-full text-white md:p-6 p-4">
-                                    <h1 className="md:text-3xl text-md">Showing</h1>
+                                    <h1 className="md:text-3xl text-md">A l'affiche</h1>
                                     <h2 className="font-bold text-xl md:text-5xl uppercase">{trending[index]?.title || "Title not available"}</h2>
-                                    <p className="md:text-lg">{trending[index]?.release_date || "Date de sortie inconnue"}</p>
+                                    <p className="md:text-lg">Sortie: {trending[index]?.release_date || "Date de sortie inconnue"}</p>
                                     <div className="flex mt-2 space-x-2 items-center">
                                         <div className="flex space-x-1">
                                             {renderStars(trending[index]?.vote_average) || "Note inconnue"}
@@ -145,13 +145,13 @@ export default function HomePage() {
                                         >
                                             <div className="flex space-x-1 items-center">
                                                 <TbPlayerPlay />
-                                                <p>Trailer</p>
+                                                <p>Bande Annonce</p>
                                             </div>
 
                                         </Button>
-                                        <Link to={`/movie/${trending[index].id}`}>
+                                        <Link to={`/film/${trending[index].id}`}>
                                             <Button className="mt-10 text-white rounded-sm md:text-lg py-2 md:py-3 px-4 md:px-6 bg-green-500 border-2 border-green-500 hover:border-2 hover:border-white hover:text-white transition duration-300">
-                                                Show details
+                                                Voir en détails
                                             </Button>
                                         </Link>
                                     </div>
@@ -159,7 +159,7 @@ export default function HomePage() {
                             </div>
                         )}
                         <div className="absolute flex items-center space-x-2 pb-4 md:pb-2 cursor-pointer transition-transform transform hover:scale-110 bottom-0 right-4 md:bottom-6 md:right-14" onClick={scrollToTop}>
-                            <h2 className="text-lg md:text-4xl font-semibold text-white">More movies</h2>
+                            <h2 className="text-lg md:text-4xl font-semibold text-white">Plus de films</h2>
                             <IoMdArrowDropdownCircle size={30} />
                         </div>
                         <div ref={movieList} className="md:py-4 py-4 md:px-4 flex-grow">
@@ -193,7 +193,7 @@ export default function HomePage() {
                                             onClick={goToPrevPage}
                                             className="flex items-center justify-center md:h-20 md:w-32 h-16 w-24 px-4 py-2 bg-green-500 text-white rounded-md shadow-md hover:bg-green-600 transition duration-300 ease-in-out transform hover:-translate-y-1"
                                         >
-                                            Previous Page
+                                            Page Précédente
 
                                         </Button>
                                     )}
@@ -201,7 +201,7 @@ export default function HomePage() {
                                         onClick={goToNextPage}
                                         className="flex items-center justify-center md:h-20 md:w-32 h-16 w-24 px-4 py-2 bg-green-500 text-white rounded-md shadow-md hover:bg-green-600 transition duration-300 ease-in-out transform hover:-translate-y-1"
                                     >
-                                        Next Page
+                                        Page Suivante
 
                                     </Button>
                                 </div>

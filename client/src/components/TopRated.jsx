@@ -67,7 +67,7 @@ export default function TopratedMovies() {
                             key={movie.id}
                             className="relative group cursor-pointer border-none overflow-hidden rounded-lg shadow-lg bg-zinc-800"
                         >
-                            <Link to={`/movie/${movie.id}`}>
+                            <Link to={`/film/${movie.id}`}>
                                 <img
                                     className="w-full md:h-[420px] object-cover rounded-lg transform transition duration-300 group-hover:scale-105"
                                     src={"https://image.tmdb.org/t/p/w500" + movie.poster_path}
@@ -103,7 +103,7 @@ export default function TopratedMovies() {
                             onClick={goToPrevPage}
                             className="flex items-center justify-center md:h-20 md:w-32 h-16 w-24 px-4 py-2 bg-green-500 text-white rounded-md shadow-md hover:bg-green-600 transition duration-300 ease-in-out transform hover:-translate-y-1"
                         >
-                            Previous Page
+                            Page Précédente
 
                         </Button>
                     )}
@@ -111,7 +111,7 @@ export default function TopratedMovies() {
                         onClick={goToNextPage}
                         className="flex items-center justify-center md:h-20 md:w-32 h-16 w-24 px-4 py-2 bg-green-500 text-white rounded-md shadow-md hover:bg-green-600 transition duration-300 ease-in-out transform hover:-translate-y-1"
                     >
-                        Next Page
+                        Page Suivante
 
                     </Button>
                 </div>

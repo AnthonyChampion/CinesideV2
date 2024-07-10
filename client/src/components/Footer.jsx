@@ -13,7 +13,7 @@ function Footer() {
                 </div>
                 <p className="text-sm">© 2024 Anthony Champion Rodrigues.</p>
                 <div className="flex justify-center space-x-2 pt-1">
-                    <p className="text-sm">Powered by</p>
+                    <p className="text-sm">Données fournis par</p>
                     <img className="w-8" src='../src/assets/tmdb.png' />
                 </div>
             </div>

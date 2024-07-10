@@ -77,7 +77,7 @@ const MovieDetailPage = () => {
             {loading ? (
                 <div className="flex justify-center items-center h-screen">
                     <div className="spinner-border animate-spin inline-block w-8 h-8 border-4 rounded-full text-green-500" role="status">
-                        <span className="visually-hidden">Loading...</span>
+                        <span className="visually-hidden">Chargement...</span>
                     </div>
                 </div>
             ) : error ? (
@@ -115,7 +115,7 @@ const MovieDetailPage = () => {
                     <div className="mt-8 px-3 md:px-0">
                         <h1 className="text-3xl md:text-5xl uppercase font-bold w-[75%]">{movie?.title || "Title Not Available"}</h1>
                         <div className="md:flex md:flex-row flex-col md:space-x-10 md:space-y-0 space-y-2 mt-2">
-                            <p className="md:text-lg">Release date: {movie?.release_date}</p>
+                            <p className="md:text-lg">Sortie: {movie?.release_date}</p>
                             <p className="md:text-lg">{movie?.runtime} min</p>
                             {movie?.genres && (
                                 <p className="md:text-lg">
@@ -126,7 +126,7 @@ const MovieDetailPage = () => {
                     </div>
                     {crew && crew?.length > 0 && (
                         <div className="mt-2 flex space-x-4 items-end">
-                            <h3 className="md:text-lg px-3 md:px-0">Director(s):</h3>
+                            <h3 className="md:text-lg px-3 md:px-0">Réalisateurs(s):</h3>
                             <ul className="md:text-lg flex space-x-2">
                                 {crew.filter(cast => cast.job === "Director").map(cast => (
                                     <li key={cast?.id}>{cast?.name}</li>
@@ -138,7 +138,7 @@ const MovieDetailPage = () => {
                         {renderStars(movie?.vote_average)}
                         <div className="flex items-center space-x-4">
                             <div className="flex space-x-2 items-center">
-                                <p className="md:text-lg">Rating</p>
+                                <p className="md:text-lg">Note</p>
                             </div>
                             <div className="text-md">
                                 {Math.round(movie?.vote_average * 100) / 100} / 10
@@ -148,7 +148,7 @@ const MovieDetailPage = () => {
                     <div className="mt-8 md:mt-8 px-3 md:px-0">
                         {Object.keys(watchProviders)?.length > 0 && (
                             <div>
-                                <h3 className="md:text-2xl">Watch providers:</h3>
+                                <h3 className="md:text-2xl">Plateformes:</h3>
                                 <div className="flex flex-wrap items-center gap-4 mt-4">
                                     {watchProviders.flatrate && watchProviders.flatrate.length > 0 ? (
                                         watchProviders.flatrate.map(provider => (
@@ -168,7 +168,7 @@ const MovieDetailPage = () => {
                                         <p className="md:text-lg text-gray-600">N/A</p>
                                     )}
                                 </div>
-                                <p className="text-sm text-gray-600 mt-2">Datas powered by JustWatch</p>
+                                <p className="text-sm text-gray-600 mt-2">Données fournies par JustWatch</p>
                             </div>
                         )}
                     </div>
@@ -180,7 +180,7 @@ const MovieDetailPage = () => {
 
                     {credits && credits?.length > 0 && (
                         <div className="mt-8 md:mt-12 px-3 md:px-0">
-                            <h3 className="md:text-2xl">Cast</h3>
+                            <h3 className="md:text-2xl">Casting</h3>
                             <ul className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-4">
                                 {credits.slice(0, 8).map(actor => (
                                     <li key={actor?.id} className="flex flex-col items-center space-y-2">
@@ -209,20 +209,20 @@ const MovieDetailPage = () => {
                                 <iframe
                                     width="100%"
                                     height="400"
-                                    src={`https://www.youtube.com/embed/${trailer[1]?.key}`}
+                                    src={`https://www.youtube.com/embed/${trailer[0]?.key}`}
                                     title={trailer[0].name}
                                     frameBorder="0"
                                     allowFullScreen
                                     className='justify-center'
                                 ></iframe>
-                                <p className="md:text-lg mt-2 text-center">{trailer[1]?.name}</p>
+                                <p className="md:text-lg mt-2 text-center">{trailer[0]?.name}</p>
                             </div>
                         </div>
                     )}
 
                     {similarMovies && similarMovies.length > 0 && (
                         <div className="mt-8 md:mt-12  px-3 md:px-0">
-                            <h3 className="md:text-2xl">Recommended</h3>
+                            <h3 className="md:text-2xl">Recommandations</h3>
                             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-4">
                                 {similarMovies.slice(0, 16).map(similarMovie => (
                                     <div
@@ -238,7 +238,7 @@ const MovieDetailPage = () => {
                                                 e.target.src = "../src/assets/img_not_available.png";
                                             }}
                                         />
-                                        <Link to={`/movie/${similarMovie?.id}`} onClick={scrollToTop}>
+                                        <Link to={`/film/${similarMovie?.id}`} onClick={scrollToTop}>
                                             <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
                                                 <h2 className="text-lg md:text-xl line-clamp-2">{similarMovie?.title}</h2>
                                             </div>

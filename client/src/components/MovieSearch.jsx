@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { searchMovies } from '../utils/moviedb';
 import { Link } from 'react-router-dom';
 import { IoSearch } from "react-icons/io5";
+import { Card } from 'flowbite-react';
 
 export default function MovieSearch() {
     const [searchTerm, setSearchTerm] = useState('');
@@ -61,8 +62,8 @@ export default function MovieSearch() {
                         type="text"
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
-                        className="h-11 md:w-[15rem] w-[10rem] bg-zinc-800 bg-opacity-50 rounded-md text-center text-white text-[16px] border-2 border-white pr-10 "
-                        placeholder="Search"
+                        className="h-11 md:w-[15rem] w-[10rem] bg-zinc-800 bg-opacity-50 rounded-md text-center text-white text-[16px] pr-10 "
+                        placeholder="RECHERCHE"
                     />
                     <IoSearch className="absolute right-3 text-white" style={{ top: '50%', transform: 'translateY(-50%)' }} />
                 </form>
@@ -72,33 +73,39 @@ export default function MovieSearch() {
                 <div className="fixed inset-0 z-50 h-screen flex justify-center items-center bg-black bg-opacity-70 p-4 md:p-8 lg:p-6">
                     <div className="bg-white text-black rounded-lg overflow-scroll noscroll-bar h-full w-full md:w-3/4 lg:w-3/4">
                         <div className="relative">
-                            <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 overflow-y-auto p-4">
+                            <div className="grid grid-cols-2 gap-2 md:grid-cols-3 lg:grid-cols-4 overflow-y-auto p-2">
                                 {movies.map((movie) => (
-                                    <div
+                                    <Card
                                         key={movie.id}
-                                        className="relative flex flex-col justify-center items-center h-[220px] md:h-[400px]"
+                                        className="relative group cursor-pointer border-none overflow-hidden rounded-lg shadow-lg bg-zinc-800"
+                                        onClick={handleClose}
                                     >
-                                        <div className="relative group cursor-pointer overflow-hidden rounded-lg shadow-lg bg-zinc-800 w-full h-full">
+                                        <Link to={`/film/${movie.id}`}>
                                             <img
-                                                src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                                                className="w-full md:h-[350px] object-cover rounded-lg transform transition duration-300 group-hover:scale-105"
+                                                src={"https://image.tmdb.org/t/p/w500" + movie.poster_path}
                                                 alt={movie.title}
-                                                className="object-cover rounded-lg w-full h-full"
+                                                onError={(e) => {
+                                                    e.target.onerror = null;
+                                                    e.target.src = "../src/assets/img_not_available.png";
+                                                }}
                                             />
-                                            <Link to={`/film/${movie.id}`} onClick={handleClose}>
-                                                <div className="absolute inset-0 p-4 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end">
-                                                    <h2 className="normal-case font-bold text-lg md:text-xl text-white">{movie.title}</h2>
-                                                    <div className="flex mt-2 space-x-2 items-center">
-                                                        <div className="flex space-x-2">
-                                                            {renderStars(movie.vote_average) || "N/A"}
+                                            <div className="mt-4">
+                                                <div className="text-white">
+                                                    <h2 className="text-md md:text-xl font-bold normal-case truncate">{movie.title}</h2>
+                                                    <div className="flex flex-col space-y-1">
+                                                        <div className="flex md:flex-row flex-col md:justify-between md:items-center">
+                                                            {renderStars(movie.vote_average) || "Note inconnue"}
+                                                            <p className="md:text-md text-sm">{Math.round(movie.vote_average * 100) / 100} /10</p>
                                                         </div>
-                                                        <div className="text-[14px] text-white">
-                                                            {Math.round(movie.vote_average * 100) / 100} /10
+                                                        <div className="text-sm md:text-md">
+                                                            {new Date(movie.release_date).toLocaleDateString()}
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </Link>
-                                        </div>
-                                    </div>
+                                            </div>
+                                        </Link>
+                                    </Card>
                                 ))}
                             </div>
                             <button

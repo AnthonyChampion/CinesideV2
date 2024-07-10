@@ -22,7 +22,7 @@ const apiCall = async (endpoint, params = {}) => {
     const options = {
         method: "GET",
         url: endpoint,
-        params: { ...params }
+        params: { language: "fr-FR", ...params }
     };
 
     try {
