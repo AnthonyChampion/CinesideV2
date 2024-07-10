@@ -21,7 +21,7 @@ export default function NavBar() {
     };
 
     return (
-        <nav className="w-screen md:h-[7.2vh] relative z-20 pt-2 md:bg-zinc-900 md:bg-opacity-10 bg-[#111111]">
+        <nav className="w-screen md:h-[8vh] relative z-20 pt-2 md:bg-zinc-900 md:bg-opacity-10 bg-[#111111]">
             <div className="flex md:items-center md:justify-between px-4 md:px-10 pb-3 pt-1 text-white">
                 <div className="flex items-center justify-between w-full md:w-auto">
                     <div className="flex items-center space-x-1 pl-4 md:pl-0">
@@ -34,7 +34,7 @@ export default function NavBar() {
                         {showSearch ? <IoClose size={24} /> : <IoSearchOutline size={24} />}
                     </button>
                 </div>
-                <div className="hidden md:flex space-x-10 items-center uppercase">
+                <div className="hidden md:flex space-x-10 items-center">
                     <Link to="films" className="flex items-center space-x-2 hover:text-green-400 transition duration-300">
                         <RiMovie2Line size={24} />
                         <span className="text-[16px]">Films</span>
@@ -51,23 +51,25 @@ export default function NavBar() {
                     )}
                     <MovieSearch />
                 </div>
-                <div className="hidden md:flex items-center space-x-2 uppercase">
+                <div className="hidden md:flex items-center space-x-2">
                     {auth ? (
                         <Button onClick={handleLogout} className="flex items-center space-x-1 hover:text-green-400 transition duration-300">
                             <IoLogOut size={24} />
-                            <span className="text-[16px] uppercase">Deconnexion</span>
+                            <span className="text-[16px]">Deconnexion</span>
                         </Button>
                     ) : (
-                        <Link to="connexion" className="flex items-center space-x-1 hover:text-green-400 transition duration-300">
-                            <IoLogIn size={24} />
-                            <span className="text-[16px]">Connexion</span>
+                        <Link to="connexion">
+                            <Button className="flex items-center space-x-1 hover:text-green-400 transition duration-300">
+                                <IoLogIn size={24} />
+                                <span className="text-[16px]">Connexion</span>
+                            </Button>
                         </Link>
                     )}
                 </div>
             </div>
 
             {/* Bottom navigation for mobile */}
-            <div className="md:hidden fixed bottom-0 left-0 right-0 z-20 bg-[#1111111]">
+            <div className="md:hidden fixed bottom-0 left-0 right-0 z-20 bg-[#111111]">
                 <div className="flex justify-around py-2 text-white">
                     <Link to="films" className="flex flex-col items-center">
                         <RiMovie2Line size={20} />

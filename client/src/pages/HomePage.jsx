@@ -113,7 +113,7 @@ export default function HomePage() {
                                 <img
                                     src={`https://image.tmdb.org/t/p/original${trending[index].poster_path}`}
                                     alt={trending[index]?.title || "Movie Image"}
-                                    className="md:hidden w-full h-[85%] object-cover -mt-20"
+                                    className="md:hidden w-full h-[85%] object-cover"
                                     onError={(e) => {
                                         e.target.onerror = null;
                                         e.target.src = "../src/assets/img_not_available.png";
@@ -156,25 +156,25 @@ export default function HomePage() {
                                         </Link>
                                     </div>
                                 </div>
-                                <div className="md:absolute flex items-center justify-end space-x-2 mt-6 pr-3 md:pb-2 cursor-pointer transition-transform transform hover:scale-110 md:bottom-6 md:right-14" onClick={scrollToTop}>
+                                <div className="absolute flex items-center justify-end space-x-2 -mt-14 right-0 pr-3 md:pb-2 cursor-pointer transition-transform transform hover:scale-110 md:bottom-6 md:right-14" onClick={scrollToTop}>
                                     <h2 className="text-lg md:text-4xl font-semibold text-white">Plus de films</h2>
                                     <IoMdArrowDropdownCircle size={30} />
                                 </div>
                             </div>
                         )}
 
-                        <div ref={movieList} className="md:py-4 py-4 md:px-4 flex-grow">
+                        <div ref={movieList} className="md:py-4 md:px-4 flex-grow">
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                                 {trending.map((data, idx) => (
                                     <div
                                         key={data.id}
-                                        className="group flex flex-col cursor-pointer overflow-hidden rounded-xl bg-transparent transition-transform duration-300 transform hover:scale-105"
+                                        className="group flex flex-col cursor-pointer overflow-hidden rounded-xl bg-transparent md:transition-transform md:duration-300 md:transform md:hover:scale-105"
                                         onClick={() => setIndex(idx)}
                                     >
                                         <div className="relative rounded-xl overflow-hidden"
                                             onClick={scrollTopPage}>
                                             <img
-                                                className="w-full md:h-[300px] h-full object-contain transform transition duration-300 group-hover:scale-125"
+                                                className="w-full md:h-[300px] h-full object-contain md:transform md:transition md:duration-300 md:group-hover:scale-125"
                                                 src={"https://image.tmdb.org/t/p/original" + data.backdrop_path}
                                                 alt={data.title}
                                                 onError={(e) => {
