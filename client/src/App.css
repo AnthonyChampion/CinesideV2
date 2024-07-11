@@ -4,6 +4,7 @@ html,
   height: 100vh;
   width: 100vw;
   margin: 0;
+  background-color: #101522;
 }
 
 .flex-grow {

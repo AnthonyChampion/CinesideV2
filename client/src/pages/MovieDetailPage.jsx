@@ -104,7 +104,7 @@ const MovieDetailPage = () => {
                             }}
                         />
                         <button
-                            className={`absolute top-4 right-4 bg-${isFavorite ? 'red' : 'green'}-500 text-white rounded-full w-10 h-10 flex items-center justify-center`}
+                            className={`absolute top-4 right-4 bg-${isFavorite ? 'red' : "cyan"}-500 text-white rounded-full w-10 h-10 flex items-center justify-center`}
                             onClick={toggleFavorite}
                             aria-label="Favorite"
                         >
@@ -114,14 +114,24 @@ const MovieDetailPage = () => {
 
                     <div className="mt-8 px-3 md:px-0">
                         <h1 className="text-3xl md:text-5xl uppercase font-bold w-[75%]">{movie?.title || "Title Not Available"}</h1>
-                        <div className="md:flex md:flex-row flex-col md:space-x-10 md:space-y-0 space-y-2 mt-2">
+                        <div className="md:flex md:flex-row flex-col md:space-x-10 md:space-y-0 space-y-2 mt-4">
                             <p className="md:text-lg">Sortie: {movie?.release_date}</p>
                             <p className="md:text-lg">{movie?.runtime} min</p>
                             {movie?.genres && (
-                                <p className="md:text-lg">
-                                    {movie?.genres.map(genre => genre.name).join(' | ')}
-                                </p>
+                                <div className="flex">
+                                    {movie?.genres.reduce((acc, genre, i) => {
+                                        if (i === 0) {
+                                            return [...acc, <span key={genre.id} className="text-md px-2 py-1 rounded-md">{genre.name}</span>];
+                                        }
+                                        return [
+                                            ...acc,
+                                            <span key={`dot-${i}`} className="text-md px-2 py-1">•</span>,
+                                            <span key={genre.id} className="text-md px-2 py-1 rounded-md">{genre.name}</span>
+                                        ];
+                                    }, [])}
+                                </div>
                             )}
+
                         </div>
                     </div>
                     {crew && crew?.length > 0 && (
@@ -134,7 +144,7 @@ const MovieDetailPage = () => {
                             </ul>
                         </div>
                     )}
-                    <div className="md:mt-6 mt-3 px-3 space-y-2 md:px-0">
+                    <div className="md:mt-2 mt-3 px-3 space-y-2 md:px-0">
                         {renderStars(movie?.vote_average)}
                         <div className="flex items-center space-x-4">
                             <div className="flex space-x-2 items-center">
@@ -148,15 +158,15 @@ const MovieDetailPage = () => {
                     <div className="mt-8 md:mt-8 px-3 md:px-0">
                         {Object.keys(watchProviders)?.length > 0 && (
                             <div>
-                                <h3 className="md:text-2xl">Plateformes:</h3>
+                                <h3 className="text-3xl text-white font-bold">Plateformes:</h3>
                                 <div className="flex flex-wrap items-center gap-4 mt-4">
                                     {watchProviders.flatrate && watchProviders.flatrate.length > 0 ? (
                                         watchProviders.flatrate.map(provider => (
                                             <div key={provider?.provider_id} className="flex items-center space-x-2">
                                                 <img
-                                                    src={`https://image.tmdb.org/t/p/w200${provider?.logo_path}`}
+                                                    src={`https://image.tmdb.org/t/p/w500${provider?.logo_path}`}
                                                     alt={provider?.provider_name}
-                                                    className="w-12 h-12 object-contain"
+                                                    className="w-16 h-16 object-contain"
                                                     onError={(e) => {
                                                         e.target.onerror = null;
                                                         e.target.src = "../src/assets/img_not_available.png";
@@ -174,13 +184,13 @@ const MovieDetailPage = () => {
                     </div>
 
                     <div className="mt-8 md:mt-12  px-3 md:px-0">
-                        <h2 className="md:text-2xl pb-2">Synopsis</h2>
+                        <h2 className="text-3xl text-white font-bold pb-4">Synopsis</h2>
                         <p className="md:text-lg text-justify">{movie?.overview}</p>
                     </div>
 
                     {credits && credits?.length > 0 && (
                         <div className="mt-8 md:mt-12 px-3 md:px-0">
-                            <h3 className="md:text-2xl">Casting</h3>
+                            <h3 className="text-3xl text-white font-bold">Casting</h3>
                             <ul className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-4">
                                 {credits.slice(0, 8).map(actor => (
                                     <li key={actor?.id} className="flex flex-col items-center space-y-2">
@@ -204,7 +214,7 @@ const MovieDetailPage = () => {
 
                     {trailer && trailer.length > 0 && (
                         <div className="mt-8 md:mt-12 px-3 md:px-0 flex-col w-full justify-center">
-                            <h3 className="md:text-2xl">Videos</h3>
+                            <h3 className="text-3xl text-white font-bold">Videos</h3>
                             <div className="mt-4 flex-col md:pr-[15vw] md:pl-[15vw]">
                                 <iframe
                                     width="100%"
@@ -221,34 +231,40 @@ const MovieDetailPage = () => {
                     )}
 
                     {similarMovies && similarMovies.length > 0 && (
-                        <div className="mt-8 md:mt-12  px-3 md:px-0">
-                            <h3 className="md:text-2xl">Recommandations</h3>
-                            <div className="grid grid-cols-2 md:grid-cols-5 gap-6 mt-4">
-                                {similarMovies.slice(0, 15).map(similarMovie => (
-                                    <div
-                                        key={similarMovie?.id}
-                                        className="relative group cursor-pointer overflow-hidden rounded-lg shadow-lg"
-                                    >
-                                        <img
-                                            className="w-full h-full object-cover transform transition duration-300 group-hover:scale-105"
-                                            src={`https://image.tmdb.org/t/p/w500${similarMovie?.poster_path}`}
-                                            alt={similarMovie?.title}
-                                            onError={(e) => {
-                                                e.target.onerror = null;
-                                                e.target.src = "../src/assets/img_not_available.png";
-                                            }}
-                                        />
-                                        <Link to={`/film/${similarMovie?.id}`} onClick={scrollToTop}>
-                                            <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
-                                                <h2 className="text-lg md:text-xl line-clamp-2">{similarMovie?.title}</h2>
-                                            </div>
-                                        </Link>
-                                    </div>
-                                ))}
+                        <div className="grid grid-cols-2 md:grid-cols-6 mt-20">
+                            <div className="flex col-span-2 md:col-span-2 items-center justify-center">
+                                <div className="flex-col">
+                                    <h1 className="text-3xl text-white font-bold text-center">Recommandations</h1>
+                                    <div className="border-t border-gray-300 mt-4"></div>
+                                </div>
                             </div>
+                            {similarMovies.slice(0, 10).map((data) => (
+                                <div
+                                    key={data.id}
+                                    className="group flex flex-col cursor-pointer bg-transparent pb-2"
+                                >
+                                    <Link to={`/film/${data.id}`}>
+                                        <div className="relative">
+                                            <img
+                                                className="w-[200px] h-[300px] object-contain"
+                                                src={"https://image.tmdb.org/t/p/original" + data.poster_path}
+                                                alt={data.title}
+                                                onClick={scrollToTop}
+                                                onError={(e) => {
+                                                    e.target.onerror = null;
+                                                    e.target.src = "../src/assets/img_not_available.png";
+                                                }}
+                                            />
+                                        </div>
+                                        <div className="p-4 space-y-1">
+                                            <p className="text-sm text-gray-400">{data?.release_date ? new Date(data.release_date).getFullYear() : "N/A"}</p>
+                                            <h2 className="text-md font-bold line-clamp-1 text-white">{data.title}</h2>
+                                        </div>
+                                    </Link>
+                                </div>
+                            ))}
                         </div>
                     )}
-
                     {selectedPerson && (
                         <PersonDetails
                             personId={selectedPerson}

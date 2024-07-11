@@ -25,7 +25,7 @@ export default function NavBar() {
             <div className="flex md:items-center md:justify-between px-4 md:px-10 pb-3 pt-1 md:text-black text-white">
                 <div className="flex items-center justify-between w-full md:w-auto">
                     <div className="flex items-center space-x-1 pl-4 md:pl-0">
-                        <img src="../src/assets/cinelogo.png" className="w-7 h-7" alt="cinelogo" />
+                        <img src="../src/assets/cinelogo.png" className="w-7 h-7" alt="Cineside logo" />
                         <Link className="text-2xl font-semibold" to="/">
                             <span>ineside</span>
                         </Link>
@@ -36,31 +36,31 @@ export default function NavBar() {
                 </div>
                 <div className="hidden md:flex space-x-10 items-center">
                     <Link to="/">
-                        <span className="text-md">Accueil</span>
+                        <span className="text-md hover:text-cyan-700">Accueil</span>
                     </Link>
-                    <Link to="films" className="flex items-center space-x-2 hover:text-green-400 transition duration-300">
+                    <Link to="films" className="flex items-center space-x-2 hover:text-cyan-700">
                         <RiMovie2Line size={24} />
-                        <span className="text-[16px]">Films</span>
+                        <span className="text-md">Films</span>
                     </Link>
                     {auth && (
-                        <Link to="favoris" className="flex items-center space-x-2 hover:text-green-400 transition duration-300">
+                        <Link to="favoris" className="flex items-center space-x-2 hover:text-cyan-700">
                             <IoHeart size={24} />
-                            <span className="text-[16px]">Favoris</span>
+                            <span className="text-md">Favoris</span>
                         </Link>
                     )}
                     <MovieSearch />
                 </div>
                 <div className="hidden md:flex items-center space-x-2">
                     {auth ? (
-                        <Button onClick={handleLogout} className="flex items-center space-x-1 hover:text-green-400 transition duration-300">
+                        <Button onClick={handleLogout} className="flex items-center space-x-1">
                             <IoLogOut size={24} />
-                            <span className="text-[16px]">Deconnexion</span>
+                            <span className="text-md">Deconnexion</span>
                         </Button>
                     ) : (
                         <Link to="connexion">
-                            <Button className="flex items-center space-x-1 hover:text-green-400 transition duration-300">
+                            <Button className="flex items-center space-x-1">
                                 <IoLogIn size={24} />
-                                <span className="text-[16px]">Connexion</span>
+                                <span className="text-md">Connexion</span>
                             </Button>
                         </Link>
                     )}

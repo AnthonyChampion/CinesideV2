@@ -1,14 +1,15 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { fetchPersonDetails, fetchPersonMovies } from "../utils/moviedb";
 import { Link } from 'react-router-dom';
+import { Button } from 'flowbite-react';
 
-export default function PersonDetails({ personId, onClose, renderStars }) {
+export default function PersonDetails({ personId, onClose }) {
     const [person, setPerson] = useState(null);
     const [movies, setMovies] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const [moviesToShow, setMoviesToShow] = useState(20);
+    const [moviesToShow, setMoviesToShow] = useState(16);
 
     const fetchPersonData = useCallback(async () => {
         try {
@@ -32,14 +33,14 @@ export default function PersonDetails({ personId, onClose, renderStars }) {
     }, [fetchPersonData, personId]);
 
     const handleSeeMore = () => {
-        setMoviesToShow(prev => prev + 20);
+        setMoviesToShow(prev => prev + 12);
     };
 
     return (
         <div className="fixed inset-0 z-50 h-screen w-screen flex items-center justify-center bg-black bg-opacity-10 ">
             <div className="relative w-full h-full md:w-3/4 lg:w-3/4 bg-white text-black md:rounded-lg overflow-scroll noscrollbar">
                 <button
-                    className="absolute top-4 right-4 bg-green-500 text-white rounded-full w-10 h-10 flex items-center justify-center shadow-lg"
+                    className="absolute top-4 right-4 bg-cyan-700 text-white rounded-full w-10 h-10 flex items-center justify-center shadow-lg"
                     onClick={onClose}
                     aria-label="Close"
                 >
@@ -63,63 +64,54 @@ export default function PersonDetails({ personId, onClose, renderStars }) {
                         />
                         <div className="mt-6 flex flex-col items-center space-y-4">
                             <h2 className="text-2xl font-bold">{person.name}</h2>
-                            <p className="text-justify"><strong>Biographie:</strong> {person.biography}</p>
                             <p><strong>Date de naissance:</strong> {person.birthday}</p>
+                            <p className="text-justify"><strong>Biographie:</strong> {person.biography}</p>
                             {person.deathday && <p><strong>Date de décès:</strong> {person.deathday}</p>}
                         </div>
 
                         {movies.length > 0 && (
-                            <div className="mt-8 w-full">
-                                <h3 className="text-xl font-bold pb-4 text-center">Filmographie</h3>
-                                <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-5 gap-6">
-                                    {movies.slice(0, moviesToShow).map(movie => (
-                                        <div
-                                            key={movie.id}
-                                            className="relative group cursor-pointer overflow-hidden rounded-lg shadow-lg"
-                                        >
-                                            <img
-                                                className="w-full h-full object-cover transform transition duration-300 group-hover:scale-105"
-                                                src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                                                alt={movie.title}
-                                                onError={(e) => {
-                                                    e.target.onerror = null;
-                                                    e.target.src = "../src/assets/img_not_available.png";
-                                                }}
-                                            />
-                                            <button
-                                                onClick={onClose}
-                                                className="absolute inset-0 bg-transparent p-0 border-none cursor-pointer"
-                                            >
-                                                <Link to={`/film/${movie.id}`}>
-                                                    <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
-                                                        <div className="text-white">
-                                                            <h2 className="text-lg md:text-xl font-bold">{movie.title}</h2>
-                                                            <div className="flex flex-col mt-2">
-                                                                <div className="flex space-x-1">
-                                                                    {renderStars(movie.vote_average) || "Note inconnue"}
-                                                                </div>
-                                                                <div className="text-[14px] md:text-[16px]">
-                                                                    {Math.round(movie.vote_average * 100) / 100} /10
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </Link>
-                                            </button>
+                            <div className="grid grid-cols-2 md:grid-cols-6 mt-20">
+                                <div className="flex col-span-2 md:col-span-2 items-center justify-center">
+                                    {movies.length > moviesToShow && (
+                                        <div className="flex-col">
+                                            <h1 className="text-3xl text-black font-bold text-center">Filmographie</h1>
+                                            <div className="border-t border-gray-300 mt-4"></div>
+                                            {movies.length > moviesToShow && (
+                                                <Button
+                                                    onClick={handleSeeMore}
+                                                    className="flex items-center justify-center md:h-10 h-10 px-4 py-2 bg-cyan-700 text-white rounded-md shadow-md hover:bg-green-600 transition duration-300 ease-in-out transform hover:-translate-y-1"
+                                                >
+                                                    Afficher plus de films
+                                                </Button>
+                                            )}
                                         </div>
-                                    ))}
+                                    )}
                                 </div>
-
-                                {movies.length > moviesToShow && (
-                                    <div className="mt-4 md:mt-10 text-center">
-                                        <button
-                                            onClick={handleSeeMore}
-                                            className="bg-green-500 text-white px-4 py-2 rounded shadow-md hover:bg-green-600 transition duration-300"
-                                        >
-                                            Afficher plus de films
-                                        </button>
+                                {movies.slice(0, moviesToShow).map((data) => (
+                                    <div
+                                        key={data.id}
+                                        className="group flex flex-col cursor-pointer bg-transparent pb-2"
+                                    >
+                                        <Link to={`/film/${data.id}`}>
+                                            <div className="relative">
+                                                <img
+                                                    className="w-[200px] h-[300px] object-contain"
+                                                    src={"https://image.tmdb.org/t/p/original" + data.poster_path}
+                                                    alt={data.title}
+                                                    onClick={onClose}
+                                                    onError={(e) => {
+                                                        e.target.onerror = null;
+                                                        e.target.src = "../src/assets/img_not_available.png";
+                                                    }}
+                                                />
+                                            </div>
+                                            <div className="p-4 space-y-1">
+                                                <p className="text-sm text-gray-400">{data?.release_date ? new Date(data.release_date).getFullYear() : "N/A"}</p>
+                                                <h2 className="text-md font-bold line-clamp-1 text-black">{data.title}</h2>
+                                            </div>
+                                        </Link>
                                     </div>
-                                )}
+                                ))}
                             </div>
                         )}
                     </div>

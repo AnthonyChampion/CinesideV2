@@ -66,7 +66,6 @@ export default function MovieSearch() {
                             </svg>
                         </div>
                         <input type="search" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className="block w-full p-4 ps-10 text-sm text-black border border-gray-300 rounded-lg bg-white focus:ring-cyan-700 focus:border-cyan-700 " placeholder="Recherchez un film" required />
-                        <button type="submit" className="text-white absolute end-2.5 bottom-2.5 bg-cyan-700 hover:bg-green-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-cyan-700 dark:hover:bg-cyan-700 dark:focus:ring-cyan-700">Recherche</button>
                     </div>
                 </form>
             </div>
@@ -79,12 +78,12 @@ export default function MovieSearch() {
                                 {movies.map((movie) => (
                                     <Card
                                         key={movie.id}
-                                        className="relative group cursor-pointer border-none overflow-hidden rounded-lg shadow-lg bg-zinc-800"
+                                        className="relative group cursor-pointer border-none overflow-hidden shadow-lg bg-[#101522]"
                                         onClick={handleClose}
                                     >
                                         <Link to={`/film/${movie.id}`}>
                                             <img
-                                                className="w-full md:h-[350px] h-[180px] object-cover rounded-lg transform transition duration-300 group-hover:scale-105"
+                                                className="w-full md:h-[350px] h-[180px] object-cover transform transition duration-300 group-hover:scale-105"
                                                 src={"https://image.tmdb.org/t/p/w500" + movie.poster_path}
                                                 alt={movie.title}
                                                 onError={(e) => {
@@ -94,14 +93,14 @@ export default function MovieSearch() {
                                             />
                                             <div className="md:mt-4 mt-2">
                                                 <div className="text-white text-start">
-                                                    <h2 className="text-[16px] md:text-xl font-bold normal-case truncate">{movie.title}</h2>
+                                                    <h2 className="text-[16px] md:text-lg font-bold normal-case truncate">{movie.title}</h2>
                                                     <div className="flex flex-col space-y-1">
                                                         <div className="flex md:flex-row flex-col md:justify-between md:items-center">
                                                             {renderStars(movie.vote_average) || "Note inconnue"}
                                                             <p className="md:text-md text-sm">{Math.round(movie.vote_average * 100) / 100} /10</p>
                                                         </div>
                                                         <div className="text-sm md:text-md">
-                                                            {new Date(movie.release_date).toLocaleDateString()}
+                                                            {movie?.release_date ? new Date(movie.release_date).getFullYear() : "Date de sortie inconnue"}
                                                         </div>
                                                     </div>
                                                 </div>
