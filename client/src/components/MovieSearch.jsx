@@ -37,23 +37,6 @@ export default function MovieSearch() {
         setSearchTerm('');
     };
 
-    const renderStars = (vote_average) => {
-        const totalStars = 5;
-        const filledStars = Math.round((vote_average / 10) * totalStars);
-        const emptyStars = totalStars - filledStars;
-
-        return (
-            <div className="flex space-x-1">
-                {[...Array(filledStars)].map((_, i) => (
-                    <span key={i} className="text-yellow-500">★</span>
-                ))}
-                {[...Array(emptyStars)].map((_, i) => (
-                    <span key={i} className="text-gray-400">★</span>
-                ))}
-            </div>
-        );
-    };
-
     return (
         <section>
             <div className="flex">
@@ -71,7 +54,7 @@ export default function MovieSearch() {
             </div>
             {error && <p className="text-red-500 mt-2">{error}</p>}
             {movies.length > 0 && (
-                <div className="fixed inset-0 z-50 h-screen flex justify-center items-center bg-black bg-opacity-70 p-4 md:p-8 lg:p-6">
+                <div className="fixed inset-0 z-50 h-screen flex justify-center items-center bg-black bg-opacity-70 p-2 md:p-8 lg:p-6">
                     <div className="bg-white text-black rounded-lg overflow-scroll noscroll-bar h-full w-full md:w-3/4 lg:w-3/4">
                         <div className="relative">
                             <div className="grid grid-cols-2 gap-2 md:grid-cols-3 lg:grid-cols-4 overflow-y-auto p-2">
@@ -83,7 +66,7 @@ export default function MovieSearch() {
                                     >
                                         <Link to={`/film/${movie.id}`}>
                                             <img
-                                                className="w-full md:h-[350px] h-[180px] object-cover transform transition duration-300 group-hover:scale-105"
+                                                className="w-full md:h-[350px] h-[180px] object-contain transform transition duration-300 group-hover:scale-105"
                                                 src={"https://image.tmdb.org/t/p/w500" + movie.poster_path}
                                                 alt={movie.title}
                                                 onError={(e) => {
@@ -93,12 +76,8 @@ export default function MovieSearch() {
                                             />
                                             <div className="md:mt-4 mt-2">
                                                 <div className="text-white text-start">
-                                                    <h2 className="text-[16px] md:text-lg font-bold normal-case truncate">{movie.title}</h2>
+                                                    <h2 className="text-[16px] md:text-lg font-bold normal-case line-clamp-2">{movie.title}</h2>
                                                     <div className="flex flex-col space-y-1">
-                                                        <div className="flex md:flex-row flex-col md:justify-between md:items-center">
-                                                            {renderStars(movie.vote_average) || "Note inconnue"}
-                                                            <p className="md:text-md text-sm">{Math.round(movie.vote_average * 100) / 100} /10</p>
-                                                        </div>
                                                         <div className="text-sm md:text-md">
                                                             {movie?.release_date ? new Date(movie.release_date).getFullYear() : "Date de sortie inconnue"}
                                                         </div>
@@ -110,7 +89,7 @@ export default function MovieSearch() {
                                 ))}
                             </div>
                             <button
-                                className="absolute top-4 right-4 bg-green-500 text-white rounded-full w-10 h-10 flex items-center justify-center"
+                                className="absolute top-4 right-4 bg-cyan-700 text-white rounded-full w-10 h-10 flex items-center justify-center"
                                 onClick={handleClose}
                                 aria-label="Close"
                             >

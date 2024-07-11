@@ -121,12 +121,12 @@ const MovieDetailPage = () => {
                                 <div className="flex">
                                     {movie?.genres.reduce((acc, genre, i) => {
                                         if (i === 0) {
-                                            return [...acc, <span key={genre.id} className="text-md px-2 py-1 rounded-md">{genre.name}</span>];
+                                            return [...acc, <span key={genre.id} className="md:text-md text-xs md:px-2 py-1 rounded-md">{genre.name}</span>];
                                         }
                                         return [
                                             ...acc,
                                             <span key={`dot-${i}`} className="text-md px-2 py-1">•</span>,
-                                            <span key={genre.id} className="text-md px-2 py-1 rounded-md">{genre.name}</span>
+                                            <span key={genre.id} className="md:text-md text-xs px-2 py-1 rounded-md">{genre.name}</span>
                                         ];
                                     }, [])}
                                 </div>
@@ -241,12 +241,12 @@ const MovieDetailPage = () => {
                             {similarMovies.slice(0, 10).map((data) => (
                                 <div
                                     key={data.id}
-                                    className="group flex flex-col cursor-pointer bg-transparent pb-2"
+                                    className="group flex flex-col cursor-pointer bg-transparent pb-2 p-4 md:p-0"
                                 >
                                     <Link to={`/film/${data.id}`}>
                                         <div className="relative">
                                             <img
-                                                className="w-[200px] h-[300px] object-contain"
+                                                className="md:w-[200px] md:h-[300px] h-[250px] object-contain"
                                                 src={"https://image.tmdb.org/t/p/original" + data.poster_path}
                                                 alt={data.title}
                                                 onClick={scrollToTop}

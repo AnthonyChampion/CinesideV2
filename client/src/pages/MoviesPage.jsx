@@ -128,9 +128,9 @@ export default function MoviesPage() {
                     </Link>
                 </ol>
             </nav>
-            <div className="flex z-10">
-                <div className="flex-col w-[15%] pt-6 pl-4">
-                    <ul className="grid grid-cols-2 gap-2">
+            <div className="md:flex md:flex-row flex-col z-10">
+                <div className="md:flex-col flex-wrap md:w-[15%] w-full pt-6 pl-4">
+                    <ul className="grid grid-cols-4 md:grid-cols-2 gap-2">
                         <li
                             className="w-full text-black"
                             onClick={handleResetFilter}
@@ -150,20 +150,20 @@ export default function MoviesPage() {
                             </li>
                         ))}
                     </ul>
-                    <Button className="text-white w-full flex items-center mt-2 gap-1 bg-cyan-700"
+                    <Button className="text-white md:w-full w-[47%] flex items-center mt-2 p-1 md:p-0 gap-1 bg-cyan-700"
                         onClick={handleClick}>
                         <IoStar size={16} />
                         <p>Top TMDb</p>
                     </Button>
                 </div>
-                <div className=" w-[82%] ml-6 mt-6">
+                <div className=" md:w-[82%] w-full md:ml-6 mt-6">
                     {showTopRated ? (
                         <TopRated />
                     ) : (
                         <div className="grid grid-cols-2 md:grid-cols-6">
                             <div className="flex col-span-2 md:col-span-2 items-center justify-center">
                                 <div className="flex-col">
-                                    <h1 className="text-3xl text-white font-bold text-center">{activeFilter ? activeFilter.name : 'Tous les films'}</h1>
+                                    <h1 className="md:text-3xl text-xl text-white font-bold text-center">{activeFilter ? activeFilter.name : 'Tous les films'}</h1>
                                     <div className="flex justify-center items-center space-x-5 mt-6 pb-4">
                                         {page > 1 && (
                                             <Button
@@ -187,12 +187,12 @@ export default function MoviesPage() {
                             {moviesFiltered.slice(0, 10).map((movie) => (
                                 <div
                                     key={movie.id}
-                                    className="group flex flex-col cursor-pointer bg-transparent pb-2"
+                                    className="group flex flex-col cursor-pointer bg-transparent pb-2 mt-4 md:mt-0 ml-4 md:ml-0"
                                 >
                                     <Link to={`/film/${movie.id}`}>
                                         <div className="relative">
                                             <img
-                                                className="w-[200px] h-[300px] object-cover"
+                                                className="md:w-[200px] md:h-[300px] h-[250px] object-cover"
                                                 src={"https://image.tmdb.org/t/p/original" + movie.poster_path}
                                                 alt={movie.title}
                                                 onError={(e) => {

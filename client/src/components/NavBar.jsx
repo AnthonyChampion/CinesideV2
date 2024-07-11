@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { IoLogIn, IoLogOut, IoHeart, IoSearchOutline, IoClose } from 'react-icons/io5';
 import { RiMovie2Line } from "react-icons/ri";
-import { TbMovie } from "react-icons/tb";
+import { AiFillHome } from "react-icons/ai";
 import MovieSearch from './MovieSearch';
 import { Button } from 'flowbite-react';
 
@@ -70,8 +70,9 @@ export default function NavBar() {
             {/* Bottom navigation for mobile */}
             <div className="md:hidden fixed bottom-0 left-0 right-0 z-20 bg-[#101522]">
                 <div className="flex justify-around py-2 text-white">
-                    <Link to="/">
-                        <span className="text-md">Accueil</span>
+                    <Link to="/" className="flex flex-col items-center">
+                        <AiFillHome size={20} />
+                        <span className="text-xs">Accueil</span>
                     </Link>
                     <Link to="films" className="flex flex-col items-center">
                         <RiMovie2Line size={20} />
@@ -99,7 +100,7 @@ export default function NavBar() {
 
             {/* Conditional rendering of MovieSearch */}
             {showSearch && (
-                <div className="absolute w-full bg-black bg-opacity-90 z-30 p-4">
+                <div className="absolute w-full bg-[#101522] bg-opacity-90 z-30 p-4">
                     <MovieSearch />
                 </div>
             )}

@@ -54,7 +54,7 @@ export default function TopratedMovies() {
             <div className="grid grid-cols-2 md:grid-cols-6">
                 <div className="flex col-span-2 md:col-span-2 items-center justify-center">
                     <div className="flex-col">
-                        <h1 className="text-3xl text-white font-bold text-center">Top TMDb</h1>
+                        <h1 className="md:text-3xl text-xl text-white font-bold text-center">Top TMDb</h1>
                         <div className="flex justify-center items-center space-x-5 mt-6 pb-4">
                             {currentPage > 1 && (
                                 <Button
@@ -78,13 +78,13 @@ export default function TopratedMovies() {
                 {toprated.slice(0, 20).map((data, idx) => (
                     <div
                         key={data.id}
-                        className="group flex flex-col cursor-pointer bg-transparent pb-2"
+                        className="group flex flex-col cursor-pointer bg-transparent pb-2 mt-4 md:mt-0"
                         onClick={() => setIndex(idx)}
                     >
                         <Link to={`/film/${data.id}`}>
                             <div className="relative">
                                 <img
-                                    className="w-[200px] h-[300px] object-contain"
+                                    className="w-[200px] md:h-[300px] h-[250px] object-contain"
                                     src={"https://image.tmdb.org/t/p/original" + data.poster_path}
                                     alt={data.title}
                                     onError={(e) => {
