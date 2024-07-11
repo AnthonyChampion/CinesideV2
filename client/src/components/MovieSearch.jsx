@@ -65,7 +65,7 @@ export default function MovieSearch() {
                                 <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
                             </svg>
                         </div>
-                        <input type="search" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className="block w-full p-4 ps-10 text-sm text-white border border-gray-300 rounded-lg bg-zinc-800 focus:ring-cyan-700 focus:border-cyan-700 " placeholder="Recherchez un film" required />
+                        <input type="search" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className="block w-full p-4 ps-10 text-sm text-black border border-gray-300 rounded-lg bg-white focus:ring-cyan-700 focus:border-cyan-700 " placeholder="Recherchez un film" required />
                         <button type="submit" className="text-white absolute end-2.5 bottom-2.5 bg-cyan-700 hover:bg-green-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-cyan-700 dark:hover:bg-cyan-700 dark:focus:ring-cyan-700">Recherche</button>
                     </div>
                 </form>
@@ -125,14 +125,3 @@ export default function MovieSearch() {
     );
 }
 
-
-{/* <form onSubmit={handleSearch} className="relative md:flex md:flex-row flex-col items-center">
-                    <input
-                        type="text"
-                        value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
-                        className="h-11 md:w-[15rem] w-[15rem] bg-zinc-800 bg-opacity-50 rounded-md text-center text-white text-[16px] pr-10 "
-                        placeholder="RECHERCHE"
-                    />
-                    <IoSearch className="absolute right-3 text-white" style={{ top: '50%', transform: 'translateY(-50%)' }} />
-                </form> */}

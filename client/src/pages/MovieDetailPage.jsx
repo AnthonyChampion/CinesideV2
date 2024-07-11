@@ -73,7 +73,7 @@ const MovieDetailPage = () => {
     };
 
     return (
-        <div ref={movieList} className="flex flex-col items-center justify-center text-white font-Roboto bg-[#111111] -mt-[10vh] pt-[10vh]">
+        <div ref={movieList} className="flex flex-col items-center justify-center text-white font-Roboto bg-[#101522]">
             {loading ? (
                 <div className="flex justify-center items-center h-screen">
                     <div className="spinner-border animate-spin inline-block w-8 h-8 border-4 rounded-full text-green-500" role="status">
@@ -223,8 +223,8 @@ const MovieDetailPage = () => {
                     {similarMovies && similarMovies.length > 0 && (
                         <div className="mt-8 md:mt-12  px-3 md:px-0">
                             <h3 className="md:text-2xl">Recommandations</h3>
-                            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-4">
-                                {similarMovies.slice(0, 16).map(similarMovie => (
+                            <div className="grid grid-cols-2 md:grid-cols-5 gap-6 mt-4">
+                                {similarMovies.slice(0, 15).map(similarMovie => (
                                     <div
                                         key={similarMovie?.id}
                                         className="relative group cursor-pointer overflow-hidden rounded-lg shadow-lg"

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 function Footer() {
     return (
-        <footer className="text-white py-6 bg-[#111111]">
+        <footer className="text-white py-6 bg-[#101522]">
             <div className="container mx-auto text-center">
                 <div className="mb-4 flex justify-center items-center">
                     <svg className="w-6 h-6 text-gray-400 hover:text-white mx-2" fill="currentColor" viewBox="0 0 24 24">

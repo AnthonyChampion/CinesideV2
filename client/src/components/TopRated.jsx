@@ -59,17 +59,17 @@ export default function TopratedMovies() {
     };
 
     return (
-        <section className="w-screen h-fit text-white flex flex-col items-center bg-[#111111]">
-            <div ref={moviesList} className="flex-grow">
-                <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2 m-6">
+        <section className="h-fit flex flex-col items-center bg-[#101522]">
+            <div ref={moviesList} className="">
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 px-4">
                     {toprated.map((movie) => (
                         <Card
                             key={movie.id}
-                            className="relative group cursor-pointer border-none overflow-hidden rounded-lg shadow-lg bg-zinc-800"
+                            className="relative group cursor-pointer border-none overflow-hidden rounded-lg shadow-lg bg-[#101522]"
                         >
                             <Link to={`/film/${movie.id}`}>
                                 <img
-                                    className="w-full md:h-[420px] object-cover rounded-lg transform transition duration-300 group-hover:scale-105"
+                                    className="w-[280px] md:h-[350px] object-cover rounded-lg transform transition duration-300 group-hover:scale-105"
                                     src={"https://image.tmdb.org/t/p/w500" + movie.poster_path}
                                     alt={movie.title}
                                     onError={(e) => {
@@ -79,10 +79,10 @@ export default function TopratedMovies() {
                                 />
                                 <div className="mt-4">
                                     <div className="text-white">
-                                        <h2 className="text-md md:text-xl font-bold truncate">{movie.title}</h2>
+                                        <h2 className="text-md md:text-lg font-bold truncate">{movie.title}</h2>
                                         <div className="flex flex-col space-y-1">
                                             <div className="flex md:flex-row flex-col md:justify-between md:items-center">
-                                                {renderStars(movie.vote_average) || "N/A"}
+                                                {renderStars(movie.vote_average) || "Note inconnue"}
                                                 <p className="md:text-md text-sm">{Math.round(movie.vote_average * 100) / 100} /10</p>
                                             </div>
                                             <div className="text-sm md:text-md">
@@ -94,8 +94,6 @@ export default function TopratedMovies() {
                             </Link>
                         </Card>
                     ))}
-
-
                 </div>
                 <div className="flex justify-center items-center space-x-5 mt-6 h-[70%]">
                     {currentPage > 1 && (
