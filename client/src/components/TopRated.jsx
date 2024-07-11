@@ -1,14 +1,12 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { fetchTopRatedMovies } from '../utils/moviedb';
+import { Button } from 'flowbite-react';
 import { Link } from 'react-router-dom';
-import { Button, Card } from 'flowbite-react';
 
 export default function TopratedMovies() {
     const [toprated, setToprated] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [setIndex] = useState(0);
-
-    const moviesList = useRef(null);
 
     const getTopratedMovies = async (page) => {
         try {
@@ -26,18 +24,11 @@ export default function TopratedMovies() {
 
     const goToNextPage = () => {
         setCurrentPage(currentPage + 1);
-        scrollToTop();
     };
 
     const goToPrevPage = () => {
         if (currentPage > 1) {
             setCurrentPage(currentPage - 1);
-        }
-    };
-
-    const scrollToTop = () => {
-        if (moviesList.current) {
-            moviesList.current.scrollIntoView({ behavior: 'smooth' });
         }
     };
 
@@ -60,58 +51,57 @@ export default function TopratedMovies() {
 
     return (
         <section className="h-fit flex flex-col items-center bg-[#101522]">
-            <div ref={moviesList} className="">
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 px-4">
-                    {toprated.map((movie) => (
-                        <Card
-                            key={movie.id}
-                            className="relative group cursor-pointer border-none overflow-hidden rounded-lg shadow-lg bg-[#101522]"
+            <div className="">
+                <div className="grid grid-cols-2 md:grid-cols-6">
+                    <div className="flex col-span-2 md:col-span-2 items-center justify-center">
+                        <div className="flex-col">
+                            <h1 className="text-3xl text-white font-bold text-center">Top TMDb</h1>
+                            <div className="flex justify-center items-center space-x-5 mt-6 pb-4">
+                                {currentPage > 1 && (
+                                    <Button
+                                        onClick={goToPrevPage}
+                                        className="flex items-center justify-center md:h-10 h-10 px-4 py-2 bg-cyan-700 text-white rounded-md shadow-md hover:bg-green-600 transition duration-300 ease-in-out transform hover:-translate-y-1"
+                                    >
+                                        Films précédents
+                                    </Button>
+                                )}
+                                <Button
+                                    onClick={goToNextPage}
+                                    className="flex items-center justify-center md:h-10 h-10 px-4 py-2 bg-cyan-700 text-white rounded-md shadow-md hover:bg-green-600 transition duration-300 ease-in-out transform hover:-translate-y-1"
+                                >
+                                    Films suivants
+                                </Button>
+                            </div>
+                            <div className="border-t border-gray-300 mt-4"></div>
+                        </div>
+                    </div>
+
+                    {toprated.slice(0, 20).map((data, idx) => (
+                        <div
+                            key={data.id}
+                            className="group flex flex-col cursor-pointer bg-transparent pb-2"
+                            onClick={() => setIndex(idx)}
                         >
-                            <Link to={`/film/${movie.id}`}>
-                                <img
-                                    className="w-[280px] md:h-[350px] object-cover rounded-lg transform transition duration-300 group-hover:scale-105"
-                                    src={"https://image.tmdb.org/t/p/w500" + movie.poster_path}
-                                    alt={movie.title}
-                                    onError={(e) => {
-                                        e.target.onerror = null;
-                                        e.target.src = "../src/assets/img_not_available.png";
-                                    }}
-                                />
-                                <div className="mt-4">
-                                    <div className="text-white">
-                                        <h2 className="text-md md:text-lg font-bold truncate">{movie.title}</h2>
-                                        <div className="flex flex-col space-y-1">
-                                            <div className="flex md:flex-row flex-col md:justify-between md:items-center">
-                                                {renderStars(movie.vote_average) || "Note inconnue"}
-                                                <p className="md:text-md text-sm">{Math.round(movie.vote_average * 100) / 100} /10</p>
-                                            </div>
-                                            <div className="text-sm md:text-md">
-                                                {new Date(movie.release_date).toLocaleDateString()}
-                                            </div>
-                                        </div>
-                                    </div>
+                            <Link to={`/film/${data.id}`}>
+                                <div className="relative">
+                                    <img
+                                        className="w-full h-[300px] object-contain"
+                                        src={"https://image.tmdb.org/t/p/original" + data.poster_path}
+                                        alt={data.title}
+                                        onError={(e) => {
+                                            e.target.onerror = null;
+                                            e.target.src = "../src/assets/img_not_available.png";
+                                        }}
+                                    />
+                                </div>
+                                <div className="p-4 space-y-1">
+                                    <p className="text-sm text-gray-400">{data.release_date}</p>
+                                    <h2 className="text-md font-bold line-clamp-1 text-white">{data.title}</h2>
                                 </div>
                             </Link>
-                        </Card>
+
+                        </div>
                     ))}
-                </div>
-                <div className="flex justify-center items-center space-x-5 mt-6 h-[70%]">
-                    {currentPage > 1 && (
-                        <Button
-                            onClick={goToPrevPage}
-                            className="flex items-center justify-center md:h-20 md:w-32 h-16 w-24 px-4 py-2 bg-green-500 text-white rounded-md shadow-md hover:bg-green-600 transition duration-300 ease-in-out transform hover:-translate-y-1"
-                        >
-                            Page Précédente
-
-                        </Button>
-                    )}
-                    <Button
-                        onClick={goToNextPage}
-                        className="flex items-center justify-center md:h-20 md:w-32 h-16 w-24 px-4 py-2 bg-green-500 text-white rounded-md shadow-md hover:bg-green-600 transition duration-300 ease-in-out transform hover:-translate-y-1"
-                    >
-                        Page Suivante
-
-                    </Button>
                 </div>
             </div>
         </section>
