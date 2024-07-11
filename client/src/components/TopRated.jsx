@@ -85,7 +85,7 @@ export default function TopratedMovies() {
                             <Link to={`/film/${data.id}`}>
                                 <div className="relative">
                                     <img
-                                        className="w-full h-[300px] object-contain"
+                                        className="w-[200px] h-[300px] object-contain"
                                         src={"https://image.tmdb.org/t/p/original" + data.poster_path}
                                         alt={data.title}
                                         onError={(e) => {

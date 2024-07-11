@@ -99,8 +99,8 @@ export default function MoviesPage() {
     const handleLoadLessMovies = () => {
         setPage(prevPage => prevPage - 1);
         setLoading(true);
-        scrollToTop
-    }
+        scrollToTop();
+    };
 
     const handleClick = () => {
         setShowTopRated(true);
@@ -136,14 +136,14 @@ export default function MoviesPage() {
                         <p>Top TMDb</p>
                     </Button>
                 </div>
-                <div className=" w-[82%] mt-6">
+                <div className=" w-[82%] ml-6 mt-6">
                     {showTopRated ? (
                         <TopRated />
                     ) : (
                         <div className="grid grid-cols-2 md:grid-cols-6">
                             <div className="flex col-span-2 md:col-span-2 items-center justify-center">
                                 <div className="flex-col">
-                                    <h1 className="text-3xl text-white font-bold text-center">Top TMDb</h1>
+                                    <h1 className="text-3xl text-white font-bold text-center">{activeFilter ? activeFilter.name : 'Tous les films'}</h1>
                                     <div className="flex justify-center items-center space-x-5 mt-6 pb-4">
                                         {page > 1 && (
                                             <Button
@@ -164,7 +164,7 @@ export default function MoviesPage() {
                                 </div>
                             </div>
 
-                            {moviesFiltered.slice(0, 10).map((movie,) => (
+                            {moviesFiltered.slice(0, 10).map((movie) => (
                                 <div
                                     key={movie.id}
                                     className="group flex flex-col cursor-pointer bg-transparent pb-2"
@@ -172,7 +172,7 @@ export default function MoviesPage() {
                                     <Link to={`/film/${movie.id}`}>
                                         <div className="relative">
                                             <img
-                                                className="w-full h-[300px] object-contain"
+                                                className="w-[200px] h-[300px] object-cover"
                                                 src={"https://image.tmdb.org/t/p/original" + movie.poster_path}
                                                 alt={movie.title}
                                                 onError={(e) => {
@@ -196,15 +196,3 @@ export default function MoviesPage() {
         </section>
     );
 }
-
-
-// {moviesFiltered.length > 0 && (
-//     <div className="flex justify-center mt-8 md:mt-14">
-//         <Button type="button"
-//             className="bg-green-500 text-white font-bold md:text-lg p-2 md:p-3 w-40 md:w-56 rounded-lg hover:bg-green-600 transition duration-300"
-//             onClick={handleLoadMoreMovies}
-//         >
-//             Plus de films
-//         </Button>
-//     </div>
-// )}
