@@ -114,19 +114,19 @@ const MovieDetailPage = () => {
 
                     <div className="mt-8 px-3 md:px-0">
                         <h1 className="text-3xl md:text-5xl uppercase font-bold w-[75%]">{movie?.title || "Title Not Available"}</h1>
-                        <div className="md:flex md:flex-row flex-col md:space-x-10 md:space-y-0 space-y-2 mt-4">
+                        <div className="md:flex md:flex-row flex-col items-center md:space-x-10 md:space-y-0 space-y-2 mt-4">
                             <p className="md:text-lg">Sortie: {movie?.release_date}</p>
                             <p className="md:text-lg">{movie?.runtime} min</p>
                             {movie?.genres && (
                                 <div className="flex">
                                     {movie?.genres.reduce((acc, genre, i) => {
                                         if (i === 0) {
-                                            return [...acc, <span key={genre.id} className="md:text-md text-xs md:px-2 py-1 rounded-md">{genre.name}</span>];
+                                            return [...acc, <span key={genre.id} className="md:text-lg text-xs md:px-2 py-1 rounded-md">{genre.name}</span>];
                                         }
                                         return [
                                             ...acc,
-                                            <span key={`dot-${i}`} className="text-md px-2 py-1">•</span>,
-                                            <span key={genre.id} className="md:text-md text-xs px-2 py-1 rounded-md">{genre.name}</span>
+                                            <span key={`dot-${i}`} className="text-lg px-2 py-1">•</span>,
+                                            <span key={genre.id} className="md:text-lg text-xs px-2 py-1 rounded-md">{genre.name}</span>
                                         ];
                                     }, [])}
                                 </div>

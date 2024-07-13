@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useMemo, useCallback } from 'react';
 import { fetchGenresOfMovies, fetchMoviesByGenre } from '../utils/moviedb';
 import { Link } from 'react-router-dom';
 import { IoStar } from 'react-icons/io5';
@@ -13,25 +13,24 @@ export default function MoviesPage() {
     const [page, setPage] = useState(1);
     const [loading, setLoading] = useState(true);
 
-    const moviesListRef = useRef(null);
     const MOVIES_PER_PAGE = 10;
 
-    const handleClickFilter = (filterId, filterName) => {
+    const handleClickFilter = useCallback((filterId, filterName) => {
         setActiveFilter({ id: filterId, name: filterName });
         setPage(1);
         setLoading(true);
         setShowTopRated(false);
-    };
+    }, []);
 
-    const handleResetFilter = () => {
+    const handleResetFilter = useCallback(() => {
         setActiveFilter(null);
         setMoviesFiltered([]);
         setPage(1);
         setLoading(true);
         setShowTopRated(false);
-    };
+    }, []);
 
-    const getGenresOfMovies = async () => {
+    const getGenresOfMovies = useCallback(async () => {
         try {
             const data = await fetchGenresOfMovies();
             const filteredGenres = data.genres.filter(genre => genre.name !== "Téléfilm" && genre.name !== "Documentaire");
@@ -39,9 +38,9 @@ export default function MoviesPage() {
         } catch (error) {
             console.error('Erreur dans la récupération des genres:', error);
         }
-    };
+    }, []);
 
-    const getMoviesFiltered = async (page, genreId) => {
+    const getMoviesFiltered = useCallback(async (page, genreId) => {
         try {
             let allMovies = [];
             let currentPage = page;
@@ -72,39 +71,33 @@ export default function MoviesPage() {
             console.error('Erreur dans la récupération des films:', error);
             setLoading(false);
         }
-    };
+    }, []);
 
     useEffect(() => {
         getGenresOfMovies();
-    }, []);
+    }, [getGenresOfMovies]);
 
     useEffect(() => {
         if (!showTopRated) {
             getMoviesFiltered(page, activeFilter?.id || null);
         }
-    }, [page, activeFilter, showTopRated]);
+    }, [page, activeFilter, showTopRated, getMoviesFiltered]);
 
-    const scrollToTop = () => {
-        if (moviesListRef.current) {
-            moviesListRef.current.scrollIntoView({ behavior: 'smooth' });
-        }
-    };
-
-    const handleLoadMoreMovies = () => {
+    const handleLoadMoreMovies = useCallback(() => {
         setPage(prevPage => prevPage + 1);
         setLoading(true);
-        scrollToTop();
-    };
+    }, []);
 
-    const handleLoadLessMovies = () => {
+    const handleLoadLessMovies = useCallback(() => {
         setPage(prevPage => prevPage - 1);
         setLoading(true);
-        scrollToTop();
-    };
+    }, []);
 
-    const handleClick = () => {
+    const handleClick = useCallback(() => {
         setShowTopRated(true);
-    };
+    }, []);
+
+    const filteredMovies = useMemo(() => moviesFiltered.slice(0, 10), [moviesFiltered]);
 
     return (
         <section className="w-screen bg-[#101522] pt-4">
@@ -156,7 +149,7 @@ export default function MoviesPage() {
                         <p>Top TMDb</p>
                     </Button>
                 </div>
-                <div className=" md:w-[82%] w-full md:ml-6 mt-6">
+                <div className=" md:w-[82%] w-full md:ml-8 mt-6">
                     {showTopRated ? (
                         <TopRated />
                     ) : (
@@ -184,15 +177,15 @@ export default function MoviesPage() {
                                 </div>
                             </div>
 
-                            {moviesFiltered.slice(0, 10).map((movie) => (
+                            {filteredMovies.map((movie) => (
                                 <div
                                     key={movie.id}
-                                    className="group flex flex-col cursor-pointer bg-transparent pb-2 mt-4 md:mt-0 ml-4 md:ml-0"
+                                    className="group flex flex-col cursor-pointer bg-transparent p-3 mt-4 md:mt-0"
                                 >
                                     <Link to={`/film/${movie.id}`}>
                                         <div className="relative">
                                             <img
-                                                className="md:w-[200px] md:h-[300px] h-[250px] object-cover"
+                                                className="w-full md:h-[300px] h-[250px] object-cover"
                                                 src={"https://image.tmdb.org/t/p/original" + movie.poster_path}
                                                 alt={movie.title}
                                                 onError={(e) => {
@@ -201,7 +194,7 @@ export default function MoviesPage() {
                                                 }}
                                             />
                                         </div>
-                                        <div className="p-4 space-y-1">
+                                        <div className="space-y-1">
                                             <p className="text-sm text-gray-400">{movie.release_date}</p>
                                             <h2 className="text-md font-bold line-clamp-1 text-white">{movie.title}</h2>
                                         </div>

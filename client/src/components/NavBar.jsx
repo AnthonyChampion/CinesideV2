@@ -34,9 +34,10 @@ export default function NavBar() {
                         {showSearch ? <IoClose size={24} /> : <IoSearchOutline size={24} />}
                     </button>
                 </div>
-                <div className="hidden md:flex space-x-10 items-center">
-                    <Link to="/">
-                        <span className="text-md hover:text-cyan-700">Accueil</span>
+                <div className="hidden md:flex space-x-10">
+                    <Link to="/" className="flex items-center space-x-2 hover:text-cyan-700">
+                        <AiFillHome size={24} />
+                        <span className="text-md">Accueil</span>
                     </Link>
                     <Link to="films" className="flex items-center space-x-2 hover:text-cyan-700">
                         <RiMovie2Line size={24} />

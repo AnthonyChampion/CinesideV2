@@ -78,13 +78,13 @@ export default function TopratedMovies() {
                 {toprated.slice(0, 20).map((data, idx) => (
                     <div
                         key={data.id}
-                        className="group flex flex-col cursor-pointer bg-transparent pb-2 mt-4 md:mt-0"
+                        className="group flex flex-col cursor-pointer bg-transparent p-3 mt-4 md:mt-0"
                         onClick={() => setIndex(idx)}
                     >
                         <Link to={`/film/${data.id}`}>
                             <div className="relative">
                                 <img
-                                    className="w-[200px] md:h-[300px] h-[250px] object-contain"
+                                    className="w-full md:h-[300px] h-[250px] object-contain"
                                     src={"https://image.tmdb.org/t/p/original" + data.poster_path}
                                     alt={data.title}
                                     onError={(e) => {
@@ -93,7 +93,7 @@ export default function TopratedMovies() {
                                     }}
                                 />
                             </div>
-                            <div className="p-4 space-y-1">
+                            <div className="space-y-1">
                                 <p className="text-sm text-gray-400">{data.release_date}</p>
                                 <h2 className="text-md font-bold line-clamp-1 text-white">{data.title}</h2>
                             </div>
