@@ -6,6 +6,7 @@ export default function LoginPage() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+    const [message, setMessage] = useState('');
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -22,6 +23,10 @@ export default function LoginPage() {
 
             console.log('Connexion effectuée !', response);
 
+            // Mettre response.token dans la session (Avec une durée limité)
+            // Mettre le response.user dans la session ou dans le context 
+            // le contexte n'est pas accessible par l'utilisateur alors que la session oui
+            setMessage(response.message);
 
         } catch (error) {
             console.error('Erreur lors de la connexion:', error.message);
