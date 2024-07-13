@@ -65,10 +65,24 @@ const deleteUser = async (req, res) => {
     }
 };
 
+const login = async (req, res) => {
+    try {
+        const login = await userService.authenticate(req.body);
+        if (!login) {
+            res.json({ message: "La combinaison email/mot de passe n'est pas valide.", user: null, token: null })
+        }
+        res.json({ message: "Vous êtes connecté " + login.user.name, user: login.user, token: login.token });
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({ message: 'Internal Server Error' });
+    }
+};
+
 module.exports = {
     getAllUsers,
     getUserById,
     createUser,
     updateUser,
     deleteUser,
+    login
 };

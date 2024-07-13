@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require("cors");
 const userRouter = require('./router/userRouter');
+const loginRouter = require('./router/loginRouter');
 const favoriteRouter = require("./router/favoriteRouter");
 const authMiddleware = require('./middleware/authMiddleware');
 
@@ -17,9 +18,9 @@ app.use(bodyParser.json());
 app.use(cors({ origin: [process.env.PORT], credentials: true }));
 
 // On redirige la requête vers le router (en passant avant par le middleware)
+app.use('/login', loginRouter);
 app.use('/users', authMiddleware, userRouter);
-// app.use('/login', loginRouter);
-app.use("/favorites", favoriteRouter);
+app.use("/favorites", authMiddleware, favoriteRouter);
 
 // On ecoute que le serveur est bien lancé sur lon bon port
 app.listen(process.env.PORT, () => {

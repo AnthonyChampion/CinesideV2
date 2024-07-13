@@ -5,11 +5,11 @@ const argon2 = require('argon2');
 // On récupère le
 const loginRepository = AppDataSource.getRepository(Login);
 
-const login = async () => {
+const authenticate = async () => {
     return await loginRepository.find();
 };
 
 
 module.exports = {
-    login,
+    authenticate,
 };
