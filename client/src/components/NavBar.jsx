@@ -8,6 +8,7 @@ import { AiFillHome } from "react-icons/ai";
 import MovieSearch from './MovieSearch';
 import { Button } from 'flowbite-react';
 
+
 export default function NavBar({ showSearchProp }) {
     const { auth, logout } = useAuth();
     const [showSearch, setShowSearch] = useState(showSearchProp || false);
@@ -51,12 +52,18 @@ export default function NavBar({ showSearchProp }) {
                     )}
                     <MovieSearch />
                 </div>
+                {auth && (
+                    <p className="text-black"> Bienvenue {auth?.name}</p>
+                )}
+                <div className="">
+                </div>
                 <div className="hidden md:flex items-center space-x-2">
                     {auth ? (
                         <Button onClick={handleLogout} className="flex items-center space-x-1">
                             <IoLogOut size={24} />
                             <span className="text-md">Deconnexion</span>
                         </Button>
+
                     ) : (
                         <Link to="connexion">
                             <Button className="flex items-center space-x-1">

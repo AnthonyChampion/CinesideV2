@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
+import axios from 'axios';
+
 
 export default function LoginPage() {
     const [email, setEmail] = useState('');
@@ -15,15 +16,11 @@ export default function LoginPage() {
         event.preventDefault();
         setErrorMessage('');
 
-        console.log(`API URL: ${import.meta.env.VITE_API_URL}/login`);
-
         try {
             const response = await axios.post(`${import.meta.env.VITE_API_URL}/login`, { email, password });
-
-            const { token } = response.data;
-            login(token);
-
-            axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+            console.log(response.data.message)
+            const { token } = response.data.token;
+            login(response.data.user, token); // Méthode login présente dans le context
 
             navigate('/');
         } catch (error) {

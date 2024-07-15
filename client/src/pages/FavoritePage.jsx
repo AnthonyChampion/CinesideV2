@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { fetchMovieDetails } from '../utils/moviedb';
 import { Link } from 'react-router-dom';
 import { Button } from 'flowbite-react';
 
-export default function Favorite() {
 
+
+export default function Favorite() {
     const [favorites, setFavorites] = useState([]);
 
     useEffect(() => {
