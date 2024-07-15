@@ -41,34 +41,33 @@ const deleteUser = async (id) => {
 const authenticate = async (credentials) => {
     const { email, password } = credentials;
 
-    // Rechercher si l'utilisateur existe dans la base de données
-    const user = getUserByEmail(email);
-    if (!user) {
-        return null;
-    }
+    try {
+        const user = await getUserByEmail(email);
+        if (!user) {
+            return null;
+        }
 
-    // vérifier que le mot de passe est valide
+        const validPassword = await argon2.verify(user.password, password);
 
-    const validPassword = await argon2.verify(user.password, password);
+        if (!validPassword) {
+            return null;
+        }
 
-    if (!validPassword) {
-        return null;
-    }
-    else {
-        // Creer un token
         const token = jwt.sign(
-            {
-                email: user.email
-            },
+            { email: user.email },
             process.env.JWT_SECRET,
-            {
-                expiresIn: '24h' // faire correspondre à la durée de validité de la session
-            }
-        )
-        console.log("token : ", token)
+            { expiresIn: '24h' }
+        );
+
+        return { user, token };
+    } catch (error) {
+        console.error(error);
+        throw new Error('Internal Server Error');
     }
-    return { user, token };
 };
+
+
+
 
 module.exports = {
     getAllUsers,

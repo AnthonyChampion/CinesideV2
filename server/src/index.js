@@ -15,7 +15,10 @@ const app = express();
 // On le configure pour qu'il utilise le format json
 app.use(bodyParser.json());
 
-app.use(cors({ origin: [process.env.PORT], credentials: true }));
+app.use(cors({
+    origin: [process.env.CLIENT_URL],
+    credentials: true,
+}));
 
 // On redirige la requête vers le router (en passant avant par le middleware)
 app.use('/login', loginRouter);
