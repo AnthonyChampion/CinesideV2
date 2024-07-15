@@ -13,6 +13,8 @@ import LoginPage from './pages/LoginPage.jsx';
 import RegisterPage from './pages/RegisterPage.jsx';
 import MovieDetailPage from './pages/MovieDetailPage.jsx';
 import ProtectedRoute from './components/ProtectedRoutes.jsx';
+import ProfilePage from './pages/ProfilePage.jsx';
+import AdminPage from './pages/AdminPage.jsx';
 
 
 const router = createBrowserRouter([
@@ -38,6 +40,22 @@ const router = createBrowserRouter([
       {
         element: <MovieDetailPage />,
         path: "/film/:id",
+      },
+      {
+        element: (
+          <ProtectedRoute>
+            <AdminPage />
+          </ProtectedRoute>
+        ),
+        path: "admin",
+      },
+      {
+        element: (
+          <ProtectedRoute>
+            <ProfilePage />
+          </ProtectedRoute>
+        ),
+        path: "/profil",
       },
       {
         element: (

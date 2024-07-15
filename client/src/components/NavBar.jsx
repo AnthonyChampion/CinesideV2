@@ -5,9 +5,9 @@ import { useAuth } from '../contexts/AuthContext';
 import { IoLogIn, IoLogOut, IoHeart, IoSearchOutline, IoClose } from 'react-icons/io5';
 import { RiMovie2Line } from "react-icons/ri";
 import { AiFillHome } from "react-icons/ai";
+import { FaRegUser } from "react-icons/fa";
 import MovieSearch from './MovieSearch';
 import { Button } from 'flowbite-react';
-
 
 export default function NavBar({ showSearchProp }) {
     const { auth, logout } = useAuth();
@@ -50,20 +50,28 @@ export default function NavBar({ showSearchProp }) {
                             <span className="text-md">Favoris</span>
                         </Link>
                     )}
+                    {auth && auth.isAdmin && (
+                        <Link to="admin" className="flex items-center space-x-2 hover:text-cyan-700">
+                            <FaRegUser size={24} />
+                            <span className="text-md">Admin</span>
+                        </Link>
+                    )}
                     <MovieSearch />
                 </div>
-                {auth && (
-                    <p className="text-black"> Bienvenue {auth?.name}</p>
-                )}
-                <div className="">
-                </div>
-                <div className="hidden md:flex items-center space-x-2">
+                <div className="hidden md:flex items-center space-x-4">
                     {auth ? (
-                        <Button onClick={handleLogout} className="flex items-center space-x-1">
-                            <IoLogOut size={24} />
-                            <span className="text-md">Deconnexion</span>
-                        </Button>
-
+                        <>
+                            <div className="flex items-center space-x-4">
+                                <span>Bienvenue {auth?.name}</span>
+                                <Link to="profil">
+                                    <FaRegUser size={24} />
+                                </Link>
+                            </div>
+                            <Button onClick={handleLogout} className="flex items-center space-x-1">
+                                <IoLogOut size={24} />
+                                <span className="text-md">Deconnexion</span>
+                            </Button>
+                        </>
                     ) : (
                         <Link to="connexion">
                             <Button className="flex items-center space-x-1">
@@ -87,9 +95,9 @@ export default function NavBar({ showSearchProp }) {
                         <span className="text-xs">Films</span>
                     </Link>
                     {auth && (
-                        <Link to="favoris" className="flex flex-col items-center">
-                            <IoHeart size={20} />
-                            <span className="text-xs">Favoris</span>
+                        <Link to="profil" className="flex flex-col items-center">
+                            <FaRegUser size={20} />
+                            <span className="text-xs">Profil</span>
                         </Link>
                     )}
                     {auth ? (
@@ -117,5 +125,3 @@ export default function NavBar({ showSearchProp }) {
 NavBar.propTypes = {
     showSearchProp: PropTypes.bool,
 };
-
-
