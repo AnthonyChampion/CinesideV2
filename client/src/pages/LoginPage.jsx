@@ -15,6 +15,8 @@ export default function LoginPage() {
         event.preventDefault();
         setErrorMessage('');
 
+        console.log(`API URL: ${import.meta.env.VITE_API_URL}/login`);
+
         try {
             const response = await axios.post(`${import.meta.env.VITE_API_URL}/login`, { email, password });
 

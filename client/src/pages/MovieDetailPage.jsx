@@ -104,7 +104,7 @@ const MovieDetailPage = () => {
                             }}
                         />
                         <button
-                            className={`absolute top-4 right-4 bg-${isFavorite ? 'red' : "cyan"}-500 text-white rounded-full w-10 h-10 flex items-center justify-center`}
+                            className={`absolute top-4 right-4 ${isFavorite ? 'bg-red-500' : 'bg-green-500'} text-white rounded-full w-10 h-10 flex items-center justify-center`}
                             onClick={toggleFavorite}
                             aria-label="Favorite"
                         >
@@ -115,7 +115,7 @@ const MovieDetailPage = () => {
                     <div className="mt-8 px-3 md:px-0">
                         <h1 className="text-3xl md:text-5xl uppercase font-bold w-[75%]">{movie?.title || "Title Not Available"}</h1>
                         <div className="md:flex md:flex-row flex-col items-center md:space-x-10 md:space-y-0 space-y-2 mt-4">
-                            <p className="md:text-lg">Sortie: {movie?.release_date}</p>
+                            <p className="md:text-lg">Date de sortie: {movie?.release_date}</p>
                             <p className="md:text-lg">{movie?.runtime} min</p>
                             {movie?.genres && (
                                 <div className="flex">
@@ -131,12 +131,12 @@ const MovieDetailPage = () => {
                                     }, [])}
                                 </div>
                             )}
-
                         </div>
                     </div>
+
                     {crew && crew?.length > 0 && (
                         <div className="mt-2 flex space-x-4 items-end">
-                            <h3 className="md:text-lg px-3 md:px-0">Réalisateurs(s):</h3>
+                            <h3 className="md:text-lg px-3 md:px-0">Réalisateur(s):</h3>
                             <ul className="md:text-lg flex space-x-2">
                                 {crew.filter(cast => cast.job === "Director").map(cast => (
                                     <li key={cast?.id}>{cast?.name}</li>
@@ -144,17 +144,19 @@ const MovieDetailPage = () => {
                             </ul>
                         </div>
                     )}
+
                     <div className="md:mt-2 mt-3 px-3 space-y-2 md:px-0">
                         {renderStars(movie?.vote_average)}
                         <div className="flex items-center space-x-4">
                             <div className="flex space-x-2 items-center">
-                                <p className="md:text-lg">Note</p>
+                                <p className="md:text-lg">Note: </p>
                             </div>
                             <div className="text-md">
                                 {Math.round(movie?.vote_average * 100) / 100} / 10
                             </div>
                         </div>
                     </div>
+
                     <div className="mt-8 md:mt-8 px-3 md:px-0">
                         {Object.keys(watchProviders)?.length > 0 && (
                             <div>
@@ -183,7 +185,7 @@ const MovieDetailPage = () => {
                         )}
                     </div>
 
-                    <div className="mt-8 md:mt-12  px-3 md:px-0">
+                    <div className="mt-8 md:mt-12 px-3 md:px-0">
                         <h2 className="text-3xl text-white font-bold pb-4">Synopsis</h2>
                         <p className="md:text-lg text-justify">{movie?.overview}</p>
                     </div>
@@ -234,7 +236,7 @@ const MovieDetailPage = () => {
                         <div className="grid grid-cols-2 md:grid-cols-6 mt-20">
                             <div className="flex col-span-2 md:col-span-2 items-center justify-center">
                                 <div className="flex-col">
-                                    <h1 className="text-3xl text-white font-bold text-center">Recommandations</h1>
+                                    <h1 className="text-3xl text-white font-bold text-center">Recommendations</h1>
                                     <div className="border-t border-gray-300 mt-4"></div>
                                 </div>
                             </div>
