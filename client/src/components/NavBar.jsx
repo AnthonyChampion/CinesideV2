@@ -8,9 +8,9 @@ import { AiFillHome } from "react-icons/ai";
 import MovieSearch from './MovieSearch';
 import { Button } from 'flowbite-react';
 
-export default function NavBar() {
+export default function NavBar({ showSearchProp }) {
     const { auth, logout } = useAuth();
-    const [showSearch, setShowSearch] = useState(false);
+    const [showSearch, setShowSearch] = useState(showSearchProp || false);
 
     const handleLogout = () => {
         logout();
@@ -98,8 +98,6 @@ export default function NavBar() {
                     )}
                 </div>
             </div>
-
-            {/* Conditional rendering of MovieSearch */}
             {showSearch && (
                 <div className="absolute w-full bg-[#101522] bg-opacity-90 z-30 p-4">
                     <MovieSearch />
@@ -110,9 +108,7 @@ export default function NavBar() {
 }
 
 NavBar.propTypes = {
-    showSearch: PropTypes.bool,
+    showSearchProp: PropTypes.bool,
 };
 
-NavBar.defaultProps = {
-    showSearch: false,
-};
+

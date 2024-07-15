@@ -12,6 +12,7 @@ import FavoritePage from "./pages/FavoritePage.jsx";
 import LoginPage from './pages/LoginPage.jsx';
 import RegisterPage from './pages/RegisterPage.jsx';
 import MovieDetailPage from './pages/MovieDetailPage.jsx';
+import ProtectedRoute from './components/ProtectedRoutes.jsx';
 
 
 const router = createBrowserRouter([
@@ -39,7 +40,11 @@ const router = createBrowserRouter([
         path: "/film/:id",
       },
       {
-        element: <FavoritePage />,
+        element: (
+          <ProtectedRoute>
+            <FavoritePage />
+          </ProtectedRoute>
+        ),
         path: "/favoris",
       },
     ],

@@ -1,36 +1,35 @@
 import React, { useState } from 'react';
-import axios from "axios";
-import { Link } from 'react-router-dom';
+import axios from 'axios';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext';
 
 export default function LoginPage() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [error, setError] = useState('');
-    const [message, setMessage] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
 
-    const handleLogin = async (e) => {
-        e.preventDefault();
+    const { login } = useAuth();
+    const navigate = useNavigate();
 
-        setError('');
-
-        if (!email || !password) {
-            setError('Veuillez remplir tous les champs');
-            return;
-        }
+    const handleLogin = async (event) => {
+        event.preventDefault();
+        setErrorMessage('');
 
         try {
-            const response = await axios.post(`${import.meta.env.SERVER_PORT}/login`, { email, password });
+            const response = await axios.post(`${import.meta.env.VITE_API_URL}/login`, { email, password });
 
-            console.log('Connexion effectuée !', response);
+            const { token } = response.data;
+            login(token);
 
-            // Mettre response.token dans la session (Avec une durée limité)
-            // Mettre le response.user dans la session ou dans le context 
-            // le contexte n'est pas accessible par l'utilisateur alors que la session oui
-            setMessage(response.message);
+            axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 
+            navigate('/');
         } catch (error) {
-            console.error('Erreur lors de la connexion:', error.message);
-            setError(error.response ? error.response.message : 'Erreur lors de la connexion');
+            if (error.response) {
+                setErrorMessage(error.response.data.error || 'Une erreur est survenue');
+            } else {
+                setErrorMessage('Erreur de connexion. Veuillez réessayer.');
+            }
         }
     };
 
@@ -38,7 +37,6 @@ export default function LoginPage() {
         <div className="fixed inset-0 flex justify-center items-center bg-[#101522]">
             <div className="bg-zinc-800 bg-opacity-80 p-8 rounded-lg shadow-lg w-full max-w-md -mt-10">
                 <h1 className="text-2xl font-bold text-white mb-4">Connexion</h1>
-                {error && <p className="text-red-500 mb-4">{error}</p>}
                 <form onSubmit={handleLogin}>
                     <div className="mb-4">
                         <label htmlFor="email" className="block text-white mb-2">Email</label>
@@ -49,6 +47,7 @@ export default function LoginPage() {
                             onChange={(e) => setEmail(e.target.value)}
                             className="w-full p-2 border border-gray-300 rounded"
                             required
+                            autoComplete="email"
                         />
                     </div>
                     <div className="mb-4">
@@ -60,8 +59,12 @@ export default function LoginPage() {
                             onChange={(e) => setPassword(e.target.value)}
                             className="w-full p-2 border border-gray-300 rounded"
                             required
+                            autoComplete="current-password"
                         />
                     </div>
+                    {errorMessage && (
+                        <p className="text-red-500 text-center mb-4">{errorMessage}</p>
+                    )}
                     <button
                         type="submit"
                         className="w-full bg-green-500 text-white font-bold py-2 px-4 rounded hover:bg-cyan-700 transition duration-300"
