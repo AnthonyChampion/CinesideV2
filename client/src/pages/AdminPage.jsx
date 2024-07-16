@@ -5,7 +5,6 @@ import axios from 'axios';
 const AdminPage = () => {
     const { auth } = useAuth();
     const [users, setUsers] = useState([]);
-    const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
     useEffect(() => {
@@ -16,15 +15,16 @@ const AdminPage = () => {
                         'Authorization': `Bearer ${auth?.token}`
                     }
                 });
+
                 if (!response.ok) {
                     throw new Error('Failed to fetch users');
                 }
                 const data = await response.json();
                 setUsers(data);
-                setLoading(false);
+
             } catch (error) {
                 setError(error.message);
-                setLoading(false);
+
             }
         };
 
@@ -34,21 +34,20 @@ const AdminPage = () => {
     }, [auth]);
 
     if (!auth || !auth.isAdmin) {
-        return <p>Access denied. Admins only.</p>;
+        return <p>Acces refusé. Vous n'êtes pas administrateur.</p>;
     }
 
-    if (loading) return <p>Loading...</p>;
     if (error) return <p>{error}</p>;
 
     return (
         <div className="container mx-auto mt-8">
-            <h2 className="text-2xl font-semibold text-gray-800 mb-4">All Users</h2>
+            <h2 className="text-2xl font-semibold text-gray-800 mb-4">Gestion des utlisateurs</h2>
             <div className="overflow-x-auto">
                 <table className="min-w-full bg-white border border-gray-200">
                     <thead>
                         <tr>
                             <th className="py-2 px-4 border-b border-gray-200">ID</th>
-                            <th className="py-2 px-4 border-b border-gray-200">Name</th>
+                            <th className="py-2 px-4 border-b border-gray-200">Nom</th>
                             <th className="py-2 px-4 border-b border-gray-200">Email</th>
                         </tr>
                     </thead>
