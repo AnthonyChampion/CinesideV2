@@ -6,8 +6,9 @@ const AdminPage = () => {
     const { auth } = useAuth();
     const [users, setUsers] = useState([]);
     const [error, setError] = useState(null);
+    const [searchTerm, setSearchTerm] = useState('');
 
-    //on va fetcher les users depuis le back
+    // Fetch users from the backend
     useEffect(() => {
         const fetchUsers = async () => {
             try {
@@ -29,28 +30,49 @@ const AdminPage = () => {
     }, [auth]);
 
     if (!auth || !auth.isAdmin) {
-        return <p>Acces refusé. Vous n'êtes pas administrateur.</p>;
+        return <p>Accès refusé. Vous n'êtes pas administrateur.</p>;
     }
+
+    const filteredUsers = users.filter(user =>
+        user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        user.email.toLowerCase().includes(searchTerm.toLowerCase())
+    );
 
     return (
         <div className="container mx-auto mt-8">
-            <h2 className="text-2xl font-semibold text-white mb-4">Gestion des utlisateurs</h2>
-            {error && <div className="text-white">Error: {error}</div>}
-            <div className="overflow-x-auto">
-                <table className="min-w-full bg-white border border-gray-200">
-                    <thead>
+            <h2 className="text-2xl font-semibold text-white mb-4">Gestion des utilisateurs</h2>
+            {error && <div className="text-white mb-4">Error: {error}</div>}
+
+            <div className="mb-4">
+                <input
+                    type="text"
+                    className="p-2 border border-gray-300 rounded"
+                    placeholder="Rechercher des utilisateurs..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                />
+            </div>
+
+            <div className="overflow-x-auto bg-white p-4 rounded-lg shadow-md">
+                <table className="min-w-full border border-gray-200">
+                    <thead className="bg-gray-200 ">
                         <tr>
-                            <th className="py-2 px-4 border-b border-gray-200">ID</th>
-                            <th className="py-2 px-4 border-b border-gray-200">Nom</th>
-                            <th className="py-2 px-4 border-b border-gray-200">Email</th>
+                            <th className="text-start py-2 px-4 border-b border-gray-300">ID</th>
+                            <th className="text-start py-2 px-4 border-b border-gray-300">Nom</th>
+                            <th className="text-start py-2 px-4 border-b border-gray-300">Email</th>
+                            <th className="text-start py-2 px-4 border-b border-gray-300">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {users.map(user => (
+                        {filteredUsers.map(user => (
                             <tr key={user.id}>
-                                <td className="py-2 px-4 border-b border-gray-200">{user.id}</td>
-                                <td className="py-2 px-4 border-b border-gray-200">{user.name}</td>
-                                <td className="py-2 px-4 border-b border-gray-200">{user.email}</td>
+                                <td className="py-2 px-4 border-b border-gray-300">{user.id}</td>
+                                <td className="py-2 px-4 border-b border-gray-300">{user.name}</td>
+                                <td className="py-2 px-4 border-b border-gray-300">{user.email}</td>
+                                <td className="py-2 px-4 border-b border-gray-300">
+                                    <button className="bg-blue-500 text-white px-2 py-1 rounded mr-2">Modifier</button>
+                                    <button className="bg-red-500 text-white px-2 py-1 rounded">Supprimer</button>
+                                </td>
                             </tr>
                         ))}
                     </tbody>
