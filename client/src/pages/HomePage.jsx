@@ -63,7 +63,6 @@ export default function HomePage() {
         setShowTrailer(false);
     }, []);
 
-    const topTenMovies = useMemo(() => trending.slice(0, 10), [trending]);
 
     return (
         <div ref={topPage} className="flex flex-col min-h-screen text-white bg-[#101522]">
@@ -93,15 +92,15 @@ export default function HomePage() {
                                     <span className="bg-gray-100 text-gray-800 md:text-lg text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-400 border border-gray-500">A l'affiche</span>
                                     <h1 className="font-bold text-xl md:text-5xl uppercase pt-4">{trending[index]?.title || "Title not available"}</h1>
                                     {trending[index].genres && (
-                                        <div className="flex">
+                                        <div className="flex items-center">
                                             {trending[index].genres.reduce((acc, genre, i) => {
                                                 if (i === 0) {
                                                     return [...acc, <span key={genre.id} className="md:text-lg text-xs py-1 ">{genre.name}</span>];
                                                 }
                                                 return [
                                                     ...acc,
-                                                    <span key={`dot-${i}`} className="text-md px-2 py-1">•</span>,
-                                                    <span key={genre.id} className="md:text-lg text-xs px-2 py-1">{genre.name}</span>
+                                                    <span key={`dot-${i}`} className="text-md md:px-2 px-1 py-1">•</span>,
+                                                    <span key={genre.id} className="md:text-lg text-xs md:px-2 px-1 py-1">{genre.name}</span>
                                                 ];
                                             }, [])}
                                         </div>
@@ -113,7 +112,7 @@ export default function HomePage() {
 
                                     <div className="flex space-x-4 pt-2">
                                         <Button
-                                            className="text-white border-2 border-white bg-transparent rounded-sm md:text-lg md:py-3 px-2 md:px-6 hover:bg-cyan-700 transition duration-300"
+                                            className="text-white border-2 border-white bg-transparent rounded-sm md:text-lg md:py-3 px-2 md:px-6 hover:bg-cyan-700 transition duration-300 items-center"
                                             onClick={() => handleShowTrailer(trending[index].id)}
                                         >
                                             <div className="flex space-x-1 items-center">
@@ -131,13 +130,13 @@ export default function HomePage() {
                             </div>
                         )}
 
-                        <div className="flex flex-col w-full items-center justify-center md:mt-14">
+                        <div className="flex flex-col w-full items-center justify-center md:mt-14 mt-4">
                             <div className="w-full md:w-[80%]">
                                 <div className="grid grid-cols-2 md:grid-cols-6">
                                     <div className="flex col-span-2 md:col-span-2 items-center justify-center">
                                         <div className="flex-col">
                                             <h2 className="md:text-4xl text-xl font-bold text-center">Sorties récentes</h2>
-                                            <div className="border-t border-gray-300 md:mt-4"></div>
+                                            <div className="border-t border-gray-300 md:mt-4 mt-2"></div>
                                         </div>
                                     </div>
 

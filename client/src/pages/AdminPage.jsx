@@ -7,18 +7,11 @@ const AdminPage = () => {
     const [users, setUsers] = useState([]);
     const [error, setError] = useState(null);
 
+    //on va fetcher les users depuis le back
     useEffect(() => {
         const fetchUsers = async () => {
             try {
-                if (!auth?.token) {
-                    throw new Error('Authorization token is missing');
-                }
-
-                const response = await axios.get(`${import.meta.env.VITE_API_URL}/users`, {
-                    headers: {
-                        'Authorization': `Bearer ${auth.token}`
-                    }
-                });
+                const response = await axios.get(`${import.meta.env.VITE_API_URL}/users`);
 
                 if (response.status !== 200) {
                     throw new Error('Failed to fetch users');

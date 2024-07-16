@@ -84,7 +84,7 @@ export default function TopratedMovies() {
                         <Link to={`/film/${data.id}`}>
                             <div className="relative">
                                 <img
-                                    className="w-full md:h-[300px] h-[250px] object-contain"
+                                    className="w-full md:h-[300px] h-[250px] object-cover"
                                     src={"https://image.tmdb.org/t/p/original" + data.poster_path}
                                     alt={data.title}
                                     onError={(e) => {
@@ -93,7 +93,7 @@ export default function TopratedMovies() {
                                     }}
                                 />
                             </div>
-                            <div className="space-y-1">
+                            <div className="space-y-1 p-2">
                                 <p className="text-sm text-gray-400">{data.release_date}</p>
                                 <h2 className="text-md font-bold line-clamp-1 text-white">{data.title}</h2>
                             </div>

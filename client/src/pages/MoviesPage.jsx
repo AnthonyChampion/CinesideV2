@@ -128,7 +128,7 @@ export default function MoviesPage() {
                             className="w-full text-black"
                             onClick={handleResetFilter}
                         >
-                            <Button type="button" className=" w-full md:text-sm">
+                            <Button type="button" className=" w-full md:text-sm hover:bg-white hover:text-cyan-700">
                                 Aucun filtre
                             </Button>
                         </li>
@@ -137,13 +137,13 @@ export default function MoviesPage() {
                                 className="w-full text-white"
                                 onClick={() => handleClickFilter(filter.id, filter.name)}
                             >
-                                <Button type='button' className="w-full h-full items-center md:text-sm bg-transparent border-2 border-cyan-700">
+                                <Button type='button' className="w-full h-full items-center md:text-sm bg-transparent border-2 border-cyan-700 hover:bg-cyan-700">
                                     {filter.name}
                                 </Button>
                             </li>
                         ))}
                     </ul>
-                    <Button className="text-white md:w-full w-[47%] flex items-center mt-2 p-1 md:p-0 gap-1 bg-cyan-700"
+                    <Button className="text-white md:w-full w-[47%] flex items-center mt-2 p-1 md:p-0 gap-1 bg-cyan-700 hover:bg-white hover:text-cyan-700"
                         onClick={handleClick}>
                         <IoStar size={16} />
                         <p>Top TMDb</p>
@@ -194,7 +194,7 @@ export default function MoviesPage() {
                                                 }}
                                             />
                                         </div>
-                                        <div className="space-y-1">
+                                        <div className="space-y-1 p-2">
                                             <p className="text-sm text-gray-400">{movie.release_date}</p>
                                             <h2 className="text-md font-bold line-clamp-1 text-white">{movie.title}</h2>
                                         </div>

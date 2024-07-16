@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { fetchPersonDetails, fetchPersonMovies } from "../utils/moviedb";
 import { Link } from 'react-router-dom';

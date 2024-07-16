@@ -19,8 +19,7 @@ export default function LoginPage() {
         try {
             const response = await axios.post(`${import.meta.env.VITE_API_URL}/login`, { email, password });
             console.log(response.data.message)
-            const { token } = response.data.token;
-            login(response.data.user, token); // Méthode login présente dans le context
+            login(response.data.user, response.data.token); // Méthode login présente dans le context
 
             navigate('/');
         } catch (error) {

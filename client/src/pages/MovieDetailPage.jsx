@@ -113,20 +113,20 @@ const MovieDetailPage = () => {
                     </div>
 
                     <div className="mt-8 px-3 md:px-0">
-                        <h1 className="text-3xl md:text-5xl uppercase font-bold w-[75%]">{movie?.title || "Title Not Available"}</h1>
+                        <h1 className="text-2xl md:text-5xl uppercase font-bold w-[75%]">{movie?.title || "Title Not Available"}</h1>
                         <div className="md:flex md:flex-row flex-col items-center md:space-x-10 md:space-y-0 space-y-2 mt-4">
-                            <p className="md:text-lg">Date de sortie: {movie?.release_date}</p>
-                            <p className="md:text-lg">{movie?.runtime} min</p>
+                            <p className="md:text-lg text-sm">Date de sortie: {movie?.release_date}</p>
+                            <p className="md:text-lg text-sm">{movie?.runtime} min</p>
                             {movie?.genres && (
-                                <div className="flex">
+                                <div className="flex items-center">
                                     {movie?.genres.reduce((acc, genre, i) => {
                                         if (i === 0) {
                                             return [...acc, <span key={genre.id} className="md:text-lg text-xs md:px-2 py-1 rounded-md">{genre.name}</span>];
                                         }
                                         return [
                                             ...acc,
-                                            <span key={`dot-${i}`} className="text-lg px-2 py-1">•</span>,
-                                            <span key={genre.id} className="md:text-lg text-xs px-2 py-1 rounded-md">{genre.name}</span>
+                                            <span key={`dot-${i}`} className="text-lg md:px-2 px-1 py-1">•</span>,
+                                            <span key={genre.id} className="md:text-lg text-xs md:px-2 px-1 py-1 rounded-md">{genre.name}</span>
                                         ];
                                     }, [])}
                                 </div>
@@ -136,7 +136,7 @@ const MovieDetailPage = () => {
 
                     {crew && crew?.length > 0 && (
                         <div className="mt-2 flex space-x-4 items-end">
-                            <h3 className="md:text-lg px-3 md:px-0">Réalisateur(s):</h3>
+                            <h3 className="md:text-lg text-sm px-3 md:px-0">Réalisateur(s):</h3>
                             <ul className="md:text-lg flex space-x-2">
                                 {crew.filter(cast => cast.job === "Director").map(cast => (
                                     <li key={cast?.id}>{cast?.name}</li>
@@ -149,9 +149,9 @@ const MovieDetailPage = () => {
                         {renderStars(movie?.vote_average)}
                         <div className="flex items-center space-x-4">
                             <div className="flex space-x-2 items-center">
-                                <p className="md:text-lg">Note: </p>
+                                <p className="md:text-lg text-sm">Note: </p>
                             </div>
-                            <div className="text-md">
+                            <div className="md:text-md text-sm">
                                 {Math.round(movie?.vote_average * 100) / 100} / 10
                             </div>
                         </div>
@@ -160,7 +160,7 @@ const MovieDetailPage = () => {
                     <div className="mt-8 md:mt-8 px-3 md:px-0">
                         {Object.keys(watchProviders)?.length > 0 && (
                             <div>
-                                <h3 className="text-3xl text-white font-bold">Plateformes:</h3>
+                                <h3 className="md:text-3xl text-xl text-white font-bold">Plateformes:</h3>
                                 <div className="flex flex-wrap items-center gap-4 mt-4">
                                     {watchProviders.flatrate && watchProviders.flatrate.length > 0 ? (
                                         watchProviders.flatrate.map(provider => (
@@ -186,13 +186,13 @@ const MovieDetailPage = () => {
                     </div>
 
                     <div className="mt-8 md:mt-12 px-3 md:px-0">
-                        <h2 className="text-3xl text-white font-bold pb-4">Synopsis</h2>
+                        <h2 className="md:text-3xl text-xl text-white font-bold pb-4">Synopsis</h2>
                         <p className="md:text-lg text-justify">{movie?.overview}</p>
                     </div>
 
                     {credits && credits?.length > 0 && (
                         <div className="mt-8 md:mt-12 px-3 md:px-0">
-                            <h3 className="text-3xl text-white font-bold">Casting</h3>
+                            <h3 className="md:text-3xl text-xl text-white font-bold">Casting</h3>
                             <ul className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-4">
                                 {credits.slice(0, 8).map(actor => (
                                     <li key={actor?.id} className="flex flex-col items-center space-y-2">
@@ -216,7 +216,7 @@ const MovieDetailPage = () => {
 
                     {trailer && trailer.length > 0 && (
                         <div className="mt-8 md:mt-12 px-3 md:px-0 flex-col w-full justify-center">
-                            <h3 className="text-3xl text-white font-bold">Videos</h3>
+                            <h3 className="md:text-3xl text-xl text-white font-bold">Videos</h3>
                             <div className="mt-4 flex-col md:pr-[15vw] md:pl-[15vw]">
                                 <iframe
                                     width="100%"
@@ -236,7 +236,7 @@ const MovieDetailPage = () => {
                         <div className="grid grid-cols-2 md:grid-cols-6 mt-20">
                             <div className="flex col-span-2 md:col-span-2 items-center justify-center">
                                 <div className="flex-col">
-                                    <h1 className="text-3xl text-white font-bold text-center">Recommendations</h1>
+                                    <h1 className="md:text-3xl text-xl text-white font-bold text-center">Recommendations</h1>
                                     <div className="border-t border-gray-300 mt-4"></div>
                                 </div>
                             </div>
