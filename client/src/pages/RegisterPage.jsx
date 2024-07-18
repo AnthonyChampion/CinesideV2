@@ -1,21 +1,38 @@
+import axios from 'axios';
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function RegisterPage() {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+    const [message, setMessage] = useState("");
 
-    const handleRegister = (e) => {
+    const navigate = useNavigate();
+
+    const handleRegister = async (e) => {
         e.preventDefault();
-
         setError('');
+        setMessage('');
 
         if (!name || !email || !password) {
             setError('Veuillez remplir tous les champs');
             return;
         }
 
+        try {
+            await axios.post(`${import.meta.env.VITE_API_URL}/users`, { name, email, password });
+
+            setMessage('Inscription réussie');
+            navigate('/');
+        } catch (error) {
+            if (error.response) {
+                setError(error.response.data.error || 'Une erreur est survenue');
+            } else {
+                setError('Erreur de connexion. Veuillez réessayer.');
+            }
+        }
     };
 
     return (
@@ -23,6 +40,7 @@ export default function RegisterPage() {
             <div className="bg-zinc-800 bg-opacity-80 p-8 rounded-lg shadow-lg w-full max-w-md -mt-6">
                 <h1 className="text-2xl font-bold text-white mb-4">Inscription</h1>
                 {error && <p className="text-red-500 mb-4">{error}</p>}
+                {message && <p className="text-green-500 mb-4">{message}</p>}
                 <form onSubmit={handleRegister}>
                     <div className="mb-4">
                         <label htmlFor="name" className="block text-white mb-2">Pseudo</label>
@@ -30,7 +48,12 @@ export default function RegisterPage() {
                             type="text"
                             id="name"
                             value={name}
-                            onChange={(e) => setName(e.target.value)}
+                            onChange={(e) => {
+                                setName(e.target.value);
+                                setError('');
+                            }}
+                            placeholder='Nom'
+                            required
                             className="w-full p-2 border border-gray-300 rounded"
                         />
                     </div>
@@ -40,7 +63,12 @@ export default function RegisterPage() {
                             type="email"
                             id="email"
                             value={email}
-                            onChange={(e) => setEmail(e.target.value)}
+                            onChange={(e) => {
+                                setEmail(e.target.value);
+                                setError('');
+                            }}
+                            placeholder='Email'
+                            required
                             className="w-full p-2 border border-gray-300 rounded"
                         />
                     </div>
@@ -50,7 +78,12 @@ export default function RegisterPage() {
                             type="password"
                             id="password"
                             value={password}
-                            onChange={(e) => setPassword(e.target.value)}
+                            onChange={(e) => {
+                                setPassword(e.target.value);
+                                setError('');
+                            }}
+                            placeholder='Mot de passe'
+                            required
                             className="w-full p-2 border border-gray-300 rounded"
                         />
                     </div>

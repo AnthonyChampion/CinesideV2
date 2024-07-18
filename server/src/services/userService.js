@@ -5,7 +5,6 @@ const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
 
-// On récupère le
 const userRepository = AppDataSource.getRepository(User);
 
 const getAllUsers = async () => {
