@@ -151,7 +151,7 @@ const MovieDetailPage = () => {
                             <div className="flex space-x-2 items-center">
                                 <p className="md:text-lg text-sm">Note: </p>
                             </div>
-                            <div className="md:text-md text-sm">
+                            <div className="md:text-lg text-sm">
                                 {Math.round(movie?.vote_average * 100) / 100} / 10
                             </div>
                         </div>

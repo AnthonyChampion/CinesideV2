@@ -1,37 +1,51 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext';
 
 export default function RegisterPage() {
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const [message, setMessage] = useState("");
+    const [formDatas, setFormDatas] = useState({
+        name: "",
+        email: "",
+        password: "",
+    });
+
+    const { login } = useAuth();
+
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     const navigate = useNavigate();
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormDatas((prevState) => ({ ...prevState, [name]: value }));
+    }
 
     const handleRegister = async (e) => {
         e.preventDefault();
         setError('');
         setMessage('');
 
-        if (!name || !email || !password) {
-            setError('Veuillez remplir tous les champs');
-            return;
-        }
+        if (isSubmitting) return;
 
         try {
-            await axios.post(`${import.meta.env.VITE_API_URL}/users`, { name, email, password });
+            setIsSubmitting(true);
 
-            setMessage('Inscription réussie');
-            navigate('/');
+            const response = await axios.post(
+                `${import.meta.env.VITE_API_URL}/register`,
+                formDatas
+            );
+            const { user, token } = response.data;
+            login(user, token);
+
+            navigate(`/`);
+            setMessage(response.data.message);
         } catch (error) {
-            if (error.response) {
-                setError(error.response.data.error || 'Une erreur est survenue');
-            } else {
-                setError('Erreur de connexion. Veuillez réessayer.');
-            }
+            setMessage(error.response?.data?.message || 'An error occurred');
+        } finally {
+            setIsSubmitting(false)
         }
     };
 
@@ -43,15 +57,13 @@ export default function RegisterPage() {
                 {message && <p className="text-green-500 mb-4">{message}</p>}
                 <form onSubmit={handleRegister}>
                     <div className="mb-4">
-                        <label htmlFor="name" className="block text-white mb-2">Pseudo</label>
+                        <label htmlFor="name" className="block text-white mb-2">Nom</label>
                         <input
                             type="text"
                             id="name"
-                            value={name}
-                            onChange={(e) => {
-                                setName(e.target.value);
-                                setError('');
-                            }}
+                            name="name"
+                            value={formDatas.name}
+                            onChange={handleChange}
                             placeholder='Nom'
                             required
                             className="w-full p-2 border border-gray-300 rounded"
@@ -62,11 +74,9 @@ export default function RegisterPage() {
                         <input
                             type="email"
                             id="email"
-                            value={email}
-                            onChange={(e) => {
-                                setEmail(e.target.value);
-                                setError('');
-                            }}
+                            name="email"
+                            value={formDatas.email}
+                            onChange={handleChange}
                             placeholder='Email'
                             required
                             className="w-full p-2 border border-gray-300 rounded"
@@ -77,11 +87,9 @@ export default function RegisterPage() {
                         <input
                             type="password"
                             id="password"
-                            value={password}
-                            onChange={(e) => {
-                                setPassword(e.target.value);
-                                setError('');
-                            }}
+                            name="password"
+                            value={formDatas.password}
+                            onChange={handleChange}
                             placeholder='Mot de passe'
                             required
                             className="w-full p-2 border border-gray-300 rounded"

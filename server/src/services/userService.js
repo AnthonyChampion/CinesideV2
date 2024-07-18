@@ -22,12 +22,16 @@ const getUserByEmail = async (email) => {
 const createUser = async (userData) => {
     const hashedPassword = await argon2.hash(userData.password);
     const user = userRepository.create({ ...userData, password: hashedPassword });
-    return await userRepository.save(user);
+    const newUser = await userRepository.save(user);
+    return await authenticate({ email: newUser.email, password: userData.password });
 };
 
 const updateUser = async (id, userData) => {
     if (userData.password) {
         userData.password = await argon2.hash(userData.password);
+    }
+    else {
+        delete userData.password;
     }
     await userRepository.update(id, userData);
     return await userRepository.findOneBy({ id });

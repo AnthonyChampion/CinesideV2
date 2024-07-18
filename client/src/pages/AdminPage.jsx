@@ -89,7 +89,7 @@ export default function AdminPage() {
     return (
         <div className="container mx-auto mt-8">
             <h2 className="text-2xl font-semibold text-white mb-4">Gestion des utilisateurs</h2>
-            {error && <div className="text-white mb-4">Error: {error}</div>}
+            {error && <div className="text-white mb-4">Erreur: {error}</div>}
 
             <div className="mb-4">
                 <input
@@ -108,7 +108,6 @@ export default function AdminPage() {
                             <th className="text-start py-2 px-4 border-b border-gray-300">ID</th>
                             <th className="text-start py-2 px-4 border-b border-gray-300">Nom</th>
                             <th className="text-start py-2 px-4 border-b border-gray-300">Email</th>
-                            <th className="text-start py-2 px-4 border-b border-gray-300">Mot de passe</th>
                             <th className="text-start py-2 px-4 border-b border-gray-300">Actions</th>
                         </tr>
                     </thead>
@@ -141,16 +140,6 @@ export default function AdminPage() {
                                             />
                                         </td>
                                         <td className="py-2 px-4 border-b border-gray-300">
-                                            <input
-                                                type="password"
-                                                name="password"
-                                                value={editUserData.password}
-                                                onChange={handleInputChange}
-                                                className="border p-2 w-full rounded-md"
-                                                placeholder="Nouveau mot de passe"
-                                            />
-                                        </td>
-                                        <td className="py-2 px-4 border-b border-gray-300">
                                             <div className="flex justify-start">
                                                 <button
                                                     type="button"
@@ -174,7 +163,6 @@ export default function AdminPage() {
                                         <td className="py-2 px-4 border-b border-gray-300">{user.id}</td>
                                         <td className="py-2 px-4 border-b border-gray-300">{user.name}</td>
                                         <td className="py-2 px-4 border-b border-gray-300">{user.email}</td>
-                                        <td className="py-2 px-4 border-b border-gray-300">{"********"}</td>
                                         <td className="py-2 px-4 border-b border-gray-300">
                                             <button
                                                 className="bg-blue-500 text-white px-2 py-1 rounded mr-2"

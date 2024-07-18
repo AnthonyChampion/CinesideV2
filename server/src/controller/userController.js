@@ -31,8 +31,12 @@ const getUserById = async (req, res) => {
 
 const createUser = async (req, res) => {
     try {
-        const newUser = await userService.createUser(req.body);
-        res.status(201).json(newUser);
+        const response = await userService.createUser(req.body);
+        if (!response || !response.user || !response.token) {
+            return res.json({ message: "un problème est survenu, contactez l'administrateur", user: null, token: null });
+        }
+        return res.json({ message: "votre compte à bien été créé", user: response.user, token: response.token });
+
     } catch (error) {
         console.log(error)
         res.status(500).json({ message: 'Internal Server Error' });
