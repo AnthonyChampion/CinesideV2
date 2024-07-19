@@ -1,8 +1,9 @@
 const favoriteService = require('../services/favoriteService');
 
-const getAllFavorites = async (req, res) => {
+const getFavoritesByUserId = async (req, res) => {
+    const userId = req.user.id;
     try {
-        const favorites = await favoriteService.getAllFavorites();
+        const favorites = await favoriteService.getFavoritesByUserId(userId);
         res.json(favorites);
     } catch (error) {
         console.log(error);
@@ -10,37 +11,13 @@ const getAllFavorites = async (req, res) => {
     }
 };
 
-const getFavoriteById = async (req, res) => {
+const addFavorite = async (req, res) => {
+    const userId = req.user.id;
+    const { movie_id, title, thumbnail } = req.body;
+    console.log(userId);
+    console.log({ movie_id });
     try {
-        const favorite = await favoriteService.getFavoriteById(req.params.movie_id);
-        if (favorite) {
-            res.json(favorite);
-        } else {
-            res.status(404).json({ message: 'Favorite not found' });
-        }
-    } catch (error) {
-        console.log(error);
-        res.status(500).json({ message: 'Internal Server Error' });
-    }
-};
-
-const getFavoritesByUserId = async (req, res) => {
-    try {
-        const favorites = await favoriteService.getFavoritesByUserId(req.params.user_id);
-        if (favorites.length > 0) {
-            res.json(favorites);
-        } else {
-            res.status(404).json({ message: 'No favorites found for this user' });
-        }
-    } catch (error) {
-        console.log(error);
-        res.status(500).json({ message: 'Internal Server Error' });
-    }
-};
-
-const createFavorite = async (req, res) => {
-    try {
-        const newFavorite = await favoriteService.createFavorite(req.body);
+        const newFavorite = await favoriteService.addFavorite({ user_id: userId, movie_id, title, thumbnail });
         res.status(201).json(newFavorite);
     } catch (error) {
         console.log(error);
@@ -48,23 +25,11 @@ const createFavorite = async (req, res) => {
     }
 };
 
-const updateFavorite = async (req, res) => {
-    try {
-        const updatedFavorite = await favoriteService.updateFavorite(req.params.movie_id, req.body);
-        if (updatedFavorite) {
-            res.json(updatedFavorite);
-        } else {
-            res.status(404).json({ message: 'Favorite not found' });
-        }
-    } catch (error) {
-        console.log(error);
-        res.status(500).json({ message: 'Internal Server Error' });
-    }
-};
-
 const deleteFavorite = async (req, res) => {
+    const userId = req.user.id;
+    const { movie_id } = req.params;
     try {
-        const deletedFavorite = await favoriteService.deleteFavorite(req.params.movie_id);
+        const deletedFavorite = await favoriteService.deleteFavorite(movie_id, userId);
         if (deletedFavorite.affected === 1) {
             res.status(204).send();
         } else {
@@ -77,10 +42,7 @@ const deleteFavorite = async (req, res) => {
 };
 
 module.exports = {
-    getAllFavorites,
-    getFavoriteById,
     getFavoritesByUserId,
-    createFavorite,
-    updateFavorite,
+    addFavorite,
     deleteFavorite,
 };

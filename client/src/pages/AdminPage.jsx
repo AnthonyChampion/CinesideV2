@@ -42,8 +42,6 @@ export default function AdminPage() {
             setEditUser(null);
             window.location.reload();
 
-            navigate(`/admin`);
-
         } catch (error) {
             console.error("Error updating user:", error);
             setError("Failed to update user");
@@ -54,7 +52,7 @@ export default function AdminPage() {
         try {
             await axios.delete(`${import.meta.env.VITE_API_URL}/users/${id}`);
 
-            navigate(`/admin`);
+            window.location.reload();
 
         } catch (error) {
             console.error("Error deleting user:", error);

@@ -1,21 +1,39 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from 'flowbite-react';
+import axios from 'axios';
+import { useAuth } from '../contexts/AuthContext';
 
 
 
 export default function Favorite() {
+
+    const { auth } = useAuth();
     const [favorites, setFavorites] = useState([]);
 
     useEffect(() => {
-        const storedFavorites = JSON.parse(localStorage.getItem('favorites')) || [];
-        setFavorites(storedFavorites);
-    }, []);
+        const fetchFavorites = async () => {
+            try {
+                const response = await axios.get(`${import.meta.env.VITE_API_URL}/favorites/`);
+                setFavorites(response.data);
+            } catch (error) {
+                console.error('Error fetching favorites:', error);
+            }
+        };
 
-    const removeFavorite = (movieId) => {
-        const updatedFavorites = favorites.filter(movie => movie.id !== movieId);
-        setFavorites(updatedFavorites);
-        localStorage.setItem('favorites', JSON.stringify(updatedFavorites));
+        if (auth.token) {
+            fetchFavorites();
+        }
+    }, [auth.token]);
+
+    const removeFavorite = async (movieId) => {
+        try {
+            await axios.delete(`${import.meta.env.VITE_API_URL}/favorites/${movieId}`);
+            const updatedFavorites = favorites.filter(movie => movie.id !== movieId);
+            setFavorites(updatedFavorites);
+        } catch (error) {
+            console.error('Error removing favorite:', error);
+        }
     };
 
 

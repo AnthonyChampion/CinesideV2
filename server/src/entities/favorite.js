@@ -6,6 +6,9 @@ module.exports = new EntitySchema({
     columns: {
         movie_id: {
             primary: true,
+            type: "int",
+        },
+        user_id: {
             type: 'int',
         },
         title: {

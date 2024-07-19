@@ -74,14 +74,10 @@ export default function MovieSearch() {
                                                     e.target.src = "../src/assets/img_not_available.png";
                                                 }}
                                             />
-                                            <div className="md:mt-4 mt-2">
-                                                <div className="text-white text-start">
-                                                    <h2 className="text-[16px] md:text-lg font-bold normal-case line-clamp-2">{movie.title}</h2>
-                                                    <div className="flex flex-col space-y-1">
-                                                        <div className="text-sm md:text-md">
-                                                            {movie?.release_date ? new Date(movie.release_date).getFullYear() : "Date de sortie inconnue"}
-                                                        </div>
-                                                    </div>
+                                            <div className="md:mt-2 mt-2">
+                                                <div className="p-2 space-y-1">
+                                                    <p className="text-sm text-gray-400">{movie.release_date}</p>
+                                                    <h2 className="text-md font-bold line-clamp-1 text-white">{movie.title}</h2>
                                                 </div>
                                             </div>
                                         </Link>

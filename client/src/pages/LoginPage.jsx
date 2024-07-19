@@ -3,11 +3,11 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import axios from 'axios';
 
-
 export default function LoginPage() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
+    const [showPopup, setShowPopup] = useState(false);
 
     const { login } = useAuth();
     const navigate = useNavigate();
@@ -15,13 +15,16 @@ export default function LoginPage() {
     const handleLogin = async (event) => {
         event.preventDefault();
         setErrorMessage('');
+        setShowPopup(false);
 
         try {
             const response = await axios.post(`${import.meta.env.VITE_API_URL}/login`, { email, password });
 
-            login(response.data.user, response.data.token); // Méthode login présente dans le context
+            login(response.data.user, response.data.token);
 
-            navigate('/');
+            // Show popup and navigate after a short delay to allow the user to see the popup
+            setShowPopup(true);
+            setTimeout(() => navigate('/'), 2000);
         } catch (error) {
             if (error.response) {
                 setErrorMessage(error.response.data.error || 'Une erreur est survenue');
@@ -74,6 +77,14 @@ export default function LoginPage() {
                     Vous n'avez pas de compte ? <Link to="/inscription" className="text-green-500 hover:underline">S'enregistrer</Link>
                 </p>
             </div>
+            {showPopup && (
+                <div className="fixed inset-0 flex justify-center items-center z-50 w-full bg-black bg-opacity-50">
+                    <div className="bg-green-600 text-white p-6 rounded-lg shadow-lg transform scale-95 transition-transform duration-300 ease-in-out">
+                        <p className="text-lg font-semibold mb-2">Connexion réussie !</p>
+                        <p className="text-sm">Vous serez redirigé vers la page d'accueil dans quelques secondes.</p>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }

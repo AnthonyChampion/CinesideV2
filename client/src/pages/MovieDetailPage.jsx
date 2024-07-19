@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { fetchMovieDetails } from '../utils/moviedb';
 import PersonDetails from '../components/PersonDetails';
 import useMovieData from '../hooks/useMovieData';
+import axios from 'axios';
 
 const MovieDetailPage = () => {
     const { id } = useParams();
@@ -28,16 +29,35 @@ const MovieDetailPage = () => {
         fetchMovie();
     }, [movieId]);
 
-    const toggleFavorite = () => {
+    const toggleFavorite = async () => {
         let updatedFavorites;
-        if (favorites.some(fav => fav.id === movie.id)) {
-            updatedFavorites = favorites.filter(fav => fav.id !== movie.id);
-        } else {
+        const isFavorite = favorites.some(fav => fav.id === movie.id);
+
+        // Ajouter aux favoris
+        const response = await axios.post(`${import.meta.env.VITE_API_URL}/favorites`, {
+            body: JSON.stringify({ movie_id: movie.id })
+        });
+        if (response.ok) {
             updatedFavorites = [...favorites, movie];
+            setFavorites(updatedFavorites);
+        } else {
+            console.error('Failed to add favorite');
         }
-        setFavorites(updatedFavorites);
-        localStorage.setItem('favorites', JSON.stringify(updatedFavorites));
+
+        if (isFavorite) {
+            // Enlever des favoris
+            const response = await axios.delete(`${import.meta.env.VITE_API_URL}/favorites/${movie.id}`, {
+                body: JSON.stringify({ movie_id: movie.id })
+            });
+            if (response.ok) {
+                updatedFavorites = favorites.filter(fav => fav.id !== movie.id);
+                setFavorites(updatedFavorites);
+            } else {
+                console.error('Failed to remove favorite');
+            }
+        }
     };
+
 
     const isFavorite = movie && favorites.some(fav => fav.id === movie.id);
 
