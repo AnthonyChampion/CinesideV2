@@ -78,7 +78,7 @@ export default function LoginPage() {
                 </p>
             </div>
             {showPopup && (
-                <div className="fixed inset-0 flex justify-center items-center z-50 w-full bg-black bg-opacity-50">
+                <div className="absolute inset-0 flex justify-center items-center z-50 w-full bg-black bg-opacity-70">
                     <div className="bg-green-600 text-white p-6 rounded-lg shadow-lg transform scale-95 transition-transform duration-300 ease-in-out">
                         <p className="text-lg font-semibold mb-2">Connexion réussie !</p>
                         <p className="text-sm">Vous serez redirigé vers la page d'accueil dans quelques secondes.</p>

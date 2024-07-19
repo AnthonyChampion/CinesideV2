@@ -13,7 +13,7 @@ const MovieDetailPage = () => {
 
     const { credits, crew, similarMovies, trailer, watchProviders, loading, error } = useMovieData(movieId);
     const [movie, setMovie] = useState(null);
-    const [favorites, setFavorites] = useState(() => JSON.parse(localStorage.getItem('favorites')) || []);
+    const [favorites, setFavorites] = useState([]);
     const [selectedPerson, setSelectedPerson] = useState(null);
 
     useEffect(() => {
@@ -29,37 +29,48 @@ const MovieDetailPage = () => {
         fetchMovie();
     }, [movieId]);
 
+    const isFavorite = movie && favorites.some(fav => fav.id === movie.id);
+
     const toggleFavorite = async () => {
-        let updatedFavorites;
+        // On vérifie si le film est déja en favoris
         const isFavorite = favorites.some(fav => fav.id === movie.id);
 
-        // Ajouter aux favoris
-        const response = await axios.post(`${import.meta.env.VITE_API_URL}/favorites`, {
-            body: JSON.stringify({ movie_id: movie.id })
-        });
-        if (response.ok) {
-            updatedFavorites = [...favorites, movie];
-            setFavorites(updatedFavorites);
-        } else {
-            console.error('Failed to add favorite');
-        }
-
-        if (isFavorite) {
-            // Enlever des favoris
-            const response = await axios.delete(`${import.meta.env.VITE_API_URL}/favorites/${movie.id}`, {
-                body: JSON.stringify({ movie_id: movie.id })
-            });
-            if (response.ok) {
-                updatedFavorites = favorites.filter(fav => fav.id !== movie.id);
-                setFavorites(updatedFavorites);
+        try {
+            if (isFavorite) {
+                // On retire des favoris
+                const response = await axios.delete(`${import.meta.env.VITE_API_URL}/favorites/${movie.id}`, {
+                    data: { movie_id: movie.id }
+                });
+                if (response.status === 200) {
+                    // On met à jour le state favoris
+                    const updatedFavorites = favorites.filter(fav => fav.id !== movie.id);
+                    setFavorites(updatedFavorites);
+                } else {
+                    console.error('Failed to remove favorite');
+                }
             } else {
-                console.error('Failed to remove favorite');
+                // On ajoute aux favoris
+                const response = await axios.post(`${import.meta.env.VITE_API_URL}/favorites`, {
+                    movie_id: movie.id,
+                    title: movie.title,
+                    thumbnail: movie.poster_path
+                });
+
+                if (response.status === 201) {
+                    // On met à jour le state favoris
+                    const updatedFavorites = [...favorites, movie];
+                    setFavorites(updatedFavorites);
+                } else {
+                    console.error('Failed to add favorite');
+                }
             }
+        } catch (error) {
+            console.error('Error occurred while toggling favorite:', error);
         }
     };
 
 
-    const isFavorite = movie && favorites.some(fav => fav.id === movie.id);
+
 
     const handleCastClick = (personId) => {
         setSelectedPerson(personId);

@@ -2,13 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from 'flowbite-react';
 import axios from 'axios';
-import { useAuth } from '../contexts/AuthContext';
-
-
 
 export default function Favorite() {
 
-    const { auth } = useAuth();
     const [favorites, setFavorites] = useState([]);
 
     useEffect(() => {
@@ -16,20 +12,19 @@ export default function Favorite() {
             try {
                 const response = await axios.get(`${import.meta.env.VITE_API_URL}/favorites/`);
                 setFavorites(response.data);
+                console.log("favorites : ", response.data)
             } catch (error) {
                 console.error('Error fetching favorites:', error);
             }
         };
 
-        if (auth.token) {
-            fetchFavorites();
-        }
-    }, [auth.token]);
+        fetchFavorites();
+    }, []);
 
     const removeFavorite = async (movieId) => {
         try {
             await axios.delete(`${import.meta.env.VITE_API_URL}/favorites/${movieId}`);
-            const updatedFavorites = favorites.filter(movie => movie.id !== movieId);
+            const updatedFavorites = favorites.filter(movie => movie.movie_id !== movieId);
             setFavorites(updatedFavorites);
         } catch (error) {
             console.error('Error removing favorite:', error);
@@ -38,11 +33,11 @@ export default function Favorite() {
 
 
     return (
-        <section className="p-6 text-white w-screen h-screen bg-[#101522]">
+        <section className="p-6 text-white w-screen min-h-screen bg-[#101522]">
             {favorites.length === 0 ? (
                 <p className="text-center mt-4">Vous n'avez pas encore de films favoris</p>
             ) : (
-                <div className="grid grid-cols-2 md:grid-cols-6">
+                <div className="grid grid-cols-2 md:grid-cols-8">
                     <div className="flex col-span-2 md:col-span-2 items-center justify-center">
                         <div className="flex-col">
                             <h1 className="md:text-3xl text-xl text-white font-bold text-center">Films favoris</h1>
@@ -50,31 +45,28 @@ export default function Favorite() {
                         </div>
                     </div>
 
-                    {favorites.map((data) => (
+                    {favorites.map((movie) => (
                         <div
-                            key={data.id}
-                            className="group w-[80%] flex flex-col cursor-pointer bg-transparent p-3 mt-4 md:mt-0"
+                            key={movie.id}
+                            className="group w-[90%] flex flex-col cursor-pointer bg-transparent mt-4 md:mt-0 mb-6"
 
                         >
-                            <Link to={`/film/${data.id}`}>
+                            <Link to={`/film/${movie.movie_id}`}>
                                 <div className="relative">
                                     <img
-                                        className="w-full md:h-[300px] h-[250px] object-contain"
-                                        src={"https://image.tmdb.org/t/p/original" + data.poster_path}
-                                        alt={data.title}
+                                        className="w-full md:h-[270px] h-[250px] object-cover"
+                                        src={`https://image.tmdb.org/t/p/original${movie.thumbnail}`}
+                                        alt={movie.title}
                                         onError={(e) => {
                                             e.target.onerror = null;
                                             e.target.src = "../src/assets/img_not_available.png";
                                         }}
                                     />
                                 </div>
-                                <div className="space-y-1">
-                                    <p className="text-sm text-gray-400">{data.release_date}</p>
-                                    <h2 className="text-md font-bold line-clamp-1 text-white">{data.title}</h2>
-                                </div>
+                                <h2 className="mt-2 text-sm font-bold line-clamp-1 text-white">{movie.title}</h2>
                             </Link>
-                            <Button
-                                onClick={() => removeFavorite(data.id)}>
+                            <Button className="mt-2 bg-gray-700 hover:bg-red-500"
+                                onClick={() => removeFavorite(movie.movie_id)}>
                                 Supprimer
                             </Button>
                         </div>

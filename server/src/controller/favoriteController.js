@@ -1,9 +1,8 @@
 const favoriteService = require('../services/favoriteService');
 
 const getFavoritesByUserId = async (req, res) => {
-    const userId = req.user.id;
     try {
-        const favorites = await favoriteService.getFavoritesByUserId(userId);
+        const favorites = await favoriteService.getFavoritesByUserId(req.user.id);
         res.json(favorites);
     } catch (error) {
         console.log(error);
@@ -12,12 +11,16 @@ const getFavoritesByUserId = async (req, res) => {
 };
 
 const addFavorite = async (req, res) => {
-    const userId = req.user.id;
-    const { movie_id, title, thumbnail } = req.body;
-    console.log(userId);
-    console.log({ movie_id });
+    // on creer un objet favorite a envoyer au service
+    const favorite = {
+        user_id: req.user.id,
+        movie_id: req.body.movie_id,
+        title: req.body.title,
+        thumbnail: req.body.thumbnail
+    }
+
     try {
-        const newFavorite = await favoriteService.addFavorite({ user_id: userId, movie_id, title, thumbnail });
+        const newFavorite = await favoriteService.addFavorite(favorite);
         res.status(201).json(newFavorite);
     } catch (error) {
         console.log(error);
@@ -26,10 +29,11 @@ const addFavorite = async (req, res) => {
 };
 
 const deleteFavorite = async (req, res) => {
-    const userId = req.user.id;
-    const { movie_id } = req.params;
+    //req.body = ce qu'on envoie en paramètre ex: dans un post
+    // req.params = passage d'un paramètre dans l'url (localhost://favorites/1234)
+    //içi le req.params = movie_id
     try {
-        const deletedFavorite = await favoriteService.deleteFavorite(movie_id, userId);
+        const deletedFavorite = await favoriteService.deleteFavorite(req.params, req.user.id);
         if (deletedFavorite.affected === 1) {
             res.status(204).send();
         } else {
