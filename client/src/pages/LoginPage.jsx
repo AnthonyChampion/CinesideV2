@@ -2,12 +2,14 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import axios from 'axios';
+import LoginModal from '../components/LoginModal';
 
 export default function LoginPage() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
-    const [showPopup, setShowPopup] = useState(false);
+    const [showSuccessModal, setShowSuccessModal] = useState(false);
+    const [showErrorModal, setShowErrorModal] = useState(false);
 
     const { login } = useAuth();
     const navigate = useNavigate();
@@ -15,22 +17,29 @@ export default function LoginPage() {
     const handleLogin = async (event) => {
         event.preventDefault();
         setErrorMessage('');
-        setShowPopup(false);
+        setShowErrorModal(false); // Hide the error modal initially
 
         try {
             const response = await axios.post(`${import.meta.env.VITE_API_URL}/login`, { email, password });
 
-            login(response.data.user, response.data.token);
-
-            // Show popup and navigate after a short delay to allow the user to see the popup
-            setShowPopup(true);
-            setTimeout(() => navigate('/'), 2000);
+            if (response.data.user && response.data.token) {
+                login(response.data.user, response.data.token);
+                setShowSuccessModal(true);
+                setTimeout(() => {
+                    setShowSuccessModal(false);
+                    navigate('/');
+                }, 2000);
+            } else {
+                setErrorMessage('Utilisateur ou mot de passe incorrect');
+                setShowErrorModal(true);
+            }
         } catch (error) {
             if (error.response) {
                 setErrorMessage(error.response.data.error || 'Une erreur est survenue');
             } else {
                 setErrorMessage('Erreur de connexion. Veuillez réessayer.');
             }
+            setShowErrorModal(true);
         }
     };
 
@@ -63,9 +72,6 @@ export default function LoginPage() {
                             autoComplete="current-password"
                         />
                     </div>
-                    {errorMessage && (
-                        <p className="text-red-500 text-center mb-4">{errorMessage}</p>
-                    )}
                     <button
                         type="submit"
                         className="w-full bg-green-500 text-white font-bold py-2 px-4 rounded hover:bg-cyan-700 transition duration-300"
@@ -77,14 +83,20 @@ export default function LoginPage() {
                     Vous n'avez pas de compte ? <Link to="/inscription" className="text-green-500 hover:underline">S'enregistrer</Link>
                 </p>
             </div>
-            {showPopup && (
-                <div className="absolute inset-0 flex justify-center items-center z-50 w-full bg-black bg-opacity-70">
-                    <div className="bg-green-600 text-white p-6 rounded-lg shadow-lg transform scale-95 transition-transform duration-300 ease-in-out">
-                        <p className="text-lg font-semibold mb-2">Connexion réussie !</p>
-                        <p className="text-sm">Vous serez redirigé vers la page d'accueil dans quelques secondes.</p>
-                    </div>
-                </div>
-            )}
+            <LoginModal
+                isOpen={showSuccessModal}
+                onClose={() => setShowSuccessModal(false)}
+                title="Succès"
+            >
+                <p>Connexion réussie !</p>
+            </LoginModal>
+            <LoginModal
+                isOpen={showErrorModal}
+                onClose={() => setShowErrorModal(false)}
+                title="Erreur"
+            >
+                <p>{errorMessage}</p>
+            </LoginModal>
         </div>
     );
 }
