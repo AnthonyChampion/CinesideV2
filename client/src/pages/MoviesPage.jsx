@@ -13,7 +13,7 @@ export default function MoviesPage() {
     const [page, setPage] = useState(1);
     const [loading, setLoading] = useState(true);
 
-    const MOVIES_PER_PAGE = 10;
+    const MOVIES_PER_PAGE = 16;
 
     const handleClickFilter = useCallback((filterId, filterName) => {
         setActiveFilter({ id: filterId, name: filterName });
@@ -97,7 +97,7 @@ export default function MoviesPage() {
         setShowTopRated(true);
     }, []);
 
-    const filteredMovies = useMemo(() => moviesFiltered.slice(0, 10), [moviesFiltered]);
+    const filteredMovies = useMemo(() => moviesFiltered.slice(0, 16), [moviesFiltered]);
 
     return (
         <section className="w-screen bg-[#101522] pt-4">
@@ -122,35 +122,37 @@ export default function MoviesPage() {
                 </ol>
             </nav>
             <div className="md:flex md:flex-row flex-col z-10">
-                <div className="md:flex-col flex-wrap md:w-[15%] w-full pt-6 md:pl-4">
-                    <ul className="grid grid-cols-4 md:grid-cols-2 gap-2 p-2">
+                <div className="md:flex-col flex-wrap md:w-[10%] w-full pt-6 md:pt-10 md:pl-6">
+                    <ul className="grid grid-cols-4 md:grid-cols-1 gap-2 md:gap-4 p-2 md:p-0">
+                        <Button className="hidden md:flex text-white md:w-full items-center md:p-2 bg-green-500 transition ease-in-out transform hover:-translate-y-1"
+                            onClick={handleClick}>
+                            <p>Top TMDb</p>
+                        </Button>
                         <li
                             className="w-full text-black"
                             onClick={handleResetFilter}
                         >
-                            <Button type="button" className="w-full h-full items-center md:text-sm transition ease-in-out transform hover:-translate-y-1 bg-cyan-700 text-white">
+                            <Button type="button" className="w-full h-full p-1 items-center md:text-sm transition ease-in-out transform hover:-translate-y-1 bg-transparent text-white">
                                 Aucun filtre
                             </Button>
                         </li>
                         {filters.map((filter) => (
-                            <li key={filter.id}
-                                className="w-full text-black"
-                                onClick={() => handleClickFilter(filter.id, filter.name)}
-                            >
-                                <Button type='button' className={`mr-2 mb-2 w-full h-full items-center transition ease-in-out transform hover:-translate-y-1 ${activeFilter === filter ? 'bg-cyan-700 text-white' : 'bg-white text-black'}`}>
+                            <li key={filter.id} className="w-full text-black">
+                                <Button
+                                    type="button"
+                                    className={`mr-2 mb-2 w-full h-full items-center transition ease-in-out transform hover:-translate-y-1 ${activeFilter?.id === filter.id ? 'bg-cyan-700 text-white' : 'bg-white text-black'}`}
+                                    onClick={() => handleClickFilter(filter.id, filter.name)}
+                                >
                                     {filter.name}
                                 </Button>
-
                             </li>
-
                         ))}
-                        <Button className="text-white w-[205%] flex items-center md:p-2 bg-cyan-700 transition ease-in-out transform hover:-translate-y-1"
+
+                        <Button className="md:hidden text-white w-[205%] flex items-center md:p-2 bg-green-500 transition ease-in-out transform hover:-translate-y-1"
                             onClick={handleClick}>
-                            <p>Films les mieux notés</p>
+                            <p>Top TMDb</p>
                         </Button>
                     </ul>
-
-
                 </div>
                 <div className=" md:w-[82%] w-full md:ml-8 mt-6">
                     {showTopRated ? (
