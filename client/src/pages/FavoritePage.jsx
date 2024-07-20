@@ -4,15 +4,15 @@ import { Button } from 'flowbite-react';
 import axios from 'axios';
 
 export default function Favorite() {
-
     const [favorites, setFavorites] = useState([]);
 
     useEffect(() => {
         const fetchFavorites = async () => {
             try {
                 const response = await axios.get(`${import.meta.env.VITE_API_URL}/favorites/`);
-                setFavorites(response.data);
-                console.log("favorites : ", response.data)
+                const sortedFavorites = response.data.sort((a, b) => a.title.localeCompare(b.title));
+                setFavorites(sortedFavorites);
+                console.log("favorites : ", sortedFavorites);
             } catch (error) {
                 console.error('Error fetching favorites:', error);
             }
@@ -25,12 +25,11 @@ export default function Favorite() {
         try {
             await axios.delete(`${import.meta.env.VITE_API_URL}/favorites/${movieId}`);
             const updatedFavorites = favorites.filter(movie => movie.movie_id !== movieId);
-            setFavorites(updatedFavorites);
+            setFavorites(updatedFavorites.sort((a, b) => a.title.localeCompare(b.title)));
         } catch (error) {
             console.error('Error removing favorite:', error);
         }
     };
-
 
     return (
         <section className="p-6 text-white w-screen min-h-screen bg-[#101522]">
@@ -76,5 +75,3 @@ export default function Favorite() {
         </section>
     );
 }
-
-

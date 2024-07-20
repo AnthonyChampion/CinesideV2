@@ -116,38 +116,41 @@ export default function MoviesPage() {
                             <svg className="rtl:rotate-180 w-3 h-3 text-gray-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
                                 <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 9 4-4-4-4" />
                             </svg>
-                            <p className="ms-1 text-sm font-medium text-gray-400 hover:text-blue-600 md:ms-2 dark:text-gray-400 dark:hover:text-white">Films</p>
+                            <p className="ms-1 text-sm font-medium text-gray-400 hover:text-blue-600 md:ms-2 dark:text-gray-400 dark:hover:text-white">Genres</p>
                         </div>
                     </Link>
                 </ol>
             </nav>
             <div className="md:flex md:flex-row flex-col z-10">
-                <div className="md:flex-col flex-wrap md:w-[15%] w-full pt-6 pl-4">
-                    <ul className="grid grid-cols-4 md:grid-cols-2 gap-2">
+                <div className="md:flex-col flex-wrap md:w-[15%] w-full pt-6 md:pl-4">
+                    <ul className="grid grid-cols-4 md:grid-cols-2 gap-2 p-2">
                         <li
                             className="w-full text-black"
                             onClick={handleResetFilter}
                         >
-                            <Button type="button" className=" w-full md:text-sm hover:bg-white hover:text-cyan-700">
+                            <Button type="button" className="w-full h-full items-center md:text-sm transition ease-in-out transform hover:-translate-y-1 bg-cyan-700 text-white">
                                 Aucun filtre
                             </Button>
                         </li>
                         {filters.map((filter) => (
                             <li key={filter.id}
-                                className="w-full text-white"
+                                className="w-full text-black"
                                 onClick={() => handleClickFilter(filter.id, filter.name)}
                             >
-                                <Button type='button' className="w-full h-full items-center md:text-sm bg-transparent border-2 border-cyan-700 hover:bg-cyan-700">
+                                <Button type='button' className={`mr-2 mb-2 w-full h-full items-center transition ease-in-out transform hover:-translate-y-1 ${activeFilter === filter ? 'bg-cyan-700 text-white' : 'bg-white text-black'}`}>
                                     {filter.name}
                                 </Button>
+
                             </li>
+
                         ))}
+                        <Button className="text-white w-[205%] flex items-center md:p-2 bg-cyan-700 transition ease-in-out transform hover:-translate-y-1"
+                            onClick={handleClick}>
+                            <p>Films les mieux notés</p>
+                        </Button>
                     </ul>
-                    <Button className="text-white md:w-full w-[47%] flex items-center mt-2 p-1 md:p-0 gap-1 bg-cyan-700 hover:bg-white hover:text-cyan-700"
-                        onClick={handleClick}>
-                        <IoStar size={16} />
-                        <p>Top TMDb</p>
-                    </Button>
+
+
                 </div>
                 <div className=" md:w-[82%] w-full md:ml-8 mt-6">
                     {showTopRated ? (

@@ -40,9 +40,13 @@ export default function NavBar({ showSearchProp }) {
                         <AiFillHome size={24} />
                         <span className="text-md">Accueil</span>
                     </Link>
-                    <Link to="films" className="flex items-center space-x-2 hover:text-cyan-700">
+                    <Link to="film_par_genre" className="flex items-center space-x-2 hover:text-cyan-700">
                         <RiMovie2Line size={24} />
-                        <span className="text-md">Films</span>
+                        <span className="text-md">Genres</span>
+                    </Link>
+                    <Link to="film_par_annee" className="flex items-center space-x-2 hover:text-cyan-700">
+                        <RiMovie2Line size={24} />
+                        <span className="text-md">Années</span>
                     </Link>
                     {auth && (
                         <Link to="favoris" className="flex items-center space-x-2 hover:text-cyan-700">
@@ -90,9 +94,13 @@ export default function NavBar({ showSearchProp }) {
                         <AiFillHome size={20} />
                         <span className="text-xs">Accueil</span>
                     </Link>
-                    <Link to="films" className="flex flex-col items-center">
+                    <Link to="film_par_genre" className="flex flex-col items-center">
                         <RiMovie2Line size={20} />
-                        <span className="text-xs">Films</span>
+                        <span className="text-xs">Genres</span>
+                    </Link>
+                    <Link to="film_par_annee" className="flex flex-col items-center">
+                        <RiMovie2Line size={20} />
+                        <span className="text-xs">Années</span>
                     </Link>
                     {auth && (
                         <Link to="profil" className="flex flex-col items-center">
@@ -114,7 +122,7 @@ export default function NavBar({ showSearchProp }) {
                 </div>
             </div>
             {showSearch && (
-                <div className="absolute w-full bg-[#101522] bg-opacity-90 z-30 p-4">
+                <div className="absolute w-full bg-[#101522] z-30 p-4">
                     <MovieSearch />
                 </div>
             )}

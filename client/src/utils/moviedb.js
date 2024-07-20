@@ -8,7 +8,7 @@ const upcomingMoviesEndpoint = `https://api.themoviedb.org/3/movie/upcoming?api_
 const genresOfMovies = `https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}`;
 const popularMovies = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}`;
 const searchMoviesEndPoint = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}`;
-const discoverMovies = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}`;
+const discoverMoviesEndPoint = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}`;
 
 const movieDetailsEndpoint = movieId => `https://api.themoviedb.org/3/movie/${movieId}?api_key=${apiKey}`;
 const movieCreditsEndpoint = movieId => `https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=${apiKey}`;
@@ -34,6 +34,34 @@ const apiCall = async (endpoint, params = {}) => {
         console.error("Error: ", error);
         return {};
     }
+};
+
+const apiCallDiscover = async (endpoint, params = {}) => {
+    const options = {
+        method: "GET",
+        url: endpoint,
+        params: {
+            language: "fr-FR",
+            region: "FR",
+            sort_by: "vote_count.desc",
+            "pimary_release_date.gte": "1980-01-01",
+            "primary_release_date.lte": "2030-12-31",
+            ...params
+        }
+    };
+
+    try {
+        const response = await axios.request(options);
+        return response.data;
+    } catch (error) {
+        console.error("Error: ", error);
+        return {};
+    }
+};
+
+export const MoviesByDate = (params) => {
+    const updatedParams = { ...params, language: 'fr-FR', region: 'FR', sort_by: "vote_count.desc", "primary_release_date.gte": "1980-01-01", "primary_release_date.lte": "2030-12-31" };
+    return apiCallDiscover(discoverMoviesEndPoint, updatedParams);
 };
 
 export const fetchTrendingMovies = (page = 1) => {
@@ -73,14 +101,6 @@ export const searchMovies = params => {
     return apiCall(searchMoviesEndPoint, updatedParams);
 };
 
-export const fetchDiscoverMovies = params => {
-    const updatedParams = {
-        'primary_release_date.gte': '1980-01-01',
-        'primary_release_date.lte': '2024-12-31',
-        ...params
-    };
-    return apiCall(discoverMovies, updatedParams);
-};
 
 export const fetchMovieTrailer = movieId => {
     return apiCall(movieTrailer(movieId));

@@ -46,7 +46,7 @@ const MovieDetailPage = () => {
                     const updatedFavorites = favorites.filter(fav => fav.id !== movie.id);
                     setFavorites(updatedFavorites);
                 } else {
-                    console.error('Failed to remove favorite');
+                    console.error('Impossible de supprimer des favoris');
                 }
             } else {
                 // On ajoute aux favoris
@@ -61,11 +61,11 @@ const MovieDetailPage = () => {
                     const updatedFavorites = [...favorites, movie];
                     setFavorites(updatedFavorites);
                 } else {
-                    console.error('Failed to add favorite');
+                    console.error('Impossible de mettre en favoris');
                 }
             }
         } catch (error) {
-            console.error('Error occurred while toggling favorite:', error);
+            console.error('Une erreur est survenue:', error);
         }
     };
 

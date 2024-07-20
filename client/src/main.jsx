@@ -15,6 +15,7 @@ import MovieDetailPage from './pages/MovieDetailPage.jsx';
 import ProtectedRoute from './components/ProtectedRoutes.jsx';
 import ProfilePage from './pages/ProfilePage.jsx';
 import AdminPage from './pages/AdminPage.jsx';
+import DiscoverPage from './pages/DiscoverPage.jsx';
 
 
 const router = createBrowserRouter([
@@ -35,11 +36,15 @@ const router = createBrowserRouter([
       },
       {
         element: <MoviesPage />,
-        path: "/films",
+        path: "/film_par_genre",
       },
       {
         element: <MovieDetailPage />,
         path: "/film/:id",
+      },
+      {
+        element: <DiscoverPage />,
+        path: "/film_par_annee",
       },
       {
         element: (
