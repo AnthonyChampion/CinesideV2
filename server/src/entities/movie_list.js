@@ -1,42 +1,46 @@
 const { EntitySchema } = require('typeorm');
 
 module.exports = new EntitySchema({
-    name: 'Favorite',
-    tableName: 'favorites',
+    name: 'MovieList',
+    tableName: 'movie_lists',
     columns: {
-        movie_id: {
+        id: {
             primary: true,
             type: 'int',
+            generated: true,
+        },
+        name: {
+            type: 'varchar',
+        },
+        description: {
+            type: 'text',
+            nullable: true,
         },
         user_id: {
             type: 'int',
         },
-        title: {
-            type: 'varchar',
-        },
-        thumbnail: {
-            type: 'varchar',
-        }
     },
     relations: {
         user: {
             target: 'User',
             type: 'many-to-one',
-            joinColumn: { name: 'user_id' },
-            onDelete: 'CASCADE',
+            joinColumn: {
+                name: 'user_id',
+            },
+            inverseSide: 'movieLists',
         },
-        movieLists: {
-            target: 'MovieList',
+        favorites: {
+            target: 'Favorite',
             type: 'many-to-many',
             joinTable: {
                 name: 'movie_list_favorites',
                 joinColumn: {
-                    name: 'favoriteId',
-                    referencedColumnName: 'movie_id'
-                },
-                inverseJoinColumn: {
                     name: 'listId',
                     referencedColumnName: 'id'
+                },
+                inverseJoinColumn: {
+                    name: 'favoriteId',
+                    referencedColumnName: 'movie_id'
                 }
             },
             cascade: true

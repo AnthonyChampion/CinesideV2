@@ -97,7 +97,7 @@ export default function DiscoverMovies() {
                         ))}
                     </ul>
                 </div>
-                <div className="md:w-[82%] w-full md:ml-8 md:mt-6 mt-4">
+                <div className="md:w-[82%] w-full md:ml-12 md:mt-6 mt-4">
                     <div className="grid grid-cols-2 md:grid-cols-6">
                         <div className="flex col-span-2 md:col-span-2 items-center justify-center">
                             <div className="flex-col">

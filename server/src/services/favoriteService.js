@@ -9,7 +9,7 @@ const getFavoritesByUserId = async (user_id) => {
 };
 
 const addFavorite = async (favoriteData) => {
-    console.log("favoriteData", favoriteData);
+
     const favorite = favoriteRepository.create(favoriteData);
     return await favoriteRepository.save(favorite);
 };

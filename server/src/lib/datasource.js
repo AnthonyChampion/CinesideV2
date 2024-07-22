@@ -1,6 +1,7 @@
 const { DataSource } = require('typeorm');
 const User = require('../entities/user');
 const Favorite = require("../entities/favorite");
+const MovieList = require("../entities/movie_list");
 
 //On charge les variables d'environnement
 require('dotenv').config();
@@ -15,7 +16,7 @@ const AppDataSource = new DataSource({
     database: process.env.DB_DATABASE,
     synchronize: true,
     logging: false,
-    entities: [User, Favorite],
+    entities: [User, Favorite, MovieList],
     migrations: [],
     subscribers: [],
 });

@@ -1,44 +1,43 @@
 # Cineside
 
-Cineside is a responsive movie application built using React JS, Express, Tailwind CSS, and Flowbite components. It utilizes The Movie Database (TMDb) API to fetch movie data, allowing users to browse trending movies, top-rated movies, upcoming movies, search movies by genre, and manage favorites.
+Cineside est une application de films réalisée pendant ma formation à la Wild Code School. Elle utilise, React JS, Express, Tailwind CSS, et Flowbite UI. Les informations proviennent de l'API The Movie Database (TMDb), et permet d'avoir plein d'informations telles que la date de sortie, le casting, des recommandations.
+Elle va surtout permettre aux utilisateurs de se créer une liste de films favoris à regarder en famille, entre amis...
 
 ## Features
 
-Trending Movies: Displaying currently popular movies fetched from TMDb API.
+Films à l'affiche
 
-Top Rated Movies: Showing highest-rated movies according to user ratings.
+Films les mieux notés
 
-Upcoming Movies: Listing movies scheduled for release in the near future.
+Filtres de recherche par nom, année ou par genre.
 
-Search Movies by Genre: Filter movies based on selected genres.
-
-Favorites: Allowing users to add movies to their favorites list.
+Ajouter ses films préférées à une liste de favoris.
 
 
-## Technologies Used
+## Technologies utilisées
 
-Frontend: React JS, Tailwind CSS, Flowbite components.
-
-Backend: Express (for API requests to TMDb).
+![MIT License](https://img.shields.io/badge/-ReactJs-61DAFB?logo=react&logoColor=white&style=for-the-badge)
+![MIT License](https://img.shields.io/badge/Express%20js-000000?style=for-the-badge&logo=express&logoColor=white)
+![MIT License](https://img.shields.io/badge/tailwindcss-0F172A?&logo=tailwindcss)
 
 API: The Movie Database (TMDb) API.
 
 ## Installation
 
-### Prerequisites:
+### Pré-requis:
 
 Node.js (version >= 12.0.0).
 
 npm or yarn package manager.
 
-### Clone the repository:
+### Cloner le repo:
 
 ```bash
 git clone git@github.com:AnthonyChampion/CinesideV2.git
 cd CinesideV2
 ```
 
-### Install dependencies
+### Installation des dépendences
 
 ```bash
 npm install
@@ -46,11 +45,11 @@ or
 yarn install
 ```
 
-### Set up TMDb API on client folder:
+### Set up TMDb API dans le dossier client:
 
-Get your API key from TMDb website.
+Obtenez une clé unique de TMDB.
 
-Create a .env like .env.sample and add your API key:
+Créer un .env comme le .env.sample and ajouter votre API key:
 
 ```
 .env 
@@ -59,12 +58,11 @@ VITE_API_KEY=YOUR_VITE_API_KEY
 
 VITE_API_URL=YOUR_VITE_API_URL
 
-SERVER_PORT=YOUR_SERVER_PORT
 ```
 
-### Set up server folder:
+### Set up dossier server:
 
-Create a .env file like .env.sample  and add your datas:
+Créer un .env comme le .env.sample  and ajouter vos données:
 
 ```
 .env 
@@ -78,12 +76,12 @@ JWT_SECRET=JWT_SECRET
 PORT=PORT
 ```
 
-## Start the application
+## Démarrer l'application
 
 ```
 npm run dev
 ```
 
-## Enjoy !
+## Amusez-vous bien !
 
-### License: [MIT](https://choosealicense.com/licenses/mit/)
+

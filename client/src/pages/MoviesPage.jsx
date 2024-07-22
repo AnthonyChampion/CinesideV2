@@ -154,7 +154,7 @@ export default function MoviesPage() {
                         </Button>
                     </ul>
                 </div>
-                <div className=" md:w-[82%] w-full md:ml-8 mt-6">
+                <div className=" md:w-[82%] w-full md:ml-12 mt-6">
                     {showTopRated ? (
                         <TopRated />
                     ) : (
