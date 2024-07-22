@@ -17,7 +17,6 @@ import ProfilePage from './pages/ProfilePage.jsx';
 import AdminPage from './pages/AdminPage.jsx';
 import DiscoverPage from './pages/DiscoverPage.jsx';
 
-
 const router = createBrowserRouter([
   {
     element: <App />,

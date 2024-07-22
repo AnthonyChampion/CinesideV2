@@ -75,7 +75,7 @@ export default function HomePage() {
     };
 
     return (
-        <div ref={topPage} className="flex flex-col min-h-screen text-white bg-[#101522]">
+        <div ref={topPage} className="flex flex-col min-h-screen dark:text-white bg-white  dark:bg-[#101522]">
             <section className="flex-grow w-screen">
                 {loading ? (
                     <div className="flex justify-center items-center h-screen">
@@ -99,7 +99,7 @@ export default function HomePage() {
                                 <div className="absolute inset-0 bg-gradient-to-t from-[#101522] via-transparent to-black"></div>
                                 <div className="absolute inset-0 bg-gradient-to-r from-[#101522] via-transparent to-[#101522]"></div>
                                 <div className="absolute inset-0 space-y-2 top-[40vh] md:space-y-4 md:top-[25vh] md:left-14 md:w-2/5 w-full h-fit text-white md:p-6 p-4">
-                                    <span className="bg-gray-100 text-gray-800 md:text-lg text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-400 border border-gray-500">A l'affiche</span>
+                                    <span className="bg-gray-100 text-gray-800 md:text-lg text-xs font-medium me-2 px-2.5 py-0.5 rounded border border-gray-500">A l'affiche</span>
                                     <h1 className="font-bold text-xl md:text-5xl uppercase pt-4">{trending[index]?.title || "Title not available"}</h1>
                                     {trending[index].genres && (
                                         <div className="flex items-center">
@@ -145,11 +145,11 @@ export default function HomePage() {
                                 <div className="grid grid-cols-2 md:grid-cols-6">
                                     <div className="flex col-span-2 md:col-span-2 items-center justify-center">
                                         <div className="flex-col">
-                                            <h2 className="md:text-4xl text-xl font-bold text-center">Sorties récentes</h2>
+                                            <h2 className="md:text-4xl text-xl font-bold text-center dark:text-white text-[#101522]">Sorties récentes</h2>
                                             <div className="flex justify-center mt-4 pb-4 gap-2">
                                                 {page > 1 && (
                                                     <Button
-                                                        className="text-white border-2 border-white bg-transparent rounded-sm md:text-lg py-2 md:px-4 hover:bg-cyan-700 transition duration-300"
+                                                        className="dark:text-white border-2 dark:border-white bg-transparent text-[#101522] border-[#101522] rounded-sm md:text-lg py-2 md:px-4 hover:bg-cyan-700 transition duration-300"
                                                         onClick={() => handlePageChange('prev')}
                                                         disabled={page <= 1}
                                                     >
@@ -158,7 +158,7 @@ export default function HomePage() {
                                                 )}
 
                                                 <Button
-                                                    className="text-white border-2 border-white bg-transparent rounded-sm md:text-lg py-2 md:px-4 hover:bg-cyan-700 transition duration-300"
+                                                    className="dark:text-white border-2 dark:border-white bg-transparent text-[#101522] border-[#101522] rounded-sm md:text-lg py-2 md:px-4 hover:bg-cyan-700 transition duration-300"
                                                     onClick={() => handlePageChange('next')}
                                                     disabled={trending.length === 0}
                                                 >
@@ -190,8 +190,8 @@ export default function HomePage() {
                                                 />
                                             </div>
                                             <div className="p-4 space-y-1">
-                                                <p className="text-sm text-gray-400">{data.release_date}</p>
-                                                <h2 className="text-md font-bold line-clamp-1 text-white">{data.title}</h2>
+                                                <p className="text-sm text-gray-700 dark:text-white">{data.release_date}</p>
+                                                <h2 className="text-md font-bold line-clamp-1 dark:text-white text-[#101522]">{data.title}</h2>
                                             </div>
                                         </div>
                                     ))}

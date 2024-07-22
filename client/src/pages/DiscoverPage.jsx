@@ -61,11 +61,11 @@ export default function DiscoverMovies() {
     }
 
     return (
-        <section className="w-screen bg-[#101522] pt-4">
+        <section className="w-screen dark:bg-[#101522] bg-white pt-4">
             <nav className="flex pl-4" aria-label="Breadcrumb">
                 <ol className="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
                     <Link to="/" className="inline-flex items-center">
-                        <p className="inline-flex items-center text-sm font-medium text-gray-400 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white">
+                        <p className="inline-flex items-center text-sm font-medium text-[#101522] hover:text-cyan-700 dark:text-gray-400 dark:hover:text-white">
                             <svg className="w-3 h-3 me-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                                 <path d="m19.707 9.293-2-2-7-7a1 1 0 0 0-1.414 0l-7 7-2 2a1 1 0 0 0 1.414 1.414L2 10.414V18a2 2 0 0 0 2 2h3a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h3a2 2 0 0 0 2-2v-7.586l.293.293a1 1 0 0 0 1.414-1.414Z" />
                             </svg>
@@ -74,10 +74,10 @@ export default function DiscoverMovies() {
                     </Link>
                     <Link to="/films">
                         <div className="flex items-center">
-                            <svg className="rtl:rotate-180 w-3 h-3 text-gray-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                            <svg className="rtl:rotate-180 w-3 h-3 dark:text-gray-400 text-[#101522] mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
                                 <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 9 4-4-4-4" />
                             </svg>
-                            <p className="ms-1 text-sm font-medium text-gray-400 hover:text-blue-600 md:ms-2 dark:text-gray-400 dark:hover:text-white">Années</p>
+                            <p className="ms-1 text-sm font-medium dark:text-gray-400 hover:text-cyan-700 md:ms-2 text-[#101522] dark:hover:text-white">Années</p>
                         </div>
                     </Link>
                 </ol>
@@ -89,7 +89,7 @@ export default function DiscoverMovies() {
                             <Button
                                 key={start}
                                 onClick={() => handleYearRangeChange(start, end)}
-                                className={`md:mr-2 w-full p-1 ${selectedYearRange === `${start}-${end}` ? 'bg-cyan-700 text-white' : 'bg-white text-black'} transition ease-in-out transform hover:-translate-y-1`}
+                                className={`md:mr-2 w-full p-1 ${selectedYearRange === `${start}-${end}` ? 'bg-cyan-700 text-white' : 'bg-white text-black border-2 dark:border-white shadow-lg'} transition ease-in-out transform hover:-translate-y-1`}
                             >
                                 {start}-{end}
                             </Button>
@@ -100,19 +100,19 @@ export default function DiscoverMovies() {
                     <div className="grid grid-cols-2 md:grid-cols-6">
                         <div className="flex col-span-2 md:col-span-2 items-center justify-center">
                             <div className="flex-col">
-                                <h1 className="md:text-3xl text-xl text-white font-bold text-center">{selectedYearRange}</h1>
+                                <h1 className="md:text-3xl text-xl dark:text-white text-[#101522] font-bold text-center">{selectedYearRange}</h1>
                                 <div className="flex justify-center items-center space-x-5 mt-6 pb-4">
                                     {page > 1 && (
                                         <Button
                                             onClick={handleLoadLessMovies}
-                                            className="text-white border-2 border-white rounded-sm bg-transparent md:text-lg py-2 px-4 hover:bg-cyan-700 transition duration-300"
+                                            className="dark:text-white text-[#101522] border-2 dark:border-white shadow-lg rounded-sm bg-transparent md:text-lg py-2 px-4 hover:bg-cyan-700 hover:text-white transition duration-300"
                                         >
                                             Films précédents
                                         </Button>
                                     )}
                                     <Button
                                         onClick={handleLoadMoreMovies}
-                                        className="text-white border-2 border-white rounded-sm bg-transparent md:text-lg py-2 px-4 hover:bg-cyan-700 transition duration-300"
+                                        className="dark:text-white text-[#101522] border-2 dark:border-white shadow-lg rounded-sm bg-transparent md:text-lg py-2 px-4 hover:bg-cyan-700 hover:text-white transition duration-300"
                                     >
                                         Films suivant
                                     </Button>
@@ -124,7 +124,7 @@ export default function DiscoverMovies() {
                         {movies.map((movie) => (
                             <div
                                 key={movie.id}
-                                className="group flex flex-col cursor-pointer bg-transparent p-3 mt-4 md:mt-0"
+                                className="group flex flex-col cursor-pointer bg-transparent p-3 mt-4 md:mt-0 shadow-lg"
                             >
                                 <Link to={`/film/${movie.id}`}>
                                     <div className="relative">
@@ -139,8 +139,8 @@ export default function DiscoverMovies() {
                                         />
                                     </div>
                                     <div className="space-y-1 p-2">
-                                        <p className="text-sm text-gray-400">{movie.release_date}</p>
-                                        <h2 className="text-md font-bold line-clamp-1 text-white">{movie.title}</h2>
+                                        <p className="text-sm dark:text-gray-400 text-[#101522]">{movie.release_date}</p>
+                                        <h2 className="text-md font-bold line-clamp-1 dark:text-white text-[#101522]">{movie.title}</h2>
                                     </div>
                                 </Link>
                             </div>

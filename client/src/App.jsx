@@ -6,7 +6,7 @@ import { Outlet } from 'react-router-dom';
 function App() {
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen dark:bg-[#101522] bg-white">
       <NavBar />
       <div className="flex-grow">
         <Outlet />

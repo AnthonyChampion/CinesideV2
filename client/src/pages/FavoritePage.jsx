@@ -34,10 +34,12 @@ export default function Favorite() {
     };
 
     return (
-        <section className="p-6 text-white w-screen min-h-screen bg-[#101522]">
-            <div className="flex col-span-full justify-center">
-                <h1 className="md:text-3xl text-xl text-white font-bold text-center">Films favoris</h1>
+        <section className="p-6 dark:text-white text-[#101522] w-screen min-h-screen dark:bg-[#101522] bg-white">
+            <div className="flex flex-col justify-center items-center">
+                <h1 className="md:text-3xl text-xl dark:text-white text-[#101522] font-bold text-center">Films favoris</h1>
+                <div className="border-t border-gray-300 mt-4 w-[50%]"></div>
             </div>
+
             <div className="container mx-auto">
                 {loading ? (
                     <div className="flex justify-center items-center h-screen">
@@ -52,7 +54,7 @@ export default function Favorite() {
                                 {favorites.map((movie) => (
                                     <div
                                         key={movie.id}
-                                        className="group flex flex-col items-center bg-transparent mt-4 mb-6"
+                                        className="group flex flex-col items-center bg-transparent mt-4 mb-6 shadow-lg"
                                     >
                                         <Link to={`/film/${movie.movie_id}`}>
                                             <div className="relative">
@@ -68,9 +70,9 @@ export default function Favorite() {
                                             </div>
                                         </Link>
                                         <div className="mt-2 text-center">
-                                            <h2 className="text-sm font-bold line-clamp-1 text-white">{movie.title}</h2>
+                                            <h2 className="text-sm font-bold line-clamp-1 dark:text-white text-[#101522]">{movie.title}</h2>
                                         </div>
-                                        <Button className="mt-2 bg-gray-700 hover:bg-red-500"
+                                        <Button className="mt-2 bg-gray-700 hover:bg-red-500 mb-2"
                                             onClick={() => removeFavorite(movie.movie_id)}>
                                             Supprimer
                                         </Button>
