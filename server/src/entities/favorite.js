@@ -25,21 +25,5 @@ module.exports = new EntitySchema({
             joinColumn: { name: 'user_id' },
             onDelete: 'CASCADE',
         },
-        movieLists: {
-            target: 'MovieList',
-            type: 'many-to-many',
-            joinTable: {
-                name: 'movie_list_favorites',
-                joinColumn: {
-                    name: 'favoriteId',
-                    referencedColumnName: 'movie_id'
-                },
-                inverseJoinColumn: {
-                    name: 'listId',
-                    referencedColumnName: 'id'
-                }
-            },
-            cascade: true
-        }
     }
 });

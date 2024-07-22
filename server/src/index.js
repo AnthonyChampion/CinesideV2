@@ -5,7 +5,6 @@ const userRouter = require('./router/userRouter');
 const loginRouter = require('./router/loginRouter');
 const favoriteRouter = require("./router/favoriteRouter");
 const registerRouter = require("./router/registerRouter");
-const listRouter = require("./router/listRouter");
 const authMiddleware = require('./middleware/authMiddleware');
 
 
@@ -27,7 +26,6 @@ app.use('/login', loginRouter);
 app.use('/users', authMiddleware, userRouter);
 app.use("/favorites", authMiddleware, favoriteRouter);
 app.use('/register', registerRouter);
-app.use("/movie_lists", listRouter);
 
 app.listen(process.env.PORT, () => {
     console.log(`Server is running on port ${process.env.PORT}`);
