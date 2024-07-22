@@ -41,14 +41,14 @@ export default function Favorite() {
             <div className="container mx-auto">
                 {loading ? (
                     <div className="flex justify-center items-center h-screen">
-                        <div className="loader"></div>
+                        <div>Chargement....</div>
                     </div>
                 ) : (
                     <>
                         {favorites.length === 0 ? (
                             <p className="text-center mt-4">Vous n'avez pas encore de films favoris</p>
                         ) : (
-                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-6">
+                            <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-6 gap-2 mt-6">
                                 {favorites.map((movie) => (
                                     <div
                                         key={movie.id}

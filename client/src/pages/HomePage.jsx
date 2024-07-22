@@ -6,22 +6,20 @@ import { TbPlayerPlay } from "react-icons/tb";
 import { Button } from 'flowbite-react';
 
 export default function HomePage() {
-
     const [trending, setTrending] = useState([]);
     const [index, setIndex] = useState(0);
     const [loading, setLoading] = useState(true);
-
+    const [page, setPage] = useState(1);
     const topPage = useRef(null);
 
     const [showTrailer, setShowTrailer] = useState(false);
     const [selectedMovieId, setSelectedMovieId] = useState(null);
 
-    const getTrendingMovies = useCallback(async () => {
+    const getTrendingMovies = useCallback(async (pageNumber) => {
         try {
             setLoading(true);
-            const data = await fetchTrendingMovies();
+            const data = await fetchTrendingMovies(pageNumber);
             setTrending(data.results);
-            setIndex(0);
             setLoading(false);
         } catch (error) {
             console.error('Error fetching trending movies:', error);
@@ -30,20 +28,19 @@ export default function HomePage() {
     }, []);
 
     useEffect(() => {
-        getTrendingMovies();
-    }, [getTrendingMovies]);
+        getTrendingMovies(page);
+    }, [getTrendingMovies, page]);
 
     const fetchMovieDetailsAndGenres = useCallback(async () => {
         if (trending[index]) {
             try {
                 const movieId = trending[index].id;
                 const movieDetails = await fetchMovieDetails(movieId);
-                const updatedTrending = [...trending];
-                updatedTrending[index] = {
-                    ...updatedTrending[index],
-                    genres: movieDetails.genres
-                };
-                setTrending(updatedTrending);
+                setTrending(prevTrending =>
+                    prevTrending.map((movie, i) =>
+                        i === index ? { ...movie, genres: movieDetails.genres } : movie
+                    )
+                );
             } catch (error) {
                 console.error('Error fetching movie details and genres:', error);
             }
@@ -63,6 +60,19 @@ export default function HomePage() {
         setShowTrailer(false);
     }, []);
 
+    const scrollToTop = () => {
+        if (topPage.current) {
+            topPage.current.scrollIntoView({ behavior: 'smooth' });
+        }
+    };
+
+    const handlePageChange = (direction) => {
+        if (direction === 'prev' && page > 1) {
+            setPage(prevPage => prevPage - 1);
+        } else if (direction === 'next') {
+            setPage(prevPage => prevPage + 1);
+        }
+    };
 
     return (
         <div ref={topPage} className="flex flex-col min-h-screen text-white bg-[#101522]">
@@ -88,7 +98,7 @@ export default function HomePage() {
                                 />
                                 <div className="absolute inset-0 bg-gradient-to-t from-[#101522] via-transparent to-black"></div>
                                 <div className="absolute inset-0 bg-gradient-to-r from-[#101522] via-transparent to-[#101522]"></div>
-                                <div className="absolute inset-0 space-y-2 top-[40vh] md:space-y-4 md:top-[30vh] md:left-14 md:w-2/5 w-full h-fit text-white md:p-6 p-4">
+                                <div className="absolute inset-0 space-y-2 top-[40vh] md:space-y-4 md:top-[25vh] md:left-14 md:w-2/5 w-full h-fit text-white md:p-6 p-4">
                                     <span className="bg-gray-100 text-gray-800 md:text-lg text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-400 border border-gray-500">A l'affiche</span>
                                     <h1 className="font-bold text-xl md:text-5xl uppercase pt-4">{trending[index]?.title || "Title not available"}</h1>
                                     {trending[index].genres && (
@@ -136,15 +146,37 @@ export default function HomePage() {
                                     <div className="flex col-span-2 md:col-span-2 items-center justify-center">
                                         <div className="flex-col">
                                             <h2 className="md:text-4xl text-xl font-bold text-center">Sorties récentes</h2>
-                                            <div className="border-t border-gray-300 md:mt-4 mt-2"></div>
+                                            <div className="flex justify-center mt-4 pb-4 gap-2">
+                                                {page > 1 && (
+                                                    <Button
+                                                        className="text-white border-2 border-white bg-transparent rounded-sm md:text-lg py-2 md:px-4 hover:bg-cyan-700 transition duration-300"
+                                                        onClick={() => handlePageChange('prev')}
+                                                        disabled={page <= 1}
+                                                    >
+                                                        Films précédents
+                                                    </Button>
+                                                )}
+
+                                                <Button
+                                                    className="text-white border-2 border-white bg-transparent rounded-sm md:text-lg py-2 md:px-4 hover:bg-cyan-700 transition duration-300"
+                                                    onClick={() => handlePageChange('next')}
+                                                    disabled={trending.length === 0}
+                                                >
+                                                    Films suivants
+                                                </Button>
+                                            </div>
+                                            <div className="border-t border-gray-300 mt-4"></div>
                                         </div>
                                     </div>
 
-                                    {trending.slice(0, 16).map((data, idx) => (
+                                    {trending.map((data, idx) => (
                                         <div
                                             key={data.id}
                                             className="group flex flex-col cursor-pointer bg-transparent pb-2 mt-4 md:mt-0"
-                                            onClick={() => setIndex(idx)}
+                                            onClick={() => {
+                                                setIndex(idx);
+                                                scrollToTop();
+                                            }}
                                         >
                                             <div className="relative">
                                                 <img
@@ -156,9 +188,6 @@ export default function HomePage() {
                                                         e.target.src = "../src/assets/img_not_available.png";
                                                     }}
                                                 />
-                                                <span className="absolute top-2 right-2 bg-green-500 text-white text-xs font-semibold px-2 py-2 rounded-full">
-                                                    {data.vote_average.toFixed(1)}
-                                                </span>
                                             </div>
                                             <div className="p-4 space-y-1">
                                                 <p className="text-sm text-gray-400">{data.release_date}</p>

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export default function LoginModal({ isOpen, onClose, title, children }) {
     if (!isOpen) return null;
@@ -19,3 +20,9 @@ export default function LoginModal({ isOpen, onClose, title, children }) {
     );
 }
 
+LoginModal.propTypes = {
+    isOpen: PropTypes.bool.isRequired,
+    onClose: PropTypes.func.isRequired,
+    title: PropTypes.string.isRequired,
+    children: PropTypes.node.isRequired,
+};

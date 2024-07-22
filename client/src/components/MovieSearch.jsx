@@ -61,7 +61,7 @@ export default function MovieSearch() {
                                 {movies.map((movie) => (
                                     <Card
                                         key={movie.id}
-                                        className="relative group cursor-pointer border-none overflow-hidden shadow-lg bg-[#101522]"
+                                        className="relative group cursor-pointer border-none overflow-hidden shadow-lg"
                                         onClick={handleClose}
                                     >
                                         <Link to={`/film/${movie.id}`}>
@@ -77,7 +77,7 @@ export default function MovieSearch() {
                                             <div className="md:mt-2 mt-2">
                                                 <div className="p-2 space-y-1">
                                                     <p className="text-sm text-gray-400">{movie.release_date}</p>
-                                                    <h2 className="text-md font-bold line-clamp-1 text-white">{movie.title}</h2>
+                                                    <h2 className="text-md font-bold line-clamp-1 text-black">{movie.title}</h2>
                                                 </div>
                                             </div>
                                         </Link>

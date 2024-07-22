@@ -16,7 +16,6 @@ export default function DiscoverMovies() {
         setError(null);
         try {
             const data = await MoviesByDate({ 'primary_release_year': year, page });
-            console.log('API response:', data);
             if (data && data.results) {
                 setMovies(data.results);
             } else {
@@ -106,16 +105,16 @@ export default function DiscoverMovies() {
                                     {page > 1 && (
                                         <Button
                                             onClick={handleLoadLessMovies}
-                                            className="flex items-center justify-center md:h-10 h-10 px-4 py-2 bg-cyan-700 text-white rounded-md shadow-md hover:bg-green-600 transition duration-300 ease-in-out transform hover:-translate-y-1"
+                                            className="text-white border-2 border-white rounded-sm bg-transparent md:text-lg py-2 px-4 hover:bg-cyan-700 transition duration-300"
                                         >
                                             Films précédents
                                         </Button>
                                     )}
                                     <Button
                                         onClick={handleLoadMoreMovies}
-                                        className="flex items-center justify-center md:h-10 h-10 px-4 py-2 bg-cyan-700 text-white rounded-md shadow-md hover:bg-green-600 transition duration-300 ease-in-out transform hover:-translate-y-1"
+                                        className="text-white border-2 border-white rounded-sm bg-transparent md:text-lg py-2 px-4 hover:bg-cyan-700 transition duration-300"
                                     >
-                                        Films suivants
+                                        Films suivant
                                     </Button>
                                 </div>
                                 <div className="border-t border-gray-300 mt-4"></div>

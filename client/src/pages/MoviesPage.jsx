@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useMemo, useCallback } from 'react';
 import { fetchGenresOfMovies, fetchMoviesByGenre } from '../utils/moviedb';
 import { Link } from 'react-router-dom';
-import { IoStar } from 'react-icons/io5';
 import { Button } from "flowbite-react";
 import TopRated from '../components/TopRated';
 
@@ -124,7 +123,7 @@ export default function MoviesPage() {
             <div className="md:flex md:flex-row flex-col z-10">
                 <div className="md:flex-col flex-wrap md:w-[10%] w-full pt-6 md:pt-10 md:pl-6">
                     <ul className="grid grid-cols-4 md:grid-cols-1 gap-2 md:gap-4 p-2 md:p-0">
-                        <Button className="hidden md:flex text-white md:w-full items-center md:p-2 bg-green-500 transition ease-in-out transform hover:-translate-y-1"
+                        <Button className="hidden md:flex text-white md:w-full items-center md:p-2 bg-cyan-700 transition ease-in-out transform hover:-translate-y-1"
                             onClick={handleClick}>
                             <p>Top TMDb</p>
                         </Button>
@@ -148,7 +147,7 @@ export default function MoviesPage() {
                             </li>
                         ))}
 
-                        <Button className="md:hidden text-white w-[205%] flex items-center md:p-2 bg-green-500 transition ease-in-out transform hover:-translate-y-1"
+                        <Button className="md:hidden text-white w-[205%] flex items-center md:p-2 bg-cyan-700 transition ease-in-out transform hover:-translate-y-1"
                             onClick={handleClick}>
                             <p>Top TMDb</p>
                         </Button>
@@ -166,14 +165,14 @@ export default function MoviesPage() {
                                         {page > 1 && (
                                             <Button
                                                 onClick={handleLoadLessMovies}
-                                                className="flex items-center justify-center md:h-10 h-10 px-4 py-2 bg-cyan-700 text-white rounded-md shadow-md hover:bg-green-600 transition duration-300 ease-in-out transform hover:-translate-y-1"
+                                                className="text-white border-2 border-white bg-transparent rounded-sm  md:text-lg py-2 px-4 hover:bg-cyan-700 transition duration-300"
                                             >
                                                 Films précédents
                                             </Button>
                                         )}
                                         <Button
                                             onClick={handleLoadMoreMovies}
-                                            className="flex items-center justify-center md:h-10 h-10 px-4 py-2 bg-cyan-700 text-white rounded-md shadow-md hover:bg-green-600 transition duration-300 ease-in-out transform hover:-translate-y-1"
+                                            className="text-white border-2 border-white bg-transparent rounded-sm  md:text-lg py-2 px-4 hover:bg-cyan-700 transition duration-300"
                                         >
                                             Films suivants
                                         </Button>
