@@ -5,11 +5,12 @@ import { Button } from 'flowbite-react';
 
 export default function DiscoverMovies() {
     const [movies, setMovies] = useState([]);
-    const [year, setYear] = useState(2020); // Default year is 2024
+    const [year, setYear] = useState(2020); // Default year is 2020
     const [page, setPage] = useState(1); // Pagination state
     const [loading, setLoading] = useState(true); // Loading state
     const [error, setError] = useState(null); // Error state
-    const [selectedYearRange, setSelectedYearRange] = useState('2020-2024'); // Default year range is 2020-2024
+    const [selectedDecade, setSelectedDecade] = useState('2020'); // Default decade is 2020
+    const [dropdownOpen, setDropdownOpen] = useState(false); // State to manage dropdown visibility
 
     const fetchMovies = useCallback(async () => {
         setLoading(true);
@@ -33,13 +34,6 @@ export default function DiscoverMovies() {
         fetchMovies();
     }, [fetchMovies]);
 
-    useEffect(() => {
-        // Update selectedYearRange when year changes
-        const startYear = Math.floor(year / 5) * 5;
-        const endYear = startYear + 4;
-        setSelectedYearRange(`${startYear}-${endYear}`);
-    }, [year]);
-
     const handleLoadMoreMovies = () => {
         setPage(prevPage => prevPage + 1);
     };
@@ -48,17 +42,30 @@ export default function DiscoverMovies() {
         setPage(prevPage => (prevPage > 1 ? prevPage - 1 : 1));
     };
 
-    const handleYearRangeChange = (startYear, endYear) => {
-        setSelectedYearRange(`${startYear}-${endYear}`);
-        setYear(startYear); // Set the starting year for the selected range
+    const handleYearChange = (year) => {
+        setYear(year);
         setPage(1); // Reset to page 1 when year changes
+        setDropdownOpen(false); // Close the dropdown after selecting a year
     };
 
-    // Generate an array of year ranges from 1970 to 2025
-    const yearRanges = [];
-    for (let year = 1970; year <= 2025; year += 5) {
-        yearRanges.push({ start: year, end: year + 4 });
+    const handleDecadeChange = (decade) => {
+        setSelectedDecade(decade);
+        handleYearChange(decade); // Default to the first year of the decade
+    };
+
+    const toggleDropdown = (decade) => {
+        setDropdownOpen(prevState => (selectedDecade === decade ? !prevState : true));
+        setSelectedDecade(decade);
+    };
+
+    // Generate an array of decades from 1970 to 2020
+    const decades = [];
+    for (let year = 1970; year <= 2020; year += 10) {
+        decades.push(year);
     }
+
+    // Generate an array of years for the selected decade
+    const yearsInDecade = Array.from({ length: 10 }, (_, i) => selectedDecade + i);
 
     return (
         <section className="w-screen dark:bg-[#18181b] bg-white pt-4">
@@ -85,14 +92,28 @@ export default function DiscoverMovies() {
             <div className="md:flex md:flex-row flex-col z-10">
                 <div className="md:flex-col flex-wrap md:w-[10%] w-full pt-6 md:pt-8 md:pl-6">
                     <ul className="grid grid-cols-4 md:grid-cols-1 md:gap-4 gap-2 p-2 md:p-0">
-                        {yearRanges.map(({ start, end }) => (
-                            <Button
-                                key={start}
-                                onClick={() => handleYearRangeChange(start, end)}
-                                className={`md:mr-2 w-full p-1 ${selectedYearRange === `${start}-${end}` ? 'bg-cyan-700 text-white' : 'bg-white text-black border-2 dark:border-white shadow-lg'} transition ease-in-out transform hover:-translate-y-1`}
-                            >
-                                {start}-{end}
-                            </Button>
+                        {decades.map((decade) => (
+                            <div key={decade} className="mb-2 relative">
+                                <Button
+                                    onClick={() => toggleDropdown(decade)}
+                                    className={`md:mr-2 w-full p-1 ${selectedDecade === decade ? 'bg-cyan-700 text-white' : 'bg-white text-black border-2 dark:border-white shadow-lg'} transition ease-in-out transform hover:-translate-y-1`}
+                                >
+                                    {decade}'s
+                                </Button>
+                                {dropdownOpen && selectedDecade === decade && (
+                                    <div className="absolute left-0 mt-2 w-full bg-white dark:bg-[#18181b] border border-gray-300 dark:border-gray-700 rounded-md shadow-lg z-10">
+                                        {yearsInDecade.map((year) => (
+                                            <button
+                                                key={year}
+                                                onClick={() => handleYearChange(year)}
+                                                className="block w-full text-left px-4 py-2 text-sm text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-600"
+                                            >
+                                                {year}
+                                            </button>
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
                         ))}
                     </ul>
                 </div>
@@ -102,14 +123,14 @@ export default function DiscoverMovies() {
                             {page > 1 && (
                                 <Button
                                     onClick={handleLoadLessMovies}
-                                    className="dark:text-white text-black border-2 dark:border-white shadow-lg bg-transparent rounded-sm md:text-md hover:bg-cyan-700 hover:text-white transition duration-300"
+                                    className="dark:text-black text-black border-2 dark:border-white shadow-lg bg-white rounded-sm md:text-md dark:hover:text-white hover:bg-cyan-700 hover:text-white transition duration-300"
                                 >
                                     Films précédents
                                 </Button>
                             )}
                             <Button
                                 onClick={handleLoadMoreMovies}
-                                className="dark:text-white text-black border-2 dark:border-white shadow-lg bg-transparent rounded-sm md:text-md hover:bg-cyan-700 hover:text-white transition duration-300"
+                                className="dark:text-black text-black border-2 dark:border-white shadow-lg bg-white rounded-sm md:text-md dark:hover:text-white hover:bg-cyan-700 hover:text-white transition duration-300"
                             >
                                 Films suivants
                             </Button>
@@ -145,7 +166,6 @@ export default function DiscoverMovies() {
                     </div>
                 </div>
             </div>
-
         </section>
     );
 }

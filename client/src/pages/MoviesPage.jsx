@@ -163,14 +163,14 @@ export default function MoviesPage() {
                                     {page > 1 && (
                                         <Button
                                             onClick={handleLoadLessMovies}
-                                            className="dark:text-white text-black border-2 dark:border-white shadow-lg bg-transparent rounded-sm md:text-md hover:bg-cyan-700 hover:text-white transition duration-300"
+                                            className="dark:text-black text-black border-2 dark:border-white shadow-lg bg-white rounded-sm md:text-md dark:hover:text-white hover:bg-cyan-700 hover:text-white transition duration-300"
                                         >
                                             Films précédents
                                         </Button>
                                     )}
                                     <Button
                                         onClick={handleLoadMoreMovies}
-                                        className="dark:text-white text-black border-2 dark:border-white shadow-lg bg-transparent rounded-sm md:text-md hover:bg-cyan-700 hover:text-white transition duration-300"
+                                        className="dark:text-black text-black border-2 dark:border-white shadow-lg bg-white rounded-sm md:text-md dark:hover:text-white hover:bg-cyan-700 hover:text-white transition duration-300"
                                     >
                                         Films suivants
                                     </Button>

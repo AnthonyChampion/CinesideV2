@@ -150,7 +150,7 @@ export default function HomePage() {
                                     <div className="flex justify-between w-full">
                                         {page > 1 && (
                                             <Button
-                                                className="dark:text-white border-2 dark:border-white bg-transparent text-black border-black rounded-sm md:text-md hover:bg-cyan-700 transition duration-300 shadow-lg"
+                                                className="dark:text-black border-2 dark:border-white bg-white text-black border-black rounded-sm md:text-md hover:bg-cyan-700 transition duration-300 shadow-lg"
                                                 onClick={() => handlePageChange('prev')}
                                                 disabled={page <= 1}
                                             >
@@ -158,7 +158,7 @@ export default function HomePage() {
                                             </Button>
                                         )}
                                         <Button
-                                            className="dark:text-white border-2 dark:border-white bg-transparent text-black border-black rounded-sm md:text-md hover:bg-cyan-700 transition duration-300 shadow-lg"
+                                            className="dark:text-black border-2 dark:border-white bg-white text-black border-black rounded-sm md:text-md hover:bg-cyan-700 transition duration-300 shadow-lg"
                                             onClick={() => handlePageChange('next')}
                                             disabled={trending.length === 0}
                                         >
