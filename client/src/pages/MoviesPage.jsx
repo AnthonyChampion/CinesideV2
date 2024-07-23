@@ -121,9 +121,9 @@ export default function MoviesPage() {
                 </ol>
             </nav>
             <div className="md:flex md:flex-row flex-col z-10">
-                <div className="md:flex-col flex-wrap md:w-[10%] w-full pt-6 md:pt-10 md:pl-6">
+                <div className="md:flex-col flex-wrap md:w-[10%] w-full pt-6 md:pt-8 md:pl-6">
                     <ul className="grid grid-cols-4 md:grid-cols-1 gap-2 md:gap-4 p-2 md:p-0">
-                        <Button className="hidden md:flex text-white md:w-full items-center md:p-2 bg-cyan-700 transition ease-in-out transform hover:-translate-y-1"
+                        <Button className="hidden md:flex text-black md:w-full items-center md:p-2 bg-white focus:bg-cyan-700 focus:text-white focus:border-2 transition ease-in-out transform hover:-translate-y-1"
                             onClick={handleClick}>
                             <p>Top TMDb</p>
                         </Button>
@@ -147,7 +147,7 @@ export default function MoviesPage() {
                             </li>
                         ))}
 
-                        <Button className="md:hidden text-white w-[205%] flex items-center md:p-2 bg-cyan-700 transition ease-in-out transform hover:-translate-y-1 shadow-lg"
+                        <Button className="md:hidden w-[205%] flex items-center md:p-2 bg-white text-black transition ease-in-out transform hover:-translate-y-1 shadow-lg"
                             onClick={handleClick}>
                             <p>Top TMDb</p>
                         </Button>
@@ -158,11 +158,8 @@ export default function MoviesPage() {
                         <TopRated />
                     ) : (
                         <div className="flex flex-col p-4 space-y-4">
-                            <div className="flex items-center justify-between">
-                                <h1 className="md:text-3xl text-xl dark:text-white text-black font-bold">
-                                    {activeFilter ? activeFilter.name : 'Tous les films'}
-                                </h1>
-                                <div className="flex space-x-5">
+                            <div className="flex">
+                                <div className="flex w-full justify-between">
                                     {page > 1 && (
                                         <Button
                                             onClick={handleLoadLessMovies}

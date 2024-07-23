@@ -37,8 +37,8 @@ export default function NavBar({ showSearchProp }) {
     };
 
     return (
-        <nav className="w-screen md:h-[11vh] relative z-20 md:dark:bg-[#18181b] md:bg-white dark:bg-[#18181b] bg-white">
-            <div className="flex md:items-center md:justify-between p-4 md:px-14 md:text-black md:dark:text-white dark:text-white text-black dark:bg-[#1e1f20]">
+        <nav className="w-screen md:h-[11vh] relative z-20 md:dark:bg-transparent md:bg-white dark:bg-[#18181b] bg-white ">
+            <div className="flex md:items-center md:justify-between p-4 md:px-14 md:text-black md:dark:text-white dark:text-white text-black dark:bg-transparent">
                 <div className="flex items-center justify-between w-full md:w-auto">
                     <div className="flex items-center space-x-1 pl-4 md:pl-0">
                         <img src="../src/assets/cinelogo.png" className="w-7 h-7" alt="Cineside logo" />
@@ -67,7 +67,6 @@ export default function NavBar({ showSearchProp }) {
                     )}
                     {auth && auth.isAdmin && (
                         <Link to="admin" className="flex items-center space-x-2 hover:text-cyan-700">
-                            <FaRegUser size={24} />
                             <span className="text-md">Admin</span>
                         </Link>
                     )}
@@ -82,14 +81,12 @@ export default function NavBar({ showSearchProp }) {
                                 </Link>
                             </div>
                             <Button onClick={handleLogout} className="flex items-center space-x-1 p-1.5">
-                                <IoLogOut size={24} />
                                 <span className="text-md">Deconnexion</span>
                             </Button>
                         </>
                     ) : (
                         <Link to="connexion">
                             <Button className="flex items-center space-x-1 p-1.5">
-                                <IoLogIn size={24} />
                                 <span className="text-md">Connexion</span>
                             </Button>
                         </Link>

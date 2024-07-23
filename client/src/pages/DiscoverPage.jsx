@@ -83,7 +83,7 @@ export default function DiscoverMovies() {
                 </ol>
             </nav>
             <div className="md:flex md:flex-row flex-col z-10">
-                <div className="md:flex-col flex-wrap md:w-[10%] w-full pt-6 md:pt-10 md:pl-6">
+                <div className="md:flex-col flex-wrap md:w-[10%] w-full pt-6 md:pt-8 md:pl-6">
                     <ul className="grid grid-cols-4 md:grid-cols-1 md:gap-4 gap-2 p-2 md:p-0">
                         {yearRanges.map(({ start, end }) => (
                             <Button
@@ -97,11 +97,8 @@ export default function DiscoverMovies() {
                     </ul>
                 </div>
                 <div className="flex flex-col p-4 space-y-4 md:w-[82%] w-[full] md:ml-12 mt-4">
-                    <div className="flex items-center justify-between">
-                        <h1 className="md:text-3xl text-xl dark:text-white text-black font-bold">
-                            {selectedYearRange}
-                        </h1>
-                        <div className="flex space-x-5">
+                    <div className="flex">
+                        <div className="flex w-full justify-between">
                             {page > 1 && (
                                 <Button
                                     onClick={handleLoadLessMovies}

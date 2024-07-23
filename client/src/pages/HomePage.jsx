@@ -42,7 +42,7 @@ export default function HomePage() {
                     )
                 );
             } catch (error) {
-                console.error('Error fetching movie details and genres:', error);
+                console.error('Erreur dans la récupération des données:', error);
             }
         }
     }, [index, trending]);
@@ -77,7 +77,7 @@ export default function HomePage() {
     };
 
     return (
-        <div ref={topPage} className="flex flex-col min-h-screen dark:text-white bg-white dark:bg-[#18181b]">
+        <div ref={topPage} className="flex flex-col min-h-screen dark:text-white bg-white dark:bg-transparent md:-mt-28">
             <section className="flex-grow w-screen">
                 {loading ? (
                     <div className="flex justify-center items-center h-screen">
@@ -87,9 +87,9 @@ export default function HomePage() {
                     </div>
                 ) : (
                     <>
-                        <header className="dark:bg-[#18181b] md:h-[65vh] h-[62vh]">
+                        <header className="dark:bg-[#18181b] md:h-[75vh] h-[62vh]">
                             {trending[index] && (
-                                <div className="relative w-screen md:h-[62vh] h-[65vh] overflow-hidden bg-[#18181b]">
+                                <div className="relative w-screen md:h-[75vh] h-[65vh] overflow-hidden bg-[#18181b]">
                                     <img
                                         src={`https://image.tmdb.org/t/p/original${trending[index].backdrop_path}`}
                                         alt={trending[index]?.title || "Image du film"}
@@ -99,9 +99,11 @@ export default function HomePage() {
                                             e.target.src = "../src/assets/img_not_available.png";
                                         }}
                                     />
-                                    <div className="absolute inset-0 bg-gradient-to-r from-[#1e1f20] via-transparent"></div>
-                                    <div className="absolute inset-0 space-y-1 top-[32vh] md:space-y-4 md:top-[22vh] md:left-14 md:w-2/5 w-full h-fit text-white md:p-6 p-4">
-                                        <span className="bg-gray-100 text-gray-800 md:text-lg text-xs font-medium me-2 px-2.5 py-0.5 rounded border border-gray-500">A l'affiche</span>
+                                    <div className="hidden md:block absolute inset-0 bg-gradient-to-r from-[#18181b] via-transparent"></div>
+                                    <div className="hidden md:block absolute inset-0 bg-gradient-to-t from-[#18181b] via-transparent"></div>
+                                    <div className="hidden md:block absolute inset-0 bg-gradient-to-b from-[#18181b] via-transparent"></div>
+                                    <div className="absolute inset-0 space-y-1 top-[32vh] md:space-y-4 md:top-[30vh] md:left-36 md:w-2/5 w-full h-fit text-white md:p-6 p-4 animate-showContent">
+                                        <span className="bg-gray-100 text-gray-800 md:text-lg text-xs font-medium me-2 px-2.5 py-0.5 rounded border border-gray-500">En tendance</span>
                                         <h1 className="font-bold text-xl md:text-5xl uppercase pt-4">{trending[index]?.title || "Title not available"}</h1>
                                         {trending[index].genres && (
                                             <div className="flex items-center">
@@ -142,39 +144,36 @@ export default function HomePage() {
                                 </div>
                             )}
                         </header>
-
-                        <div className="flex w-full items-center justify-center dark:bg-[#1e1f20] md:pt-14 pt-8">
+                        <div className="flex w-full items-center justify-center dark:bg-[#18181b] pt-4">
                             <div className="w-full md:w-[80%]">
-                                <div className="flex justify-between items-center p-2 md:p-0">
-                                    <h2 className="md:text-4xl text-xl font-bold text-start dark:text-white text-black">En tendance</h2>
-                                    <div className="flex items-center md:gap-3 gap-2">
+                                <div className="flex p-4 md:p-0">
+                                    <div className="flex justify-between w-full">
                                         {page > 1 && (
                                             <Button
                                                 className="dark:text-white border-2 dark:border-white bg-transparent text-black border-black rounded-sm md:text-md hover:bg-cyan-700 transition duration-300 shadow-lg"
                                                 onClick={() => handlePageChange('prev')}
                                                 disabled={page <= 1}
                                             >
-                                                Précédent
+                                                Films précédents
                                             </Button>
                                         )}
-                                        <span className="md:text-md text-[13px] dark:text-white text-black">Page {page}</span>
                                         <Button
                                             className="dark:text-white border-2 dark:border-white bg-transparent text-black border-black rounded-sm md:text-md hover:bg-cyan-700 transition duration-300 shadow-lg"
                                             onClick={() => handlePageChange('next')}
                                             disabled={trending.length === 0}
                                         >
-                                            Suivant
+                                            Films suivants
                                         </Button>
                                     </div>
                                 </div>
                                 <div>
-                                    <div className="border-t border-gray-300 mt-4"></div>
+                                    <div className="border-t border-gray-300 md:mt-4"></div>
                                 </div>
-                                <div className="flex flex-wrap mt-4">
+                                <div className="flex flex-wrap md:mt-4 mt-2">
                                     {trending.map((data, idx) => (
                                         <div
                                             key={data.id}
-                                            className="group flex flex-col cursor-pointer bg-transparent p-2 mb-2 mt-4 md:mt-0 shadow-lg md:w-1/5"
+                                            className="group flex flex-col cursor-pointer bg-transparent p-2 mb-2 md:mt-0 shadow-lg w-full md:w-1/5"
                                             onClick={() => {
                                                 setIndex(idx);
                                                 scrollToTop();
@@ -191,7 +190,7 @@ export default function HomePage() {
                                                     }}
                                                 />
                                             </div>
-                                            <div className="p-4 space-y-1">
+                                            <div className="p-4 space-y-1 text-center">
                                                 <p className="text-sm text-gray-700 dark:text-white">{data.release_date}</p>
                                                 <h2 className="text-md font-bold line-clamp-1 dark:text-white text-black">{data.title}</h2>
                                             </div>

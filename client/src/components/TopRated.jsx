@@ -36,11 +36,8 @@ export default function TopratedMovies() {
         <section className="h-fit flex flex-col items-center dark:bg-[#18181b] bg-white">
             <div className="flex flex-col p-4 space-y-4">
 
-                <div className="flex items-center justify-between">
-                    <h1 className="md:text-3xl text-xl dark:text-white text-black font-bold">
-                        Top TMDb
-                    </h1>
-                    <div className="flex space-x-5">
+                <div className="flex">
+                    <div className="flex w-full justify-between">
                         {currentPage > 1 && (
                             <Button
                                 onClick={goToPrevPage}

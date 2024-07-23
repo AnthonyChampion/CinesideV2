@@ -25,7 +25,7 @@ export default {
       }
     },
     animation: {
-      showContent: "showContent 0.5s linear 1s forwards",
+      showContent: "showContent 1s ease-out forwards",
     },
     transitionDelay: {
       "1200": "1.2s",
@@ -35,7 +35,7 @@ export default {
         "0%": {
           opacity: 0,
           filter: "blur(10px)",
-          transform: "translateY(20px)",
+          transform: "translateY(-20%)",
         },
         "100%": {
           opacity: 1,
