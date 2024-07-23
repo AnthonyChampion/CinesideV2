@@ -12,7 +12,7 @@ export default function MoviesPage() {
     const [page, setPage] = useState(1);
     const [loading, setLoading] = useState(true);
 
-    const MOVIES_PER_PAGE = 16;
+    const MOVIES_PER_PAGE = 15;
 
     const handleClickFilter = useCallback((filterId, filterName) => {
         setActiveFilter({ id: filterId, name: filterName });
@@ -99,11 +99,11 @@ export default function MoviesPage() {
     const filteredMovies = useMemo(() => moviesFiltered.slice(0, 16), [moviesFiltered]);
 
     return (
-        <section className="w-screen dark:bg-[#101522] bg-white pt-4">
+        <section className="w-screen dark:bg-[#18181b] bg-white pt-4">
             <nav className="flex pl-4" aria-label="Breadcrumb">
                 <ol className="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
                     <Link to="/" className="inline-flex items-center">
-                        <p className="inline-flex items-center text-sm font-medium text-[#101522] hover:text-cyan-700 dark:text-gray-400 dark:hover:text-white">
+                        <p className="inline-flex items-center text-sm font-medium text-black hover:text-cyan-700 dark:text-gray-400 dark:hover:text-white">
                             <svg className="w-3 h-3 me-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                                 <path d="m19.707 9.293-2-2-7-7a1 1 0 0 0-1.414 0l-7 7-2 2a1 1 0 0 0 1.414 1.414L2 10.414V18a2 2 0 0 0 2 2h3a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h3a2 2 0 0 0 2-2v-7.586l.293.293a1 1 0 0 0 1.414-1.414Z" />
                             </svg>
@@ -112,10 +112,10 @@ export default function MoviesPage() {
                     </Link>
                     <Link to="/films">
                         <div className="flex items-center">
-                            <svg className="rtl:rotate-180 w-3 h-3 dark:text-gray-400 text-[#101522] mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                            <svg className="rtl:rotate-180 w-3 h-3 dark:text-gray-400 text-black mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
                                 <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 9 4-4-4-4" />
                             </svg>
-                            <p className="ms-1 text-sm font-medium hover:text-cyan-700 md:ms-2 dark:text-gray-400 text-[#101522] dark:hover:text-white">Genres</p>
+                            <p className="ms-1 text-sm font-medium hover:text-cyan-700 md:ms-2 dark:text-gray-400 text-black dark:hover:text-white">Genres</p>
                         </div>
                     </Link>
                 </ol>
@@ -131,7 +131,7 @@ export default function MoviesPage() {
                             className="w-full text-black"
                             onClick={handleResetFilter}
                         >
-                            <Button type="button" className="w-full h-full p-1 items-center md:text-sm transition ease-in-out transform hover:-translate-y-1 bg-transparent dark:text-white text-[#101522] border-2 shadow-lg dark:border-white">
+                            <Button type="button" className="w-full h-full p-1 items-center md:text-sm transition ease-in-out transform hover:-translate-y-1 bg-transparent dark:text-white text-black border-2 shadow-lg dark:border-white">
                                 Aucun filtre
                             </Button>
                         </li>
@@ -153,59 +153,59 @@ export default function MoviesPage() {
                         </Button>
                     </ul>
                 </div>
-                <div className=" md:w-[82%] w-full md:ml-12 mt-6">
+                <div className=" md:w-[82%] w-full md:ml-12 mt-4">
                     {showTopRated ? (
                         <TopRated />
                     ) : (
-                        <div className="grid grid-cols-2 md:grid-cols-6">
-                            <div className="flex col-span-2 md:col-span-2 items-center justify-center">
-                                <div className="flex-col">
-                                    <h1 className="md:text-3xl text-xl dark:text-white text-[#101522] font-bold text-center">{activeFilter ? activeFilter.name : 'Tous les films'}</h1>
-                                    <div className="flex justify-center items-center space-x-5 mt-6 pb-4">
-                                        {page > 1 && (
-                                            <Button
-                                                onClick={handleLoadLessMovies}
-                                                className="dark:text-white text-[#101522] border-2 dark:border-white shadow-lg bg-transparent rounded-sm  md:text-lg py-2 px-4 hover:bg-cyan-700 hover:text-white transition duration-300"
-                                            >
-                                                Films précédents
-                                            </Button>
-                                        )}
+                        <div className="flex flex-col p-4 space-y-4">
+                            <div className="flex items-center justify-between">
+                                <h1 className="md:text-3xl text-xl dark:text-white text-black font-bold">
+                                    {activeFilter ? activeFilter.name : 'Tous les films'}
+                                </h1>
+                                <div className="flex space-x-5">
+                                    {page > 1 && (
                                         <Button
-                                            onClick={handleLoadMoreMovies}
-                                            className="dark:text-white text-[#101522] border-2 dark:border-white shadow-lg bg-transparent rounded-sm  md:text-lg py-2 px-4 hover:bg-cyan-700 hover:text-white transition duration-300"
+                                            onClick={handleLoadLessMovies}
+                                            className="dark:text-white text-black border-2 dark:border-white shadow-lg bg-transparent rounded-sm md:text-md hover:bg-cyan-700 hover:text-white transition duration-300"
                                         >
-                                            Films suivants
+                                            Films précédents
                                         </Button>
-                                    </div>
-                                    <div className="border-t border-gray-300 mt-4"></div>
+                                    )}
+                                    <Button
+                                        onClick={handleLoadMoreMovies}
+                                        className="dark:text-white text-black border-2 dark:border-white shadow-lg bg-transparent rounded-sm md:text-md hover:bg-cyan-700 hover:text-white transition duration-300"
+                                    >
+                                        Films suivants
+                                    </Button>
                                 </div>
                             </div>
-
-                            {filteredMovies.map((movie) => (
-                                <div
-                                    key={movie.id}
-                                    className="group flex flex-col cursor-pointer bg-transparent p-3 mt-4 md:mt-0 shadow-lg"
-                                >
-                                    <Link to={`/film/${movie.id}`}>
-                                        <div className="relative">
-                                            <img
-                                                className="w-full md:h-[300px] h-[250px] object-cover"
-                                                src={"https://image.tmdb.org/t/p/original" + movie.poster_path}
-                                                alt={movie.title}
-                                                onError={(e) => {
-                                                    e.target.onerror = null;
-                                                    e.target.src = "../src/assets/img_not_available.png";
-                                                }}
-                                            />
-                                        </div>
-                                        <div className="space-y-1 p-2">
-                                            <p className="text-sm dark:text-gray-400 text-[#101522]">{movie.release_date}</p>
-                                            <h2 className="text-md font-bold line-clamp-1 dark:text-white text-[#101522]">{movie.title}</h2>
-                                        </div>
-                                    </Link>
-
-                                </div>
-                            ))}
+                            <div className="border-t border-gray-300"></div>
+                            <div className="flex flex-wrap -mx-3">
+                                {filteredMovies.map((movie) => (
+                                    <div
+                                        key={movie.id}
+                                        className="flex flex-col cursor-pointer bg-transparent p-3 mt-4 md:mt-0 shadow-lg w-1/2 sm:w-1/2 md:w-1/3 lg:w-1/5 xl:w-1/5 px-4"
+                                    >
+                                        <Link to={`/film/${movie.id}`}>
+                                            <div className="relative">
+                                                <img
+                                                    className="w-full md:h-[360px] h-[250px] object-cover"
+                                                    src={"https://image.tmdb.org/t/p/original" + movie.poster_path}
+                                                    alt={movie.title}
+                                                    onError={(e) => {
+                                                        e.target.onerror = null;
+                                                        e.target.src = "../src/assets/img_not_available.png";
+                                                    }}
+                                                />
+                                            </div>
+                                            <div className="space-y-1 p-2">
+                                                <p className="text-sm dark:text-gray-400 text-black">{movie.release_date}</p>
+                                                <h2 className="text-md font-bold line-clamp-1 dark:text-white text-black">{movie.title}</h2>
+                                            </div>
+                                        </Link>
+                                    </div>
+                                ))}
+                            </div>
                         </div>
                     )}
                 </div>

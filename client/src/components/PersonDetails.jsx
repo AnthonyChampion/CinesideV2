@@ -9,7 +9,7 @@ export default function PersonDetails({ personId, onClose }) {
     const [movies, setMovies] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const [moviesToShow, setMoviesToShow] = useState(16);
+    const [moviesToShow, setMoviesToShow] = useState(18);
 
     const fetchPersonData = useCallback(async () => {
         try {
@@ -71,26 +71,24 @@ export default function PersonDetails({ personId, onClose }) {
 
                         {movies.length > 0 && (
                             <div className="grid grid-cols-2 md:grid-cols-6 mt-20">
-                                <div className="flex col-span-2 md:col-span-2 items-center justify-center">
-                                    {movies.length > moviesToShow && (
-                                        <div className="flex-col">
-                                            <h1 className="text-3xl text-black font-bold text-center">Filmographie</h1>
-                                            <div className="border-t border-gray-300 mt-4"></div>
-                                            {movies.length > moviesToShow && (
-                                                <Button
-                                                    onClick={handleSeeMore}
-                                                    className="flex items-center justify-center md:h-10 h-10 px-4 py-2 bg-cyan-700 text-white rounded-md shadow-md hover:bg-green-600 transition duration-300 ease-in-out transform hover:-translate-y-1"
-                                                >
-                                                    Afficher plus de films
-                                                </Button>
-                                            )}
-                                        </div>
-                                    )}
+                                <div className="col-span-2 md:col-span-6">
+                                    <div className="flex items-center justify-between">
+                                        <h1 className="text-3xl text-black font-bold">Filmographie</h1>
+                                        {movies.length > moviesToShow && (
+                                            <Button
+                                                onClick={handleSeeMore}
+                                                className="flex items-center justify-center md:h-10 h-10 px-4 py-2 bg-white text-black rounded-md shadow-md hover:bg-cyan-700 hover:text-white transition duration-300 ease-in-out transform hover:-translate-y-1"
+                                            >
+                                                Afficher plus de films
+                                            </Button>
+                                        )}
+                                    </div>
+                                    <div className="border-t border-gray-300 mt-4"></div>
                                 </div>
                                 {movies.slice(0, moviesToShow).map((data) => (
                                     <div
                                         key={data.id}
-                                        className="group flex flex-col cursor-pointer bg-transparent pb-2"
+                                        className="group flex flex-col cursor-pointer bg-transparent pb-2 shadow-lg p-3"
                                     >
                                         <Link to={`/film/${data.id}`}>
                                             <div className="relative">
@@ -113,6 +111,7 @@ export default function PersonDetails({ personId, onClose }) {
                                     </div>
                                 ))}
                             </div>
+
                         )}
                     </div>
                 ) : (

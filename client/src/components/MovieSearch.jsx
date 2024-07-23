@@ -48,7 +48,7 @@ export default function MovieSearch() {
                                 <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
                             </svg>
                         </div>
-                        <input type="search" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className="block w-full p-4 ps-10 text-sm text-black border border-gray-300 rounded-lg bg-white focus:ring-cyan-700 focus:border-cyan-700 " placeholder="Recherchez un film" required />
+                        <input type="search" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className="block w-full p-4 ps-10 text-sm text-white border border-gray-300 rounded-lg dark:bg-zinc-700 bg-white focus:ring-cyan-700 focus:border-cyan-700 " placeholder="Recherchez un film" required />
                     </div>
                 </form>
             </div>

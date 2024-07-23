@@ -9,7 +9,7 @@
 
 /* Track */
 ::-webkit-scrollbar-track {
-  background: #101522;
+  background: #18181b;
   border-radius: 5px;
 }
 
@@ -30,7 +30,7 @@ body,
   margin: 0;
   padding: 0;
   font-family: "Roboto";
-  background: #101522;
+  background: #18181b;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

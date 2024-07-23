@@ -32,75 +32,60 @@ export default function TopratedMovies() {
         }
     };
 
-    const renderStars = (vote_average) => {
-        const totalStars = 5;
-        const filledStars = Math.round((vote_average / 10) * totalStars);
-        const emptyStars = totalStars - filledStars;
-
-        return (
-            <div className="flex space-x-1">
-                {[...Array(filledStars)].map((_, i) => (
-                    <span key={i} className="text-yellow-500">★</span>
-                ))}
-                {[...Array(emptyStars)].map((_, i) => (
-                    <span key={i} className="text-gray-400">★</span>
-                ))}
-            </div>
-        );
-    };
-
     return (
-        <section className="h-fit flex flex-col items-center bg-[#101522]">
-            <div className="grid grid-cols-2 md:grid-cols-6">
-                <div className="flex col-span-2 md:col-span-2 items-center justify-center">
-                    <div className="flex-col">
-                        <h1 className="md:text-3xl text-xl text-white font-bold text-center">Top TMDb</h1>
-                        <div className="flex justify-center items-center space-x-5 mt-6 pb-4">
-                            {currentPage > 1 && (
-                                <Button
-                                    onClick={goToPrevPage}
-                                    className="flex items-center justify-center md:h-10 h-10 px-4 py-2 bg-cyan-700 text-white rounded-md shadow-md hover:bg-green-600 transition duration-300 ease-in-out transform hover:-translate-y-1"
-                                >
-                                    Films précédents
-                                </Button>
-                            )}
+        <section className="h-fit flex flex-col items-center dark:bg-[#18181b] bg-white">
+            <div className="flex flex-col p-4 space-y-4">
+
+                <div className="flex items-center justify-between">
+                    <h1 className="md:text-3xl text-xl dark:text-white text-black font-bold">
+                        Top TMDb
+                    </h1>
+                    <div className="flex space-x-5">
+                        {currentPage > 1 && (
                             <Button
-                                onClick={goToNextPage}
-                                className="flex items-center justify-center md:h-10 h-10 px-4 py-2 bg-cyan-700 text-white rounded-md shadow-md hover:bg-green-600 transition duration-300 ease-in-out transform hover:-translate-y-1"
+                                onClick={goToPrevPage}
+                                className="dark:text-white text-black border-2 dark:border-white shadow-lg bg-transparent rounded-sm md:text-md hover:bg-cyan-700 hover:text-white transition duration-300"
                             >
-                                Films suivants
+                                Films précédents
                             </Button>
-                        </div>
-                        <div className="border-t border-gray-300 mt-4"></div>
+                        )}
+                        <Button
+                            onClick={goToNextPage}
+                            className="dark:text-white text-black border-2 dark:border-white shadow-lg bg-transparent rounded-sm md:text-md hover:bg-cyan-700 hover:text-white transition duration-300"
+                        >
+                            Films suivants
+                        </Button>
                     </div>
                 </div>
+                <div className="border-t border-gray-300"></div>
 
-                {toprated.slice(0, 20).map((data, idx) => (
-                    <div
-                        key={data.id}
-                        className="group flex flex-col cursor-pointer bg-transparent p-3 mt-4 md:mt-0"
-                        onClick={() => setIndex(idx)}
-                    >
-                        <Link to={`/film/${data.id}`}>
-                            <div className="relative">
-                                <img
-                                    className="w-full md:h-[300px] h-[250px] object-cover"
-                                    src={"https://image.tmdb.org/t/p/original" + data.poster_path}
-                                    alt={data.title}
-                                    onError={(e) => {
-                                        e.target.onerror = null;
-                                        e.target.src = "../src/assets/img_not_available.png";
-                                    }}
-                                />
-                            </div>
-                            <div className="space-y-1 p-2">
-                                <p className="text-sm text-gray-400">{data.release_date}</p>
-                                <h2 className="text-md font-bold line-clamp-1 text-white">{data.title}</h2>
-                            </div>
-                        </Link>
+                <div className="flex flex-wrap -mx-3">
+                    {toprated.map((movie) => (
+                        <div
+                            key={movie.id}
+                            className="flex flex-col cursor-pointer bg-transparent p-3 mt-4 md:mt-0 shadow-lg w-1/2 sm:w-1/2 md:w-1/3 lg:w-1/5 xl:w-1/5 px-4"
+                        >
+                            <Link to={`/film/${movie.id}`}>
+                                <div className="relative">
+                                    <img
+                                        className="w-full md:h-[360px] h-[250px] object-cover"
+                                        src={"https://image.tmdb.org/t/p/original" + movie.poster_path}
+                                        alt={movie.title}
+                                        onError={(e) => {
+                                            e.target.onerror = null;
+                                            e.target.src = "../src/assets/img_not_available.png";
+                                        }}
+                                    />
+                                </div>
+                                <div className="space-y-1 p-2">
+                                    <p className="text-sm dark:text-gray-400 text-black">{movie.release_date}</p>
+                                    <h2 className="text-md font-bold line-clamp-1 dark:text-white text-black">{movie.title}</h2>
+                                </div>
+                            </Link>
+                        </div>
+                    ))}
+                </div>
 
-                    </div>
-                ))}
             </div>
         </section>
     );

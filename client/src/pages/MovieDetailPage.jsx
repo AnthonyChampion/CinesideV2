@@ -4,6 +4,7 @@ import { fetchMovieDetails } from '../utils/moviedb';
 import PersonDetails from '../components/PersonDetails';
 import useMovieData from '../hooks/useMovieData';
 import axios from 'axios';
+import { Button } from 'flowbite-react';
 
 const MovieDetailPage = () => {
     const { id } = useParams();
@@ -69,9 +70,6 @@ const MovieDetailPage = () => {
         }
     };
 
-
-
-
     const handleCastClick = (personId) => {
         setSelectedPerson(personId);
     };
@@ -104,7 +102,7 @@ const MovieDetailPage = () => {
     };
 
     return (
-        <div ref={movieList} className="flex flex-col items-center justify-center text-white font-Roboto bg-[#101522]">
+        <div ref={movieList} className="flex flex-col items-center justify-center dark:text-white text-black font-Roboto dark:bg-[#18181b] bg-white">
             {loading ? (
                 <div className="flex justify-center items-center h-screen">
                     <div className="spinner-border animate-spin inline-block w-8 h-8 border-4 rounded-full text-green-500" role="status">
@@ -144,7 +142,7 @@ const MovieDetailPage = () => {
                     </div>
 
                     <div className="mt-8 px-3 md:px-0">
-                        <h1 className="text-2xl md:text-5xl uppercase font-bold w-[75%]">{movie?.title || "Title Not Available"}</h1>
+                        <h1 className="text-2xl md:text-5xl uppercase font-bold w-[75%]">{movie?.title || "Aucun titre disponible"}</h1>
                         <div className="md:flex md:flex-row flex-col items-center md:space-x-10 md:space-y-0 space-y-2 mt-4">
                             <p className="md:text-lg text-sm">Date de sortie: {movie?.release_date}</p>
                             <p className="md:text-lg text-sm">{movie?.runtime} min</p>
@@ -191,7 +189,7 @@ const MovieDetailPage = () => {
                     <div className="mt-8 md:mt-8 px-3 md:px-0">
                         {Object.keys(watchProviders)?.length > 0 && (
                             <div>
-                                <h3 className="md:text-3xl text-xl text-white font-bold">Plateformes:</h3>
+                                <h3 className="md:text-3xl text-xl dark:text-white text-black font-bold">Plateformes:</h3>
                                 <div className="flex flex-wrap items-center gap-4 mt-4">
                                     {watchProviders.flatrate && watchProviders.flatrate.length > 0 ? (
                                         watchProviders.flatrate.map(provider => (
@@ -217,13 +215,13 @@ const MovieDetailPage = () => {
                     </div>
 
                     <div className="mt-8 md:mt-12 px-3 md:px-0">
-                        <h2 className="md:text-3xl text-xl text-white font-bold pb-4">Synopsis</h2>
+                        <h2 className="md:text-3xl text-xl dark:text-white text-black font-bold pb-4">Synopsis</h2>
                         <p className="md:text-lg text-justify">{movie?.overview}</p>
                     </div>
 
                     {credits && credits?.length > 0 && (
                         <div className="mt-8 md:mt-12 px-3 md:px-0">
-                            <h3 className="md:text-3xl text-xl text-white font-bold">Casting</h3>
+                            <h3 className="md:text-3xl text-xl dark:text-white text-black font-bold">Casting</h3>
                             <ul className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-4">
                                 {credits.slice(0, 8).map(actor => (
                                     <li key={actor?.id} className="flex flex-col items-center space-y-2">
@@ -247,7 +245,7 @@ const MovieDetailPage = () => {
 
                     {trailer && trailer.length > 0 && (
                         <div className="mt-8 md:mt-12 px-3 md:px-0 flex-col w-full justify-center">
-                            <h3 className="md:text-3xl text-xl text-white font-bold">Videos</h3>
+                            <h3 className="md:text-3xl text-xl dark:text-white text-black font-bold">Videos</h3>
                             <div className="mt-4 flex-col md:pr-[15vw] md:pl-[15vw]">
                                 <iframe
                                     width="100%"
@@ -265,21 +263,21 @@ const MovieDetailPage = () => {
 
                     {similarMovies && similarMovies.length > 0 && (
                         <div className="grid grid-cols-2 md:grid-cols-6 mt-20">
-                            <div className="flex col-span-2 md:col-span-2 items-center justify-center">
-                                <div className="flex-col">
-                                    <h1 className="md:text-3xl text-xl text-white font-bold text-center">Recommendations</h1>
-                                    <div className="border-t border-gray-300 mt-4"></div>
+                            <div className="col-span-2 md:col-span-6">
+                                <div className="flex items-center justify-between">
+                                    <h1 className="md:text-3xl text-xl dark:text-white text-black font-bold">Recommendations</h1>
                                 </div>
+                                <div className="border-t border-gray-300 mt-4"></div>
                             </div>
-                            {similarMovies.slice(0, 10).map((data) => (
+                            {similarMovies.slice(0, 18).map((data) => (
                                 <div
                                     key={data.id}
-                                    className="group flex flex-col cursor-pointer bg-transparent pb-2 p-4 md:p-0"
+                                    className="group flex flex-col cursor-pointer bg-transparent p-4 md:p-3 shadow-lg"
                                 >
                                     <Link to={`/film/${data.id}`}>
                                         <div className="relative">
                                             <img
-                                                className="md:w-[200px] md:h-[300px] h-[250px] object-contain"
+                                                className="w-full md:h-[300px] h-[250px] object-contain"
                                                 src={"https://image.tmdb.org/t/p/original" + data.poster_path}
                                                 alt={data.title}
                                                 onClick={scrollToTop}
@@ -290,13 +288,14 @@ const MovieDetailPage = () => {
                                             />
                                         </div>
                                         <div className="p-4 space-y-1">
-                                            <p className="text-sm text-gray-400">{data?.release_date ? new Date(data.release_date).getFullYear() : "N/A"}</p>
-                                            <h2 className="text-md font-bold line-clamp-1 text-white">{data.title}</h2>
+                                            <p className="text-sm dark:text-gray-400 text-black">{data?.release_date ? new Date(data.release_date).getFullYear() : "N/A"}</p>
+                                            <h2 className="text-md font-bold line-clamp-1 dark:text-white text-black">{data.title}</h2>
                                         </div>
                                     </Link>
                                 </div>
                             ))}
                         </div>
+
                     )}
                     {selectedPerson && (
                         <PersonDetails

@@ -44,7 +44,7 @@ export default function LoginPage() {
     };
 
     return (
-        <div className="fixed inset-0 flex justify-center items-center bg-[#101522]">
+        <div className="fixed inset-0 flex justify-center items-center dark:bg-[#18181b] bg-white">
             <div className="bg-zinc-800 bg-opacity-80 p-8 rounded-lg shadow-lg w-full max-w-md -mt-10">
                 <h1 className="text-2xl font-bold text-white mb-4">Connexion</h1>
                 <form onSubmit={handleLogin}>

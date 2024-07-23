@@ -37,8 +37,8 @@ export default function NavBar({ showSearchProp }) {
     };
 
     return (
-        <nav className="w-screen md:h-[8vh] relative z-20 pt-2 md:dark:bg-white md:bg-white dark:bg-[#101522] bg-white">
-            <div className="flex md:items-center md:justify-between px-4 md:px-10 pb-3 pt-1 md:text-[#101522] md:dark:text-[#101522] dark:text-white text-[#101522]">
+        <nav className="w-screen md:h-[11vh] relative z-20 md:dark:bg-[#18181b] md:bg-white dark:bg-[#18181b] bg-white">
+            <div className="flex md:items-center md:justify-between p-4 md:px-14 md:text-black md:dark:text-white dark:text-white text-black dark:bg-[#1e1f20]">
                 <div className="flex items-center justify-between w-full md:w-auto">
                     <div className="flex items-center space-x-1 pl-4 md:pl-0">
                         <img src="../src/assets/cinelogo.png" className="w-7 h-7" alt="Cineside logo" />
@@ -50,22 +50,18 @@ export default function NavBar({ showSearchProp }) {
                         {showSearch ? <IoClose size={24} /> : <IoSearchOutline size={24} />}
                     </button>
                 </div>
-                <div className="hidden md:flex space-x-6">
+                <div className="hidden md:flex space-x-14">
                     <Link to="/" className="flex items-center space-x-2 hover:text-cyan-700">
-                        <AiFillHome size={24} />
                         <span className="text-md">Accueil</span>
                     </Link>
                     <Link to="film_par_genre" className="flex items-center space-x-2 hover:text-cyan-700">
-                        <RiMovie2Line size={24} />
                         <span className="text-md">Genres</span>
                     </Link>
                     <Link to="film_par_annee" className="flex items-center space-x-2 hover:text-cyan-700">
-                        <RiMovie2Line size={24} />
                         <span className="text-md">Années</span>
                     </Link>
                     {auth && (
                         <Link to="favoris" className="flex items-center space-x-2 hover:text-cyan-700">
-                            <IoHeart size={24} />
                             <span className="text-md">Favoris</span>
                         </Link>
                     )}
@@ -81,19 +77,18 @@ export default function NavBar({ showSearchProp }) {
                     {auth ? (
                         <>
                             <div className="flex items-center space-x-4">
-                                <span>Bienvenue {auth?.name}</span>
                                 <Link to="profil">
                                     <FaRegUser size={24} />
                                 </Link>
                             </div>
-                            <Button onClick={handleLogout} className="flex items-center space-x-1">
+                            <Button onClick={handleLogout} className="flex items-center space-x-1 p-1.5">
                                 <IoLogOut size={24} />
                                 <span className="text-md">Deconnexion</span>
                             </Button>
                         </>
                     ) : (
                         <Link to="connexion">
-                            <Button className="flex items-center space-x-1">
+                            <Button className="flex items-center space-x-1 p-1.5">
                                 <IoLogIn size={24} />
                                 <span className="text-md">Connexion</span>
                             </Button>
@@ -109,8 +104,8 @@ export default function NavBar({ showSearchProp }) {
             </div>
 
             {/* Bottom navigation for mobile */}
-            <div className="md:hidden fixed bottom-0 left-0 right-0 z-20 dark:bg-[#101522] bg-white">
-                <div className="flex justify-around py-2 dark:text-white text-[#101522]">
+            <div className="md:hidden fixed bottom-0 left-0 right-0 z-20 dark:bg-[#18181b] bg-white">
+                <div className="flex justify-around py-2 dark:text-white text-black">
                     <Link to="/" className="flex flex-col items-center">
                         <AiFillHome size={20} />
                         <span className="text-xs">Accueil</span>
@@ -143,7 +138,7 @@ export default function NavBar({ showSearchProp }) {
                 </div>
             </div>
             {showSearch && (
-                <div className="absolute w-full bg-[#101522] z-30 p-4">
+                <div className="absolute w-full bg-[#1e1f20] z-30 p-4">
                     <MovieSearch />
                 </div>
             )}

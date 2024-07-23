@@ -69,13 +69,15 @@ export default function HomePage() {
     const handlePageChange = (direction) => {
         if (direction === 'prev' && page > 1) {
             setPage(prevPage => prevPage - 1);
+            setIndex(0);
         } else if (direction === 'next') {
             setPage(prevPage => prevPage + 1);
+            setIndex(0);
         }
     };
 
     return (
-        <div ref={topPage} className="flex flex-col min-h-screen dark:text-white bg-white  dark:bg-[#101522]">
+        <div ref={topPage} className="flex flex-col min-h-screen dark:text-white bg-white dark:bg-[#18181b]">
             <section className="flex-grow w-screen">
                 {loading ? (
                     <div className="flex justify-center items-center h-screen">
@@ -85,94 +87,94 @@ export default function HomePage() {
                     </div>
                 ) : (
                     <>
-                        {trending[index] && (
-                            <div className="relative w-screen md:h-[70vh] h-[80vh] overflow-hidden">
-                                <img
-                                    src={`https://image.tmdb.org/t/p/original${trending[index].backdrop_path}`}
-                                    alt={trending[index]?.title || "Movie Image"}
-                                    className="w-full h-full object-cover"
-                                    onError={(e) => {
-                                        e.target.onerror = null;
-                                        e.target.src = "../src/assets/img_not_available.png";
-                                    }}
-                                />
-                                <div className="absolute inset-0 bg-gradient-to-t from-[#101522] via-transparent to-black"></div>
-                                <div className="absolute inset-0 bg-gradient-to-r from-[#101522] via-transparent to-[#101522]"></div>
-                                <div className="absolute inset-0 space-y-2 top-[40vh] md:space-y-4 md:top-[25vh] md:left-14 md:w-2/5 w-full h-fit text-white md:p-6 p-4">
-                                    <span className="bg-gray-100 text-gray-800 md:text-lg text-xs font-medium me-2 px-2.5 py-0.5 rounded border border-gray-500">A l'affiche</span>
-                                    <h1 className="font-bold text-xl md:text-5xl uppercase pt-4">{trending[index]?.title || "Title not available"}</h1>
-                                    {trending[index].genres && (
-                                        <div className="flex items-center">
-                                            {trending[index].genres.reduce((acc, genre, i) => {
-                                                if (i === 0) {
-                                                    return [...acc, <span key={genre.id} className="md:text-lg text-xs py-1 ">{genre.name}</span>];
-                                                }
-                                                return [
-                                                    ...acc,
-                                                    <span key={`dot-${i}`} className="text-md md:px-2 px-1 py-1">•</span>,
-                                                    <span key={genre.id} className="md:text-lg text-xs md:px-2 px-1 py-1">{genre.name}</span>
-                                                ];
-                                            }, [])}
-                                        </div>
-                                    )}
-
-                                    <p className="md:text-lg text-sm">
-                                        {trending[index]?.release_date ? new Date(trending[index].release_date).getFullYear() : "Date de sortie inconnue"}
-                                    </p>
-
-                                    <div className="flex space-x-4 pt-2">
-                                        <Button
-                                            className="text-white border-2 border-white bg-transparent rounded-sm md:text-lg md:py-3 px-2 md:px-6 hover:bg-cyan-700 transition duration-300 items-center"
-                                            onClick={() => handleShowTrailer(trending[index].id)}
-                                        >
-                                            <div className="flex space-x-1 items-center">
-                                                <TbPlayerPlay />
-                                                <p>Bande Annonce</p>
+                        <header className="dark:bg-[#18181b] md:h-[65vh] h-[62vh]">
+                            {trending[index] && (
+                                <div className="relative w-screen md:h-[62vh] h-[65vh] overflow-hidden bg-[#18181b]">
+                                    <img
+                                        src={`https://image.tmdb.org/t/p/original${trending[index].backdrop_path}`}
+                                        alt={trending[index]?.title || "Image du film"}
+                                        className="w-full flex object-cover"
+                                        onError={(e) => {
+                                            e.target.onerror = null;
+                                            e.target.src = "../src/assets/img_not_available.png";
+                                        }}
+                                    />
+                                    <div className="absolute inset-0 bg-gradient-to-r from-[#1e1f20] via-transparent"></div>
+                                    <div className="absolute inset-0 space-y-1 top-[32vh] md:space-y-4 md:top-[22vh] md:left-14 md:w-2/5 w-full h-fit text-white md:p-6 p-4">
+                                        <span className="bg-gray-100 text-gray-800 md:text-lg text-xs font-medium me-2 px-2.5 py-0.5 rounded border border-gray-500">A l'affiche</span>
+                                        <h1 className="font-bold text-xl md:text-5xl uppercase pt-4">{trending[index]?.title || "Title not available"}</h1>
+                                        {trending[index].genres && (
+                                            <div className="flex items-center">
+                                                {trending[index].genres.reduce((acc, genre, i) => {
+                                                    if (i === 0) {
+                                                        return [...acc, <span key={genre.id} className="md:text-lg text-xs py-1 ">{genre.name}</span>];
+                                                    }
+                                                    return [
+                                                        ...acc,
+                                                        <span key={`dot-${i}`} className="text-md md:px-2 px-1 py-1">•</span>,
+                                                        <span key={genre.id} className="md:text-lg text-xs md:px-2 px-1 py-1">{genre.name}</span>
+                                                    ];
+                                                }, [])}
                                             </div>
-                                        </Button>
-                                        <Link to={`/film/${trending[index].id}`}>
-                                            <Button className="text-white rounded-sm md:text-lg py-2 md:py-3 px-4 md:px-6 bg-cyan-700 border-2 border-cyan-700 hover:border-2 hover:border-white hover:text-white transition duration-800">
-                                                Plus de détails
+                                        )}
+
+                                        <p className="md:text-lg text-sm">
+                                            {trending[index]?.release_date ? new Date(trending[index].release_date).getFullYear() : "Date de sortie inconnue"}
+                                        </p>
+
+                                        <div className="flex space-x-4 pt-2">
+                                            <Button
+                                                className="text-white border-2 border-white bg-transparent rounded-sm md:text-lg md:py-1 px-2 md:px-2 hover:bg-cyan-700 transition duration-300 items-center"
+                                                onClick={() => handleShowTrailer(trending[index].id)}
+                                            >
+                                                <div className="flex md:space-x-1 items-center">
+                                                    <TbPlayerPlay />
+                                                    <p>Bande Annonce</p>
+                                                </div>
                                             </Button>
-                                        </Link>
+                                            <Link to={`/film/${trending[index].id}`}>
+                                                <Button className="text-white rounded-sm md:text-lg md:py-2 px-2 md:px-4 bg-cyan-700 border-2 border-cyan-700 hover:border-2 hover:border-white hover:text-white transition duration-800">
+                                                    Plus de détails
+                                                </Button>
+                                            </Link>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        )}
+                            )}
+                        </header>
 
-                        <div className="flex flex-col w-full items-center justify-center md:mt-14 mt-4">
+                        <div className="flex w-full items-center justify-center dark:bg-[#1e1f20] md:pt-14 pt-8">
                             <div className="w-full md:w-[80%]">
-                                <div className="grid grid-cols-2 md:grid-cols-6">
-                                    <div className="flex col-span-2 md:col-span-2 items-center justify-center">
-                                        <div className="flex-col">
-                                            <h2 className="md:text-4xl text-xl font-bold text-center dark:text-white text-[#101522]">Sorties récentes</h2>
-                                            <div className="flex justify-center mt-4 pb-4 gap-2">
-                                                {page > 1 && (
-                                                    <Button
-                                                        className="dark:text-white border-2 dark:border-white bg-transparent text-[#101522] border-[#101522] rounded-sm md:text-lg py-2 md:px-4 hover:bg-cyan-700 transition duration-300"
-                                                        onClick={() => handlePageChange('prev')}
-                                                        disabled={page <= 1}
-                                                    >
-                                                        Films précédents
-                                                    </Button>
-                                                )}
-
-                                                <Button
-                                                    className="dark:text-white border-2 dark:border-white bg-transparent text-[#101522] border-[#101522] rounded-sm md:text-lg py-2 md:px-4 hover:bg-cyan-700 transition duration-300"
-                                                    onClick={() => handlePageChange('next')}
-                                                    disabled={trending.length === 0}
-                                                >
-                                                    Films suivants
-                                                </Button>
-                                            </div>
-                                            <div className="border-t border-gray-300 mt-4"></div>
-                                        </div>
+                                <div className="flex justify-between items-center p-2 md:p-0">
+                                    <h2 className="md:text-4xl text-xl font-bold text-start dark:text-white text-black">En tendance</h2>
+                                    <div className="flex items-center md:gap-3 gap-2">
+                                        {page > 1 && (
+                                            <Button
+                                                className="dark:text-white border-2 dark:border-white bg-transparent text-black border-black rounded-sm md:text-md hover:bg-cyan-700 transition duration-300 shadow-lg"
+                                                onClick={() => handlePageChange('prev')}
+                                                disabled={page <= 1}
+                                            >
+                                                Précédent
+                                            </Button>
+                                        )}
+                                        <span className="md:text-md text-[13px] dark:text-white text-black">Page {page}</span>
+                                        <Button
+                                            className="dark:text-white border-2 dark:border-white bg-transparent text-black border-black rounded-sm md:text-md hover:bg-cyan-700 transition duration-300 shadow-lg"
+                                            onClick={() => handlePageChange('next')}
+                                            disabled={trending.length === 0}
+                                        >
+                                            Suivant
+                                        </Button>
                                     </div>
-
+                                </div>
+                                <div>
+                                    <div className="border-t border-gray-300 mt-4"></div>
+                                </div>
+                                <div className="flex flex-wrap mt-4">
                                     {trending.map((data, idx) => (
                                         <div
                                             key={data.id}
-                                            className="group flex flex-col cursor-pointer bg-transparent pb-2 mt-4 md:mt-0"
+                                            className="group flex flex-col cursor-pointer bg-transparent p-2 mb-2 mt-4 md:mt-0 shadow-lg md:w-1/5"
                                             onClick={() => {
                                                 setIndex(idx);
                                                 scrollToTop();
@@ -180,8 +182,8 @@ export default function HomePage() {
                                         >
                                             <div className="relative">
                                                 <img
-                                                    className="w-full md:h-[300px] h-[250px] object-contain"
-                                                    src={"https://image.tmdb.org/t/p/original" + data.poster_path}
+                                                    className="w-full md:h-[220px] h-[200px] object-cover"
+                                                    src={"https://image.tmdb.org/t/p/original" + data.backdrop_path}
                                                     alt={data.title}
                                                     onError={(e) => {
                                                         e.target.onerror = null;
@@ -191,13 +193,14 @@ export default function HomePage() {
                                             </div>
                                             <div className="p-4 space-y-1">
                                                 <p className="text-sm text-gray-700 dark:text-white">{data.release_date}</p>
-                                                <h2 className="text-md font-bold line-clamp-1 dark:text-white text-[#101522]">{data.title}</h2>
+                                                <h2 className="text-md font-bold line-clamp-1 dark:text-white text-black">{data.title}</h2>
                                             </div>
                                         </div>
                                     ))}
                                 </div>
                             </div>
                         </div>
+
                     </>
                 )}
             </section>

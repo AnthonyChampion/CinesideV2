@@ -34,7 +34,7 @@ export default function Favorite() {
     };
 
     return (
-        <section className="p-6 dark:text-white text-[#101522] w-screen min-h-screen dark:bg-[#101522] bg-white">
+        <section className="p-6 dark:text-white text-[#101522] w-screen min-h-screen dark:bg-[#18181b] bg-white">
             <div className="flex flex-col justify-center items-center">
                 <h1 className="md:text-3xl text-xl dark:text-white text-[#101522] font-bold text-center">Films favoris</h1>
                 <div className="border-t border-gray-300 mt-4 w-[50%]"></div>
