@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { FaRegUser } from 'react-icons/fa';
+import { Button } from 'flowbite-react';
 
-const ProfilPage = () => {
+export default function ProfilPage() {
     const { auth } = useAuth();
     const [error, setError] = useState(null);
     const [editUser, setEditUser] = useState(null);
@@ -88,7 +88,7 @@ const ProfilPage = () => {
                             <div className="flex gap-2">
                                 <button
                                     type="button"
-                                    className="bg-green-800 text-white py-1 px-3 rounded-md hover:bg-green-900"
+                                    className="bg-cyan-700 text-white py-1 px-3 rounded-md hover:bg-cyan-900"
                                     onClick={handleEditSubmit}
                                 >
                                     Enregistrer
@@ -113,12 +113,12 @@ const ProfilPage = () => {
                             <div className="mb-4">
                                 <span className="font-semibold">Mot de passe: </span>{"********"}
                             </div>
-                            <button
-                                className="bg-blue-500 text-white px-4 py-2 rounded"
+                            <Button
+                                className="bg-cyan-700 text-white hover:border hover:border-black hover:bg-white  hover:text-black px-2 py-1 rounded"
                                 onClick={() => handleEditClick(auth)}
                             >
                                 Modifier
-                            </button>
+                            </Button>
                         </div>
                     )}
                 </div>
@@ -173,7 +173,7 @@ const ProfilPage = () => {
                                                 <div className="flex flex-wrap gap-2">
                                                     <button
                                                         type="button"
-                                                        className="bg-green-800 text-white py-1 px-3 rounded-md hover:bg-green-900"
+                                                        className="bg-cyan-700 text-white py-1 px-3 rounded-md hover:bg-cyan-900"
                                                         onClick={handleEditSubmit}
                                                     >
                                                         Enregistrer
@@ -194,12 +194,12 @@ const ProfilPage = () => {
                                             <td className="py-2 px-4 border-b border-gray-300">{auth.email}</td>
                                             <td className="py-2 px-4 border-b border-gray-300">{"********"}</td>
                                             <td className="py-2 px-4 border-b border-gray-300">
-                                                <button
-                                                    className="bg-blue-500 text-white px-2 py-1 rounded mr-2"
+                                                <Button
+                                                    className="bg-cyan-700 text-white hover:text-black hover:bg-white hover:border hover:border-black px-2 py-1 rounded mr-2"
                                                     onClick={() => handleEditClick(auth)}
                                                 >
                                                     Modifier
-                                                </button>
+                                                </Button>
                                             </td>
                                         </>
                                     )}
@@ -210,12 +210,11 @@ const ProfilPage = () => {
                 </div>
             </div>
             <div className="md:hidden mt-10 text-center">
-                <Link to="/favoris" className="bg-cyan-700 text-white py-2 px-4 rounded-md hover:bg-blue-600">
+                <Link to="/favoris" className="bg-cyan-700 hover:border hover:border-black text-white py-2 px-4 rounded-md hover:bg-white hover:text-black">
                     Voir mes favoris
                 </Link>
             </div>
         </div>
     );
-};
+}
 
-export default ProfilPage;

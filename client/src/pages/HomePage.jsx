@@ -147,10 +147,10 @@ export default function HomePage() {
                         <div className="flex w-full items-center justify-center dark:bg-[#18181b] pt-4">
                             <div className="w-full md:w-[80%]">
                                 <div className="flex p-4 md:p-0">
-                                    <div className="flex justify-between w-full">
+                                    <div className="flex justify-between md:justify-end w-full md:gap-2">
                                         {page > 1 && (
                                             <Button
-                                                className="dark:text-black border-2 dark:border-white bg-white text-black border-black rounded-sm md:text-md hover:bg-cyan-700 transition duration-300 shadow-lg"
+                                                className="dark:text-black border-2 dark:border-white bg-white text-black border-black rounded-sm md:text-md hover:bg-cyan-700 hover:text-white dark:hover:text-white transition duration-300 shadow-lg"
                                                 onClick={() => handlePageChange('prev')}
                                                 disabled={page <= 1}
                                             >
@@ -158,7 +158,7 @@ export default function HomePage() {
                                             </Button>
                                         )}
                                         <Button
-                                            className="dark:text-black border-2 dark:border-white bg-white text-black border-black rounded-sm md:text-md hover:bg-cyan-700 transition duration-300 shadow-lg"
+                                            className="dark:text-black border-2 dark:border-white bg-white text-black border-black rounded-sm md:text-md hover:bg-cyan-700 hover:text-white dark:hover:text-white transition duration-300 shadow-lg"
                                             onClick={() => handlePageChange('next')}
                                             disabled={trending.length === 0}
                                         >
@@ -191,7 +191,7 @@ export default function HomePage() {
                                                 />
                                             </div>
                                             <div className="p-4 space-y-1 text-center">
-                                                <p className="text-sm text-gray-700 dark:text-white">{data.release_date}</p>
+                                                <p className="text-sm text-gray-700 dark:text-gray-400">{data.release_date}</p>
                                                 <h2 className="text-md font-bold line-clamp-1 dark:text-white text-black">{data.title}</h2>
                                             </div>
                                         </div>

@@ -4,9 +4,8 @@ import { fetchMovieDetails } from '../utils/moviedb';
 import PersonDetails from '../components/PersonDetails';
 import useMovieData from '../hooks/useMovieData';
 import axios from 'axios';
-import { Button } from 'flowbite-react';
 
-const MovieDetailPage = () => {
+export default function MovieDetailPage() {
     const { id } = useParams();
     const movieId = parseInt(id);
 
@@ -165,7 +164,7 @@ const MovieDetailPage = () => {
 
                     {crew && crew?.length > 0 && (
                         <div className="mt-2 flex space-x-4 items-end">
-                            <h3 className="md:text-lg text-sm px-3 md:px-0">Réalisateur(s):</h3>
+                            <h2 className="md:text-lg text-sm px-3 md:px-0">Réalisateur(s):</h2>
                             <ul className="md:text-lg flex space-x-2">
                                 {crew.filter(cast => cast.job === "Director").map(cast => (
                                     <li key={cast?.id}>{cast?.name}</li>
@@ -189,7 +188,7 @@ const MovieDetailPage = () => {
                     <div className="mt-8 md:mt-8 px-3 md:px-0">
                         {Object.keys(watchProviders)?.length > 0 && (
                             <div>
-                                <h3 className="md:text-3xl text-xl dark:text-white text-black font-bold">Plateformes:</h3>
+                                <h2 className="md:text-3xl text-xl dark:text-white text-black font-bold">Plateformes:</h2>
                                 <div className="flex flex-wrap items-center gap-4 mt-4">
                                     {watchProviders.flatrate && watchProviders.flatrate.length > 0 ? (
                                         watchProviders.flatrate.map(provider => (
@@ -221,7 +220,7 @@ const MovieDetailPage = () => {
 
                     {credits && credits?.length > 0 && (
                         <div className="mt-8 md:mt-12 px-3 md:px-0">
-                            <h3 className="md:text-3xl text-xl dark:text-white text-black font-bold">Casting</h3>
+                            <h2 className="md:text-3xl text-xl dark:text-white text-black font-bold">Casting</h2>
                             <ul className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-4">
                                 {credits.slice(0, 8).map(actor => (
                                     <li key={actor?.id} className="flex flex-col items-center space-y-2">
@@ -245,7 +244,7 @@ const MovieDetailPage = () => {
 
                     {trailer && trailer.length > 0 && (
                         <div className="mt-8 md:mt-12 px-3 md:px-0 flex-col w-full justify-center">
-                            <h3 className="md:text-3xl text-xl dark:text-white text-black font-bold">Videos</h3>
+                            <h2 className="md:text-3xl text-xl dark:text-white text-black font-bold">Videos</h2>
                             <div className="mt-4 flex-col md:pr-[15vw] md:pl-[15vw]">
                                 <iframe
                                     width="100%"
@@ -265,7 +264,7 @@ const MovieDetailPage = () => {
                         <div className="grid grid-cols-2 md:grid-cols-6 mt-20">
                             <div className="col-span-2 md:col-span-6">
                                 <div className="flex items-center justify-between">
-                                    <h1 className="md:text-3xl text-xl dark:text-white text-black font-bold">Recommendations</h1>
+                                    <h2 className="md:text-3xl text-xl dark:text-white text-black font-bold">Recommendations</h2>
                                 </div>
                                 <div className="border-t border-gray-300 mt-4"></div>
                             </div>
@@ -289,7 +288,7 @@ const MovieDetailPage = () => {
                                         </div>
                                         <div className="p-4 space-y-1">
                                             <p className="text-sm dark:text-gray-400 text-black">{data?.release_date ? new Date(data.release_date).getFullYear() : "N/A"}</p>
-                                            <h2 className="text-md font-bold line-clamp-1 dark:text-white text-black">{data.title}</h2>
+                                            <h3 className="text-md font-bold line-clamp-1 dark:text-white text-black">{data.title}</h3>
                                         </div>
                                     </Link>
                                 </div>
@@ -310,4 +309,3 @@ const MovieDetailPage = () => {
     );
 };
 
-export default MovieDetailPage;

@@ -100,7 +100,7 @@ export default function MoviesPage() {
 
     return (
         <section className="w-screen dark:bg-[#18181b] bg-white pt-4">
-            <nav className="flex pl-4" aria-label="Breadcrumb">
+            <nav className="flex pl-6" aria-label="Breadcrumb">
                 <ol className="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
                     <Link to="/" className="inline-flex items-center">
                         <p className="inline-flex items-center text-sm font-medium text-black hover:text-cyan-700 dark:text-gray-400 dark:hover:text-white">
@@ -159,7 +159,7 @@ export default function MoviesPage() {
                     ) : (
                         <div className="flex flex-col p-4 space-y-4">
                             <div className="flex">
-                                <div className="flex w-full justify-between">
+                                <div className="flex w-full justify-between md:justify-end md:gap-2">
                                     {page > 1 && (
                                         <Button
                                             onClick={handleLoadLessMovies}
@@ -176,7 +176,7 @@ export default function MoviesPage() {
                                     </Button>
                                 </div>
                             </div>
-                            <div className="border-t border-gray-300"></div>
+                            <div className="border-t border-gray-400"></div>
                             <div className="flex flex-wrap -mx-3">
                                 {filteredMovies.map((movie) => (
                                     <div

@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { fetchMovieTrailer } from '../utils/moviedb';
 
-const Trailer = ({ movieId, onClose }) => {
+export default function Trailer({ movieId, onClose }) {
     const [trailerKey, setTrailerKey] = useState('');
 
     useEffect(() => {
@@ -45,6 +45,4 @@ const Trailer = ({ movieId, onClose }) => {
             </div>
         </div>
     );
-};
-
-export default Trailer;
+}

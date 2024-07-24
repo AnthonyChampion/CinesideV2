@@ -74,13 +74,13 @@ export default function LoginPage() {
                     </div>
                     <button
                         type="submit"
-                        className="w-full bg-green-500 text-white font-bold py-2 px-4 rounded hover:bg-cyan-700 transition duration-300"
+                        className="w-full bg-cyan-700 text-white font-bold py-2 px-4 rounded hover:bg-white hover:text-cyan-700 transition duration-300"
                     >
                         Connexion
                     </button>
                 </form>
                 <p className="mt-4 text-white text-center">
-                    Vous n'avez pas de compte ? <Link to="/inscription" className="text-green-500 hover:underline">S'enregistrer</Link>
+                    Vous n'avez pas de compte ? <Link to="/inscription" className="text-cyan-700 hover:text-white">S'enregistrer</Link>
                 </p>
             </div>
             <LoginModal

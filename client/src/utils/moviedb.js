@@ -44,7 +44,7 @@ const apiCallDiscover = async (endpoint, params = {}) => {
             language: "fr-FR",
             region: "FR",
             sort_by: "vote_count.desc",
-            "pimary_release_date.gte": "1970-01-01",
+            "pimary_release_date.gte": "1950-01-01",
             "primary_release_date.lte": "2030-12-31",
             ...params
         }
@@ -60,7 +60,7 @@ const apiCallDiscover = async (endpoint, params = {}) => {
 };
 
 export const MoviesByDate = (params) => {
-    const updatedParams = { ...params, language: 'fr-FR', region: 'FR', sort_by: "vote_count.desc", "primary_release_date.gte": "1970-01-01", "primary_release_date.lte": "2030-12-31" };
+    const updatedParams = { ...params, language: 'fr-FR', region: 'FR', sort_by: "vote_count.desc", "primary_release_date.gte": "1950-01-01", "primary_release_date.lte": "2030-12-31" };
     return apiCallDiscover(discoverMoviesEndPoint, updatedParams);
 };
 

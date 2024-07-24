@@ -1,16 +1,16 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { MoviesByDate } from '../utils/moviedb'; // Adjust the import based on your file structure
+import { MoviesByDate } from '../utils/moviedb';
 import { Link } from 'react-router-dom';
 import { Button } from 'flowbite-react';
 
 export default function DiscoverMovies() {
     const [movies, setMovies] = useState([]);
-    const [year, setYear] = useState(2020); // Default year is 2020
-    const [page, setPage] = useState(1); // Pagination state
-    const [loading, setLoading] = useState(true); // Loading state
-    const [error, setError] = useState(null); // Error state
-    const [selectedDecade, setSelectedDecade] = useState('2020'); // Default decade is 2020
-    const [dropdownOpen, setDropdownOpen] = useState(false); // State to manage dropdown visibility
+    const [year, setYear] = useState(2024);
+    const [page, setPage] = useState(1);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const [selectedDecade, setSelectedDecade] = useState('2024');
+    const [dropdownOpen, setDropdownOpen] = useState(false);
 
     const fetchMovies = useCallback(async () => {
         setLoading(true);
@@ -44,13 +44,8 @@ export default function DiscoverMovies() {
 
     const handleYearChange = (year) => {
         setYear(year);
-        setPage(1); // Reset to page 1 when year changes
-        setDropdownOpen(false); // Close the dropdown after selecting a year
-    };
-
-    const handleDecadeChange = (decade) => {
-        setSelectedDecade(decade);
-        handleYearChange(decade); // Default to the first year of the decade
+        setPage(1);
+        setDropdownOpen(false);
     };
 
     const toggleDropdown = (decade) => {
@@ -60,7 +55,7 @@ export default function DiscoverMovies() {
 
     // Generate an array of decades from 1970 to 2020
     const decades = [];
-    for (let year = 1970; year <= 2020; year += 10) {
+    for (let year = 1950; year <= 2020; year += 10) {
         decades.push(year);
     }
 
@@ -69,7 +64,7 @@ export default function DiscoverMovies() {
 
     return (
         <section className="w-screen dark:bg-[#18181b] bg-white pt-4">
-            <nav className="flex pl-4" aria-label="Breadcrumb">
+            <nav className="flex pl-6" aria-label="Breadcrumb">
                 <ol className="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
                     <Link to="/" className="inline-flex items-center">
                         <p className="inline-flex items-center text-sm font-medium text-black hover:text-cyan-700 dark:text-gray-400 dark:hover:text-white">
@@ -119,7 +114,7 @@ export default function DiscoverMovies() {
                 </div>
                 <div className="flex flex-col p-4 space-y-4 md:w-[82%] w-[full] md:ml-12 mt-4">
                     <div className="flex">
-                        <div className="flex w-full justify-between">
+                        <div className="flex w-full justify-between md:justify-end md:gap-2">
                             {page > 1 && (
                                 <Button
                                     onClick={handleLoadLessMovies}
@@ -136,7 +131,7 @@ export default function DiscoverMovies() {
                             </Button>
                         </div>
                     </div>
-                    <div className="border-t border-gray-300"></div>
+                    <div className="border-t border-gray-400"></div>
 
                     <div className="flex flex-wrap -mx-3">
                         {movies.map((movie) => (

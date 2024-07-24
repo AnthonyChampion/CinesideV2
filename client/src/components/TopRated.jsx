@@ -35,9 +35,8 @@ export default function TopratedMovies() {
     return (
         <section className="h-fit flex flex-col items-center dark:bg-[#18181b] bg-white">
             <div className="flex flex-col p-4 space-y-4">
-
                 <div className="flex">
-                    <div className="flex w-full justify-between">
+                    <div className="flex w-full justify-between md:justify-end md:gap-2">
                         {currentPage > 1 && (
                             <Button
                                 onClick={goToPrevPage}
@@ -82,7 +81,6 @@ export default function TopratedMovies() {
                         </div>
                     ))}
                 </div>
-
             </div>
         </section>
     );

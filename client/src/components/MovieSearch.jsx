@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { searchMovies } from '../utils/moviedb';
 import { Link } from 'react-router-dom';
-import { IoSearch } from "react-icons/io5";
 import { Card } from 'flowbite-react';
 
 export default function MovieSearch() {
@@ -40,7 +39,7 @@ export default function MovieSearch() {
     return (
         <section>
             <div className="flex">
-                <form className="max-w-md mx-auto md:w-[14rem] w-[20rem]" onSubmit={handleSearch}>
+                <form className="max-w-md mx-auto md:w-[17rem] w-[18rem]" onSubmit={handleSearch}>
                     <label htmlFor="" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Recherche</label>
                     <div className="relative">
                         <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">

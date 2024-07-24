@@ -38,7 +38,7 @@ export default function NavBar({ showSearchProp }) {
 
     return (
         <nav className="w-screen md:h-[11vh] relative z-20 md:dark:bg-transparent md:bg-white dark:bg-[#18181b] bg-white ">
-            <div className="flex md:items-center md:justify-between p-4 md:px-14 md:text-black md:dark:text-white dark:text-white text-black dark:bg-transparent">
+            <div className="flex md:items-center md:justify-between p-4 md:px-14 md:text-black md:dark:text-white dark:text-white text-black dark:bg-transparent border md:border-b-gray-200 dark:border-none">
                 <div className="flex items-center justify-between w-full md:w-auto">
                     <div className="flex items-center space-x-1 pl-4 md:pl-0">
                         <img src="../src/assets/cinelogo.png" className="w-7 h-7" alt="Cineside logo" />
@@ -80,13 +80,13 @@ export default function NavBar({ showSearchProp }) {
                                     <FaRegUser size={24} />
                                 </Link>
                             </div>
-                            <Button onClick={handleLogout} className="flex items-center space-x-1 p-1.5">
+                            <Button onClick={handleLogout} className="flex items-center space-x-1 p-1.5 hover:bg-white hover:text-cyan-700">
                                 <span className="text-md">Deconnexion</span>
                             </Button>
                         </>
                     ) : (
                         <Link to="connexion">
-                            <Button className="flex items-center space-x-1 p-1.5">
+                            <Button className="flex items-center space-x-1 p-1.5 hover:bg-white hover:text-cyan-700">
                                 <span className="text-md">Connexion</span>
                             </Button>
                         </Link>
@@ -122,12 +122,12 @@ export default function NavBar({ showSearchProp }) {
                         </Link>
                     )}
                     {auth ? (
-                        <button onClick={handleLogout} className="flex flex-col items-center">
+                        <button onClick={handleLogout} className="flex flex-col items-center hover:bg-cyan-700">
                             <IoLogOut size={20} />
                             <span className="text-xs">Deconnexion</span>
                         </button>
                     ) : (
-                        <Link to="connexion" className="flex flex-col items-center">
+                        <Link to="connexion" className="flex flex-col items-center hover:bg-cyan-700">
                             <IoLogIn size={20} />
                             <span className="text-xs">Connexion</span>
                         </Link>
@@ -135,7 +135,7 @@ export default function NavBar({ showSearchProp }) {
                 </div>
             </div>
             {showSearch && (
-                <div className="absolute w-full bg-[#1e1f20] z-30 p-4">
+                <div className="absolute w-full dark:bg-[#18181b] bg-white z-30 p-4">
                     <MovieSearch />
                 </div>
             )}

@@ -63,7 +63,7 @@ export default function PersonDetails({ personId, onClose }) {
                             }}
                         />
                         <div className="mt-6 flex flex-col items-center space-y-4">
-                            <h2 className="text-2xl font-bold">{person.name}</h2>
+                            <h1 className="text-2xl font-bold">{person.name}</h1>
                             <p><strong>Date de naissance:</strong> {person.birthday}</p>
                             <p className="text-justify"><strong>Biographie:</strong> {person.biography}</p>
                             {person.deathday && <p><strong>Date de décès:</strong> {person.deathday}</p>}
@@ -73,11 +73,11 @@ export default function PersonDetails({ personId, onClose }) {
                             <div className="grid grid-cols-2 md:grid-cols-6 mt-20">
                                 <div className="col-span-2 md:col-span-6">
                                     <div className="flex items-center justify-between">
-                                        <h1 className="text-3xl text-black font-bold">Filmographie</h1>
+                                        <h2 className="text-3xl text-black font-bold">Filmographie</h2>
                                         {movies.length > moviesToShow && (
                                             <Button
                                                 onClick={handleSeeMore}
-                                                className="flex items-center justify-center md:h-10 h-10 px-4 py-2 bg-white text-black rounded-md shadow-md hover:bg-cyan-700 hover:text-white transition duration-300 ease-in-out transform hover:-translate-y-1"
+                                                className="flex items-center justify-center md:h-10 h-10 px-4 py-2 bg-white text-black rounded-md shadow-md hover:bg-cyan-700 hover:text-white"
                                             >
                                                 Afficher plus de films
                                             </Button>
