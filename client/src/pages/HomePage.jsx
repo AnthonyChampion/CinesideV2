@@ -181,7 +181,7 @@ export default function HomePage() {
                                         >
                                             <div className="relative">
                                                 <img
-                                                    className="w-full md:h-[220px] h-[200px] object-cover"
+                                                    className="w-full md:h-[220px] h-[200px] object-cover transition-transform duration-200 transform group-hover:scale-105"
                                                     src={"https://image.tmdb.org/t/p/original" + data.backdrop_path}
                                                     alt={data.title}
                                                     onError={(e) => {

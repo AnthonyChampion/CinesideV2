@@ -101,7 +101,6 @@ export const searchMovies = params => {
     return apiCall(searchMoviesEndPoint, updatedParams);
 };
 
-
 export const fetchMovieTrailer = movieId => {
     return apiCall(movieTrailer(movieId));
 };

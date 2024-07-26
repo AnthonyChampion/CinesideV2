@@ -42,7 +42,7 @@ export default function NavBar({ showSearchProp }) {
                 <div className="flex items-center justify-between w-full md:w-auto">
                     <div className="flex items-center space-x-1 pl-4 md:pl-0">
                         <img src="../src/assets/cinelogo.png" className="w-7 h-7" alt="Cineside logo" />
-                        <Link className="text-2xl font-semibold" to="/">
+                        <Link className="text-2xl font-semibold" to="/accueil">
                             <span>ineside</span>
                         </Link>
                     </div>
@@ -51,22 +51,22 @@ export default function NavBar({ showSearchProp }) {
                     </button>
                 </div>
                 <div className="hidden md:flex space-x-14">
-                    <Link to="/" className="flex items-center space-x-2 hover:text-cyan-700">
+                    <Link to="/accueil" className="flex items-center space-x-2 hover:text-cyan-700">
                         <span className="text-md">Accueil</span>
                     </Link>
-                    <Link to="film_par_genre" className="flex items-center space-x-2 hover:text-cyan-700">
+                    <Link to="/film_par_genre" className="flex items-center space-x-2 hover:text-cyan-700">
                         <span className="text-md">Genres</span>
                     </Link>
-                    <Link to="film_par_annee" className="flex items-center space-x-2 hover:text-cyan-700">
+                    <Link to="/film_par_annee" className="flex items-center space-x-2 hover:text-cyan-700">
                         <span className="text-md">Années</span>
                     </Link>
                     {auth && (
-                        <Link to="favoris" className="flex items-center space-x-2 hover:text-cyan-700">
+                        <Link to="/favoris" className="flex items-center space-x-2 hover:text-cyan-700">
                             <span className="text-md">Favoris</span>
                         </Link>
                     )}
                     {auth && auth.isAdmin && (
-                        <Link to="admin" className="flex items-center space-x-2 hover:text-cyan-700">
+                        <Link to="/admin" className="flex items-center space-x-2 hover:text-cyan-700">
                             <span className="text-md">Admin</span>
                         </Link>
                     )}
@@ -76,7 +76,7 @@ export default function NavBar({ showSearchProp }) {
                     {auth ? (
                         <>
                             <div className="flex items-center space-x-4">
-                                <Link to="profil">
+                                <Link to="/profil">
                                     <FaRegUser size={24} />
                                 </Link>
                             </div>
@@ -85,7 +85,7 @@ export default function NavBar({ showSearchProp }) {
                             </Button>
                         </>
                     ) : (
-                        <Link to="connexion">
+                        <Link to="/connexion">
                             <Button className="flex items-center space-x-1 p-1.5 hover:bg-white hover:text-cyan-700">
                                 <span className="text-md">Connexion</span>
                             </Button>
@@ -103,31 +103,31 @@ export default function NavBar({ showSearchProp }) {
             {/* Bottom navigation for mobile */}
             <div className="md:hidden fixed bottom-0 left-0 right-0 z-20 dark:bg-[#18181b] bg-white">
                 <div className="flex justify-around py-2 dark:text-white text-black">
-                    <Link to="/" className="flex flex-col items-center">
+                    <Link to="/accueil" className="flex flex-col items-center">
                         <AiFillHome size={20} />
                         <span className="text-xs">Accueil</span>
                     </Link>
-                    <Link to="film_par_genre" className="flex flex-col items-center">
+                    <Link to="/film_par_genre" className="flex flex-col items-center">
                         <RiMovie2Line size={20} />
                         <span className="text-xs">Genres</span>
                     </Link>
-                    <Link to="film_par_annee" className="flex flex-col items-center">
+                    <Link to="/film_par_annee" className="flex flex-col items-center">
                         <RiMovie2Line size={20} />
                         <span className="text-xs">Années</span>
                     </Link>
                     {auth && (
-                        <Link to="profil" className="flex flex-col items-center">
+                        <Link to="/profil" className="flex flex-col items-center">
                             <FaRegUser size={20} />
                             <span className="text-xs">Profil</span>
                         </Link>
                     )}
                     {auth ? (
-                        <button onClick={handleLogout} className="flex flex-col items-center hover:bg-cyan-700">
+                        <button onClick={handleLogout} className="flex flex-col items-center">
                             <IoLogOut size={20} />
                             <span className="text-xs">Deconnexion</span>
                         </button>
                     ) : (
-                        <Link to="connexion" className="flex flex-col items-center hover:bg-cyan-700">
+                        <Link to="/connexion" className="flex flex-col items-center">
                             <IoLogIn size={20} />
                             <span className="text-xs">Connexion</span>
                         </Link>

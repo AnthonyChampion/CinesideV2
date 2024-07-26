@@ -71,32 +71,32 @@ export default function Favorite() {
                         {favorites.length === 0 ? (
                             <p className="text-center mt-4">Vous n'avez pas encore de films favoris</p>
                         ) : (
-                            <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-6 gap-2 mt-6">
+                            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6 mt-6">
                                 {favorites.map((movie) => (
                                     <div
                                         key={movie.id}
-                                        className="group flex flex-col items-center bg-transparent mt-4 mb-6 shadow-lg"
+                                        className="group relative bg-zinc-800 rounded-lg shadow-lg overflow-hidden"
                                     >
                                         <Link to={`/film/${movie.movie_id}`}>
-                                            <div className="relative">
-                                                <img
-                                                    className="w-full md:h-[270px] h-[250px] object-cover"
-                                                    src={`https://image.tmdb.org/t/p/original${movie.thumbnail}`}
-                                                    alt={movie.title}
-                                                    onError={(e) => {
-                                                        e.target.onerror = null;
-                                                        e.target.src = "../src/assets/img_not_available.png";
-                                                    }}
-                                                />
-                                            </div>
+                                            <img
+                                                className="w-full md:h-[350px] object-cover transition-transform duration-200 transform group-hover:scale-105"
+                                                src={`https://image.tmdb.org/t/p/original${movie.thumbnail}`}
+                                                alt={movie.title}
+                                                onError={(e) => {
+                                                    e.target.onerror = null;
+                                                    e.target.src = "../src/assets/img_not_available.png";
+                                                }}
+                                            />
                                         </Link>
-                                        <div className="mt-2 text-center">
-                                            <h2 className="text-sm font-bold line-clamp-1 dark:text-white text-[#101522]">{movie.title}</h2>
+                                        <div className="p-4">
+                                            <h2 className="text-md font-bold text-white truncate">{movie.title}</h2>
+                                            <Button
+                                                className="mt-2 w-full bg-red-500 hover:bg-red-700 text-white"
+                                                onClick={() => removeFavorite(movie.movie_id)}
+                                            >
+                                                Supprimer
+                                            </Button>
                                         </div>
-                                        <Button className="mt-2 bg-gray-700 hover:bg-red-500 mb-2"
-                                            onClick={() => removeFavorite(movie.movie_id)}>
-                                            Supprimer
-                                        </Button>
                                     </div>
                                 ))}
                             </div>
