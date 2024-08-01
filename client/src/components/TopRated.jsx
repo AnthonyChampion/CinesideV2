@@ -35,7 +35,7 @@ export default function TopratedMovies() {
     };
 
     return (
-        <section className="h-fit flex flex-col items-center dark:bg-[#18181b] bg-white">
+        <section className="h-fit flex flex-col items-center dark:bg-[#0a0a0b] bg-white">
             {loading ? (
                 <div className="flex justify-center items-center h-screen">
                     <div className="spinner-border animate-spin inline-block w-8 h-8 border-4 rounded-full text-green-500" role="status">
@@ -43,32 +43,30 @@ export default function TopratedMovies() {
                     </div>
                 </div>
             ) : (
-                <div className="flex flex-col p-4 space-y-4">
+                <div className="flex flex-col p-4 space-y-1">
                     <div className="flex">
                         <div className="flex w-full justify-between md:justify-end md:gap-2">
                             {currentPage > 1 && (
                                 <Button
                                     onClick={goToPrevPage}
-                                    className="dark:text-black text-black border-2 dark:border-white shadow-lg bg-white rounded-sm md:text-md dark:hover:text-white hover:bg-cyan-700 hover:text-white transition duration-300"
+                                    className="dark:text-black text-black shadow-lg bg-white rounded-sm md:text-md dark:hover:text-white hover:border-none hover:bg-red-600 hover:text-white"
                                 >
                                     Précédents
                                 </Button>
                             )}
                             <Button
                                 onClick={goToNextPage}
-                                className="dark:text-black text-black border-2 dark:border-white shadow-lg bg-white rounded-sm md:text-md dark:hover:text-white hover:bg-cyan-700 hover:text-white transition duration-300"
+                                className="dark:text-black text-black shadow-lg bg-white rounded-sm md:text-md dark:hover:text-white hover:border-none hover:bg-red-600 hover:text-white"
                             >
                                 Suivants
                             </Button>
                         </div>
                     </div>
-                    <div className="border-t border-gray-300"></div>
-
                     <div className="flex flex-wrap -mx-3">
                         {toprated.map((movie) => (
                             <div
                                 key={movie.id}
-                                className="flex flex-col cursor-pointer bg-transparent p-3 mt-4 md:mt-0 shadow-lg w-1/2 sm:w-1/2 md:w-1/3 lg:w-1/5 xl:w-1/5 px-4"
+                                className="flex flex-col z-10 cursor-pointer bg-transparent p-3 mt-4 md:mt-0 shadow-lg w-1/2 sm:w-1/2 md:w-1/3 lg:w-1/5 xl:w-1/5 px-4"
                             >
                                 <Link to={`/film/${movie.id}`}>
                                     <div className="relative group">

@@ -17,6 +17,7 @@ import ProfilePage from './pages/ProfilePage.jsx';
 import AdminPage from './pages/AdminPage.jsx';
 import DiscoverPage from './pages/DiscoverPage.jsx';
 import WelcomePage from './pages/WelcomePage.jsx';
+import TopratedMovies from './components/TopRated.jsx';
 
 const router = createBrowserRouter([
   {
@@ -41,6 +42,10 @@ const router = createBrowserRouter([
       {
         element: <MoviesPage />,
         path: "/film_par_genre",
+      },
+      {
+        element: <TopratedMovies />,
+        path: "/top_tmdb",
       },
       {
         element: <MovieDetailPage />,

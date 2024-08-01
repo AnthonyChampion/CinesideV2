@@ -45,7 +45,7 @@ export default function ProfilPage() {
     };
 
     return (
-        <div className="container mx-auto mt-14 px-4">
+        <div className="container h-[50vh] mx-auto mt-14 px-4">
             <div className="w-full mx-auto bg-white shadow-lg rounded-lg overflow-hidden md:max-w-6xl">
                 {error && <div className="text-red-500 mb-4">{error}</div>}
                 {/* Mobile view */}
@@ -114,7 +114,7 @@ export default function ProfilPage() {
                                 <span className="font-semibold">Mot de passe: </span>{"********"}
                             </div>
                             <Button
-                                className="bg-cyan-700 text-white hover:border hover:border-black hover:bg-white  hover:text-black px-2 py-1 rounded"
+                                className="bg-blue-800 text-white hover:border hover:border-black hover:bg-white  hover:text-black px-2 py-1 rounded"
                                 onClick={() => handleEditClick(auth)}
                             >
                                 Modifier
@@ -124,7 +124,7 @@ export default function ProfilPage() {
                 </div>
 
                 {/* Desktop view */}
-                <div className="hidden md:block">
+                <div className="hidden md:block relative">
                     <div className="overflow-x-auto bg-white p-4 rounded-lg shadow-md">
                         <table className="min-w-full border border-gray-200">
                             <thead className="bg-gray-200 text-left">
@@ -173,7 +173,7 @@ export default function ProfilPage() {
                                                 <div className="flex flex-wrap gap-2">
                                                     <button
                                                         type="button"
-                                                        className="bg-cyan-700 text-white py-1 px-3 rounded-md hover:bg-cyan-900"
+                                                        className="bg-red-600 text-white py-1 px-3 rounded-md hover:bg-cyan-900"
                                                         onClick={handleEditSubmit}
                                                     >
                                                         Enregistrer
@@ -195,7 +195,7 @@ export default function ProfilPage() {
                                             <td className="py-2 px-4 border-b border-gray-300">{"********"}</td>
                                             <td className="py-2 px-4 border-b border-gray-300">
                                                 <Button
-                                                    className="bg-cyan-700 text-white hover:text-black hover:bg-white hover:border hover:border-black px-2 py-1 rounded mr-2"
+                                                    className="bg-blue-800 text-white hover:text-black hover:bg-white hover:border hover:border-black px-2 py-1 rounded mr-2"
                                                     onClick={() => handleEditClick(auth)}
                                                 >
                                                     Modifier

@@ -4,6 +4,7 @@ import { fetchMovieDetails } from '../utils/moviedb';
 import PersonDetails from '../components/PersonDetails';
 import useMovieData from '../hooks/useMovieData';
 import axios from 'axios';
+import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 
 export default function MovieDetailPage() {
     const { id } = useParams();
@@ -101,7 +102,7 @@ export default function MovieDetailPage() {
     };
 
     return (
-        <div ref={movieList} className="flex flex-col items-center justify-center dark:text-white text-black font-Roboto dark:bg-[#18181b] bg-white">
+        <div ref={movieList} className="flex flex-col z-20 items-center justify-center dark:text-white text-black font-Roboto dark:bg-[#0a0a0b] bg-white">
             {loading ? (
                 <div className="flex justify-center items-center h-screen">
                     <div className="spinner-border animate-spin inline-block w-8 h-8 border-4 rounded-full text-green-500" role="status">
@@ -111,7 +112,7 @@ export default function MovieDetailPage() {
             ) : error ? (
                 <p className="text-red-500">{error}</p>
             ) : (
-                <div className="w-full md:max-w-7xl md:px-4 md:py-8 py-4">
+                <div className="w-full z-50 md:max-w-7xl md:px-4 md:py-8 py-4">
                     <div className="relative w-full md:h-[500px]">
                         <img
                             src={`https://image.tmdb.org/t/p/original${movie?.backdrop_path}`}
@@ -132,14 +133,21 @@ export default function MovieDetailPage() {
                             }}
                         />
                         <button
-                            className={`absolute top-4 right-4 ${isFavorite ? 'bg-red-500' : 'bg-green-500'} text-white rounded-full w-10 h-10 flex items-center justify-center`}
+                            className={`absolute top-4 right-4 flex items-center p-3 bg-[#e8e8e8] border-[#ffe2e2] border-solid border-[6px] rounded-[30px] text-[17px] cursor-pointer font-extrabold text-[#867c7c] transition-transform duration-[400ms] ease-[cubic-bezier(0.68,-0.55,0.27,2.5)] hover:bg-[#eee] hover:scale-[1.05]`}
                             onClick={toggleFavorite}
                             aria-label="Favorite"
                         >
-                            {isFavorite ? '★' : '☆'}
+                            <AiOutlineHeart
+                                className={`absolute ${isFavorite ? 'opacity-0' : 'opacity-1'} transition-opacity duration-100 ease-in-out`}
+                                size={24}
+                            />
+                            <AiFillHeart
+                                className={`absolute ${isFavorite ? 'opacity-1 animate-beatingHeart' : 'opacity-0'} transition-opacity duration-100 ease-in-out`}
+                                size={24}
+                            />
+                            <span className="ml-7">Favoris</span>
                         </button>
                     </div>
-
                     <div className="mt-8 px-3 md:px-0">
                         <h1 className="text-2xl md:text-5xl uppercase font-bold w-[75%]">{movie?.title || "Aucun titre disponible"}</h1>
                         <div className="md:flex md:flex-row flex-col items-center md:space-x-10 md:space-y-0 space-y-2 mt-4">

@@ -34,7 +34,7 @@ export default function Favorite() {
     };
 
     return (
-        <section className="p-6 dark:text-white text-[#101522] w-screen min-h-screen dark:bg-[#18181b] bg-white">
+        <section className="p-6 dark:text-white text-[#101522] w-screen min-h-screen dark:bg-[#0a0a0b] bg-white">
             <nav className="flex -mt-2" aria-label="Breadcrumb">
                 <ol className="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
                     <Link to="/" className="inline-flex items-center">
