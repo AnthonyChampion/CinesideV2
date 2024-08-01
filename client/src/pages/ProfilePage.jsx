@@ -46,10 +46,10 @@ export default function ProfilPage() {
 
     return (
         <div className="container h-[50vh] mx-auto mt-14 px-4">
-            <div className="w-full mx-auto bg-white shadow-lg rounded-lg overflow-hidden md:max-w-6xl">
+            <div className="w-full relative mx-auto bg-white shadow-lg rounded-lg overflow-hidden md:max-w-6xl">
                 {error && <div className="text-red-500 mb-4">{error}</div>}
                 {/* Mobile view */}
-                <div className="block md:hidden">
+                <div className="relative md:hidden">
                     {editUser === auth.id ? (
                         <div className="p-4 border-b border-gray-200">
                             <div className="mb-4">
@@ -88,7 +88,7 @@ export default function ProfilPage() {
                             <div className="flex gap-2">
                                 <button
                                     type="button"
-                                    className="bg-cyan-700 text-white py-1 px-3 rounded-md hover:bg-cyan-900"
+                                    className="bg-red-600 text-white py-1 px-3 rounded-md hover:bg-white hover:text-red-600"
                                     onClick={handleEditSubmit}
                                 >
                                     Enregistrer
@@ -210,7 +210,7 @@ export default function ProfilPage() {
                 </div>
             </div>
             <div className="md:hidden mt-10 text-center">
-                <Link to="/favoris" className="bg-cyan-700 hover:border hover:border-black text-white py-2 px-4 rounded-md hover:bg-white hover:text-black">
+                <Link to="/favoris" className="bg-red-600 hover:border hover:border-black text-white py-2 px-4 rounded-md hover:bg-white hover:text-red-600">
                     Voir mes favoris
                 </Link>
             </div>

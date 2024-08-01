@@ -112,7 +112,7 @@ export default function MovieDetailPage() {
             ) : error ? (
                 <p className="text-red-500">{error}</p>
             ) : (
-                <div className="w-full z-50 md:max-w-7xl md:px-4 md:py-8 py-4">
+                <div className="w-full z-20 md:max-w-7xl md:px-4 md:py-8 py-4">
                     <div className="relative w-full md:h-[500px]">
                         <img
                             src={`https://image.tmdb.org/t/p/original${movie?.backdrop_path}`}
@@ -133,20 +133,23 @@ export default function MovieDetailPage() {
                             }}
                         />
                         <button
-                            className={`absolute top-4 right-4 flex items-center p-3 bg-[#e8e8e8] border-[#ffe2e2] border-solid border-[6px] rounded-[30px] text-[17px] cursor-pointer font-extrabold text-[#867c7c] transition-transform duration-[400ms] ease-[cubic-bezier(0.68,-0.55,0.27,2.5)] hover:bg-[#eee] hover:scale-[1.05]`}
+                            className={`absolute top-4 right-4 flex items-center p-3 bg-white rounded-full shadow-lg cursor-pointer font-bold text-red-600 transition-transform duration-300 ease-in-out hover:scale-110`}
                             onClick={toggleFavorite}
                             aria-label="Favorite"
                         >
-                            <AiOutlineHeart
-                                className={`absolute ${isFavorite ? 'opacity-0' : 'opacity-1'} transition-opacity duration-100 ease-in-out`}
-                                size={24}
-                            />
-                            <AiFillHeart
-                                className={`absolute ${isFavorite ? 'opacity-1 animate-beatingHeart' : 'opacity-0'} transition-opacity duration-100 ease-in-out`}
-                                size={24}
-                            />
-                            <span className="ml-7">Favoris</span>
+                            {isFavorite ? (
+                                <AiFillHeart
+                                    className="transition-opacity duration-200 ease-in-out opacity-100"
+                                    size={24}
+                                />
+                            ) : (
+                                <AiOutlineHeart
+                                    className="transition-opacity duration-200 ease-in-out opacity-100"
+                                    size={24}
+                                />
+                            )}
                         </button>
+
                     </div>
                     <div className="mt-8 px-3 md:px-0">
                         <h1 className="text-2xl md:text-5xl uppercase font-bold w-[75%]">{movie?.title || "Aucun titre disponible"}</h1>

@@ -98,7 +98,7 @@ export default function NavBar({ showSearchProp }) {
 
 
             {/* Bottom navigation for mobile */}
-            <div className="md:hidden fixed bottom-0 left-0 right-0 z-30 dark:bg-[#0a0a0b] bg-white">
+            <div className="md:hidden fixed bottom-0 left-0 right-0 z-50 dark:bg-[#0a0a0b] bg-white">
                 <div className="flex justify-around py-2 dark:text-white text-black">
                     <Link to="/accueil" className="flex flex-col items-center">
                         <AiFillHome size={20} />
