@@ -40,7 +40,6 @@ export default function MovieSearch() {
         <section>
             <div className="flex">
                 <form className="mx-auto md:w-[22rem] w-[18rem]" onSubmit={handleSearch}>
-                    <label htmlFor="" className="mb-2 text-sm font-medium text-white sr-only dark:text-white">Recherche</label>
                     <div className="relative">
                         <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
                             <svg className="w-4 h-4 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
@@ -51,17 +50,17 @@ export default function MovieSearch() {
                             type="search"
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
-                            className="block w-full p-4 ps-10 text-sm text-white placeholder-white border border-zinc-300 rounded-lg dark:bg-white dark:bg-opacity-20 bg-white focus:ring-white focus:border-white"
+                            className="block w-full p-2.5 ps-10 text-sm text-white placeholder-white border-gray-400 bg-transparent focus:ring-white focus:border-white"
                             placeholder="Recherchez un film"
                             required
                         />
                     </div>
                 </form>
-            </div>
 
+            </div>
             {error && <p className="text-red-500 mt-2">{error}</p>}
             {movies.length > 0 && (
-                <div className="fixed inset-0 h-screen flex justify-center items-center bg-black bg-opacity-70 p-2 md:p-8 lg:p-6">
+                <div className="fixed inset-0 h-screen flex justify-center items-center p-2 md:p-8 lg:p-6">
                     <div className="bg-white text-black rounded-lg overflow-scroll noscroll-bar h-full w-full md:w-3/4 lg:w-3/4">
                         <div className="relative">
                             <div className="grid grid-cols-2 gap-2 md:grid-cols-3 lg:grid-cols-4 overflow-y-auto p-2">
@@ -83,8 +82,8 @@ export default function MovieSearch() {
                                             />
                                             <div className="md:mt-2 mt-2">
                                                 <div className="p-2 space-y-1">
+                                                    <h2 className="text-md font-bold line-clamp-1 text-black uppercase">{movie.title}</h2>
                                                     <p className="text-sm text-gray-400">{movie.release_date}</p>
-                                                    <h2 className="text-md font-bold line-clamp-1 text-black">{movie.title}</h2>
                                                 </div>
                                             </div>
                                         </Link>

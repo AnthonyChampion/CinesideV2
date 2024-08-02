@@ -275,7 +275,7 @@ export default function MovieDetailPage() {
                         <div className="grid grid-cols-2 md:grid-cols-6 mt-20">
                             <div className="col-span-2 md:col-span-6">
                                 <div className="flex items-center justify-between">
-                                    <h2 className="md:text-3xl text-xl dark:text-white text-black font-bold">Recommendations</h2>
+                                    <h2 className="md:text-3xl text-xl pl-3 md:pl-0 dark:text-white text-black font-bold">Recommendations</h2>
                                 </div>
                                 <div className="border-t border-gray-300 mt-4"></div>
                             </div>

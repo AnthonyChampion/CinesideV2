@@ -37,10 +37,10 @@ export default function NavBar({ showSearchProp }) {
 
     return (
         <nav className="w-screen relative md:mt-6 max-w-[90vw] mx-auto z-50">
-            <div className="flex items-center justify-between p-4 md:bg-zinc-800 bg-opacity-80 rounded-lg text-white">
+            <div className="flex items-center justify-between p-4 md:bg-gradient-to-l md:from-zinc-700 md:to-transparent rounded-lg text-white">
                 <div className="flex items-center">
                     <Link className="text-2xl font-semibold" to="/accueil">
-                        <img src="../src/assets/cinelogo.png" className="w-40 h-10" alt="Cineside logo" />
+                        <img src="../src/assets/cinelogo.png" className="md:w-40 md:h-10 w-30 h-8" alt="Cineside logo" />
                     </Link>
                 </div>
                 <div className="flex items-center space-x-10">

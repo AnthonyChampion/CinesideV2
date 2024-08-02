@@ -211,7 +211,7 @@ export default function ProfilPage() {
             </div>
             <div className="md:hidden mt-10 text-center">
                 <Link to="/favoris" className="bg-red-600 hover:border hover:border-black text-white py-2 px-4 rounded-md hover:bg-white hover:text-red-600">
-                    Voir mes favoris
+                    Mes favoris
                 </Link>
             </div>
         </div>

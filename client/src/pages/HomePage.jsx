@@ -90,13 +90,19 @@ export default function HomePage() {
                     </div>
                 ) : (
                     <>
-                        <header className="w-full md:h-[72vh] h-full flex flex-col items-center mt-2 md:mt-8">
-                            <div className="w-[89.7vw] z-50 flex justify-between items-center">
-                                <span className="bg-gray-100 text-gray-800 md:text-lg text-md font-medium me-2 px-2.5 py-0.5 rounded border border-gray-500">Populaires</span>
-                                <div className="hidden md:block">
+                        <header className="w-full md:h-[72vh] h-full flex flex-col items-center mt-4 md:mt-8">
+                            <div className="relative w-[89.7vw] md:h-13 z-20 md:rounded flex justify-between items-center">
+                                <div className="space-x-4 w-full z-20 relative">
+                                    <span className="bg-red-600 text-white md:text-lg text-sm font-medium me-2 px-2.5 py-1 rounded">Populaires</span>
+                                    <Link to="/film_par_genre">
+                                        <span className="md:text-white md:bg-transparent bg-gray-400 text-black  md:text-lg text-sm font-medium me-2 px-2.5 py-1 rounded border border-gray-500">Tous les films</span>
+                                    </Link>
+                                </div>
+                                <div className="hidden md:block z-20 relative">
                                     <MovieSearch />
                                 </div>
                             </div>
+
                             {trending.length > 0 && (
                                 <Swiper
                                     modules={[Pagination]}
@@ -139,9 +145,9 @@ export default function HomePage() {
                             <div className="w-full md:w-[89.5%]">
                                 <hr className="my-6 border-gray-200 sm:mx-auto dark:border-gray-400 lg:my-8" />
                                 <div className="flex justify-between">
-                                    <span className="bg-gray-100 text-gray-800 md:text-lg text-xs font-medium me-2 px-2.5 py-0.5 rounded border border-gray-500">Sorties récentes</span>
+                                    <span className="bg-red-600 text-white md:text-lg text-xs font-medium me-2 px-2.5 py-1 rounded">Sorties récentes</span>
                                     <Link to="/film_par_genre">
-                                        <span className="text-gray-400 md:text-lg text-xs font-medium me-2 px-2.5 py-0.5 rounded border border-gray-500">Tous les films</span>
+                                        <span className="text-white md:text-lg text-xs font-medium me-2 px-2.5 py-1 rounded border border-gray-500">Tous les films</span>
                                     </Link>
                                 </div>
                                 <div className="flex flex-wrap md:mt-4 mt-2">
@@ -164,17 +170,17 @@ export default function HomePage() {
                                                 </Link>
                                             </div>
                                             <div className="p-4 space-y-1 text-center">
+                                                <h2 className="text-md line-clamp-1 dark:text-white text-black uppercase">{data.title}</h2>
                                                 <p className="text-sm dark:text-gray-400 text-black">{data.release_date}</p>
-                                                <h2 className="text-md line-clamp-1 dark:text-white text-black">{data.title}</h2>
                                             </div>
                                         </div>
                                     ))}
                                 </div>
                                 <hr className="my-6 border-gray-200 sm:mx-auto dark:border-gray-400 lg:my-8" />
                                 <div className="flex justify-between">
-                                    <span className="bg-gray-100 text-gray-800 md:text-lg text-xs font-medium me-2 px-2.5 py-0.5 rounded border border-gray-500">Top TMDb</span>
-                                    <Link to="/film_par_genre">
-                                        <span className="text-gray-400 md:text-lg text-xs font-medium me-2 px-2.5 py-0.5 rounded border border-gray-500">Tous les films</span>
+                                    <span className="bg-red-600 text-white md:text-lg text-xs font-medium me-2 px-2.5 py-1 rounded">Top TMDB</span>
+                                    <Link to="/film_par_genre/top_tmdb">
+                                        <span className="text-gray-400 md:text-lg text-xs font-medium me-2 px-2.5 py-1 rounded border border-gray-500">Tous les films</span>
                                     </Link>
                                 </div>
                                 <div className="flex flex-wrap md:mt-4 mt-2">
@@ -197,8 +203,8 @@ export default function HomePage() {
                                                 </Link>
                                             </div>
                                             <div className="p-4 space-y-1 text-center">
+                                                <h2 className="text-md line-clamp-1 dark:text-white text-black uppercase">{data.title}</h2>
                                                 <p className="text-sm dark:text-gray-400 text-black">{data.release_date}</p>
-                                                <h2 className="text-md line-clamp-1 dark:text-white text-black">{data.title}</h2>
                                             </div>
                                         </div>
                                     ))}

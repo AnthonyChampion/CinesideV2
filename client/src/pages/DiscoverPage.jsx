@@ -141,8 +141,8 @@ export default function DiscoverMovies() {
                                                 />
                                             </div>
                                             <div className="space-y-1 p-2">
+                                                <h2 className="text-md font-bold line-clamp-1 dark:text-white text-black uppercase">{movie.title}</h2>
                                                 <p className="text-sm dark:text-gray-400 text-black">{movie.release_date}</p>
-                                                <h2 className="text-md font-bold line-clamp-1 dark:text-white text-black">{movie.title}</h2>
                                             </div>
                                         </Link>
                                     </div>
