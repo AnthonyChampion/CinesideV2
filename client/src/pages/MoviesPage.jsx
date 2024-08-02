@@ -116,19 +116,19 @@ export default function MoviesPage() {
     const filteredMovies = useMemo(() => moviesFiltered.slice(0, 16), [moviesFiltered]);
 
     return (
-        <section className="w-screen dark:bg-[#0a0a0b] bg-white">
+        <section className="w-screen bg-[#0a0a0b]">
             {loading && !showTopRated ? (
                 <div className="flex justify-center items-center h-screen">
-                    <div className="spinner-border animate-spin inline-block w-8 h-8 border-4 rounded-full text-green-500" role="status">
+                    <div className="spinner-border animate-spin inline-block w-8 h-8 border-4 rounded-full text-red-600" role="status">
                         <span className="visually-hidden">Chargement...</span>
                     </div>
                 </div>
             ) : (
                 <>
                     <div className="md:flex md:flex-row flex-col z-10">
-                        <div className="md:flex-col flex-wrap md:w-[10%] w-full pt-6 md:pt-16 md:pl-6">
-                            <ul className="grid grid-cols-4 md:grid-cols-1 gap-2 md:gap-4 p-2 md:p-0">
-                                <Button type='button' className={`hidden md:flex text-black md:w-full items-center md:p-2 bg-white focus:bg-red-600 focus:text-white transition ease-in-out transform hover:-translate-y-1 ${showTopRated ? 'bg-red-600 text-white border-2 border-white' : ''}`}
+                        <div className="md:flex-col flex-wrap md:w-[12%] w-full pt-6 md:pt-16 md:pl-10">
+                            <ul className="grid grid-cols-4 md:grid-cols-1 gap-2 md:gap-4 p-2 md:p-1">
+                                <Button type='button' className={`hidden md:flex text-black md:w-full items-center md:p-2 bg-white focus:bg-red-600 focus:text-white transition ease-in-out transform hover:-translate-y-1 ${showTopRated ? 'bg-red-600 text-white border-none' : ''}`}
                                     onClick={handleClickToprated}>
                                     <p>Top TMDb</p>
                                 </Button>
@@ -136,7 +136,7 @@ export default function MoviesPage() {
                                     className="w-full text-black"
                                     onClick={handleResetFilter}
                                 >
-                                    <Button type="button" className={`w-full h-full p-1 items-center md:text-sm transition ease-in-out transform hover:-translate-y-1 ${activeFilter?.name === 'Populaires' ? 'bg-red-600 text-white' : 'bg-white text-black'} border-2 shadow-lg dark:border-white`}>
+                                    <Button type="button" className={`w-full h-full md:p-2 items-center md:text-sm transition ease-in-out transform hover:-translate-y-1 ${activeFilter?.name === 'Populaires' ? 'bg-red-600 text-white' : 'bg-white text-black'} border-1 shadow-lg`}>
                                         Populaires
                                     </Button>
                                 </li>
@@ -144,7 +144,7 @@ export default function MoviesPage() {
                                     <li key={filter.id} className="w-full text-black">
                                         <Button
                                             type="button"
-                                            className={`mr-2 mb-2 w-full h-full items-center transition ease-in-out transform border-2 dark:border-white shadow-lg hover:-translate-y-1 ${activeFilter?.id === filter.id ? 'bg-red-600 text-white' : 'bg-white text-black'}`}
+                                            className={`md:p-2 w-full h-full border-none items-center transition ease-in-out transform shadow-lg hover:-translate-y-1 ${activeFilter?.id === filter.id ? 'bg-red-600 text-white' : 'bg-white text-black'}`}
                                             onClick={() => handleClickFilter(filter.id, filter.name)}
                                         >
                                             {filter.name}
@@ -152,7 +152,7 @@ export default function MoviesPage() {
                                     </li>
                                 ))}
 
-                                <Button className={`md:hidden w-[205%] flex items-center md:p-2 bg-white text-black focus:bg-red-600 focus:text-white transition ease-in-out transform hover:-translate-y-1 shadow-lg ${showTopRated ? 'bg-red-600 text-white' : ''}`}
+                                <Button className={`md:hidden w-[205%] flex items-center md:p-2 bg-white text-black focus:bg-red-600 focus:text-white transition ease-in-out transform hover:-translate-y-1 shadow-lg ${showTopRated ? 'bg-red-600 text-white border-none' : ''}`}
                                     onClick={handleClickToprated}>
                                     <p>Top TMDb</p>
                                 </Button>
@@ -164,18 +164,18 @@ export default function MoviesPage() {
                             ) : (
                                 <div className="flex flex-col p-4 space-y-1">
                                     <div className="flex">
-                                        <div className="flex w-full justify-between md:justify-end md:gap-2">
+                                        <div className="flex w-full justify-between md:justify-center md:space-x-8">
                                             {page > 1 && (
                                                 <Button
                                                     onClick={handleLoadLessMovies}
-                                                    className="dark:text-black text-black border-2 dark:border-white shadow-lg bg-white rounded-sm md:text-md dark:hover:text-white hover:bg-red-600 hover:text-white"
+                                                    className="text-gray-200 shadow-lg bg-transparent rounded md:text-md hover:bg-red-600 hover:text-white"
                                                 >
                                                     Précédents
                                                 </Button>
                                             )}
                                             <Button
                                                 onClick={handleLoadMoreMovies}
-                                                className="dark:text-black text-black border-2 dark:border-white shadow-lg bg-white rounded-sm md:text-md dark:hover:text-white hover:bg-red-600 hover:text-white"
+                                                className="text-gray-200 shadow-lg bg-transparent rounded md:text-md hover:bg-red-600 hover:text-white"
                                             >
                                                 Suivants
                                             </Button>
@@ -186,7 +186,7 @@ export default function MoviesPage() {
                                         {filteredMovies.map((movie) => (
                                             <div
                                                 key={movie.id}
-                                                className="flex flex-col z-10 cursor-pointer bg-transparent p-3 mt-4 md:mt-0 shadow-lg w-1/2 sm:w-1/2 md:w-1/3 lg:w-1/5 xl:w-1/5 px-4"
+                                                className="flex flex-col cursor-pointer bg-transparent p-3 mt-4 md:mt-0 shadow-lg w-1/2 sm:w-1/2 md:w-1/3 lg:w-1/5 xl:w-1/5 px-4"
                                             >
                                                 <Link to={`/film/${movie.id}`}>
                                                     <div className="relative group">
@@ -201,8 +201,8 @@ export default function MoviesPage() {
                                                         />
                                                     </div>
                                                     <div className="space-y-1 p-2">
-                                                        <h2 className="text-md font-bold line-clamp-1 dark:text-white text-black uppercase">{movie.title}</h2>
-                                                        <p className="text-sm dark:text-gray-400 text-black">{movie.release_date}</p>
+                                                        <h2 className="text-md font-bold line-clamp-1 text-white uppercase">{movie.title}</h2>
+                                                        <p className="text-sm text-gray-400">{movie.release_date}</p>
                                                     </div>
                                                 </Link>
                                             </div>

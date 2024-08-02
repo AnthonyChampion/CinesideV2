@@ -35,10 +35,10 @@ export default function Favorite() {
     };
 
     return (
-        <section className="p-6 dark:text-white text-[#101522] w-screen min-h-screen dark:bg-[#0a0a0b] bg-white">
+        <section className="p-6 w-screen min-h-screen bg-[#0a0a0b] ">
             <div className="relative flex flex-col justify-center items-center mt-4 md:mt-0">
-                <h1 className="md:text-3xl text-xl dark:text-white text-[#101522] font-bold text-center">Mes films favoris</h1>
-                <span className="mt-1">Total: {favorites.length} films</span>
+                <h1 className="md:text-3xl text-xl text-white font-bold text-center">Mes films favoris</h1>
+                <span className="mt-1 text-white">Total: {favorites.length} films</span>
                 <div className="border-t border-gray-400 mt-4 w-[50%]"></div>
             </div>
 

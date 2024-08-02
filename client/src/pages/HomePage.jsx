@@ -80,19 +80,19 @@ export default function HomePage() {
     }, [getPopularMovies, getTrendingMovies, getTopratedMovies, setSlidesPerview]);
 
     return (
-        <div className="flex flex-col dark:text-white bg-white dark:bg-transparent z-50">
+        <div className="flex flex-col text-white bg-transparent z-50">
             <section>
                 {loading ? (
                     <div className="flex justify-center items-center">
-                        <div className="spinner-border animate-spin inline-block w-8 h-8 border-4 rounded-full text-green-500" role="status">
+                        <div className="spinner-border animate-spin inline-block w-8 h-8 border-4 rounded-full text-red-600" role="status">
                             <span className="visually-hidden">Chargement...</span>
                         </div>
                     </div>
                 ) : (
                     <>
                         <header className="w-full md:h-[72vh] h-full flex flex-col items-center mt-4 md:mt-8">
-                            <div className="relative w-[89.7vw] md:h-13 z-20 md:rounded flex justify-between items-center">
-                                <div className="space-x-4 w-full z-20 relative">
+                            <div className="relative w-[89.7vw] md:h-13 md:rounded flex justify-between items-end pb-2">
+                                <div className="space-x-4 w-full relative">
                                     <span className="bg-red-600 text-white md:text-lg text-sm font-medium me-2 px-2.5 py-1 rounded">Populaires</span>
                                     <Link to="/film_par_genre">
                                         <span className="md:text-white md:bg-transparent bg-gray-400 text-black  md:text-lg text-sm font-medium me-2 px-2.5 py-1 rounded border border-gray-500">Tous les films</span>
@@ -125,9 +125,9 @@ export default function HomePage() {
                                                         e.target.src = "/assets/img_not_available.png";
                                                     }}
                                                 />
-                                                <div className="flex-col p-4 md:space-y-2 dark:text-white text-black">
+                                                <div className="flex-col p-4 md:space-y-2 text-white">
                                                     <h1 className="text-md uppercase line-clamp-1">{movie?.title || "Title not available"}</h1>
-                                                    <p className="text-sm dark:text-gray-400 text-black">{movie?.release_date}</p>
+                                                    <p className="text-sm text-gray-400 ">{movie?.release_date}</p>
                                                     <div className="absolute top-8 right-8 md:relative md:top-0 md:right-0 md:flex md:justify-end">
                                                         <Link to={`/film/${movie.id}`}>
                                                             <Button className='bg-red-700 border-none transform transition-transform duration-200 hover:scale-110'>Voir détails</Button>
@@ -141,9 +141,9 @@ export default function HomePage() {
 
                             )}
                         </header>
-                        <div className="hidden md:flex w-full items-center justify-center dark:bg-[#0a0a0b]">
+                        <div className="hidden md:flex w-full items-center justify-center">
                             <div className="w-full md:w-[89.5%]">
-                                <hr className="my-6 border-gray-200 sm:mx-auto dark:border-gray-400 lg:my-8" />
+                                <hr className="my-6 border-gray-200 sm:mx-auto lg:my-8" />
                                 <div className="flex justify-between">
                                     <span className="bg-red-600 text-white md:text-lg text-xs font-medium me-2 px-2.5 py-1 rounded">Sorties récentes</span>
                                     <Link to="/film_par_genre">
@@ -169,14 +169,14 @@ export default function HomePage() {
                                                     />
                                                 </Link>
                                             </div>
-                                            <div className="p-4 space-y-1 text-center">
-                                                <h2 className="text-md line-clamp-1 dark:text-white text-black uppercase">{data.title}</h2>
-                                                <p className="text-sm dark:text-gray-400 text-black">{data.release_date}</p>
+                                            <div className="p-4 space-y-1 text-start">
+                                                <h2 className="text-md line-clamp-1 text-white uppercase">{data.title}</h2>
+                                                <p className="text-sm text-gray-400">{data.release_date}</p>
                                             </div>
                                         </div>
                                     ))}
                                 </div>
-                                <hr className="my-6 border-gray-200 sm:mx-auto dark:border-gray-400 lg:my-8" />
+                                <hr className="my-6 border-gray-200 sm:mx-auto lg:my-8" />
                                 <div className="flex justify-between">
                                     <span className="bg-red-600 text-white md:text-lg text-xs font-medium me-2 px-2.5 py-1 rounded">Top TMDB</span>
                                     <Link to="/film_par_genre/top_tmdb">
@@ -202,9 +202,9 @@ export default function HomePage() {
                                                     />
                                                 </Link>
                                             </div>
-                                            <div className="p-4 space-y-1 text-center">
-                                                <h2 className="text-md line-clamp-1 dark:text-white text-black uppercase">{data.title}</h2>
-                                                <p className="text-sm dark:text-gray-400 text-black">{data.release_date}</p>
+                                            <div className="p-4 space-y-1 text-start">
+                                                <h2 className="text-md line-clamp-1text-white uppercase">{data.title}</h2>
+                                                <p className="text-sm text-gray-400">{data.release_date}</p>
                                             </div>
                                         </div>
                                     ))}

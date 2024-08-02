@@ -36,14 +36,14 @@ export default function NavBar({ showSearchProp }) {
     };
 
     return (
-        <nav className="w-screen relative md:mt-6 max-w-[90vw] mx-auto z-50">
+        <nav className="w-screen relative md:mt-6 max-w-[90vw] mx-auto z-10">
             <div className="flex items-center justify-between p-4 md:bg-gradient-to-l md:from-zinc-700 md:to-transparent rounded-lg text-white">
                 <div className="flex items-center">
                     <Link className="text-2xl font-semibold" to="/accueil">
                         <img src="../src/assets/cinelogo.png" className="md:w-40 md:h-10 w-30 h-8" alt="Cineside logo" />
                     </Link>
                 </div>
-                <div className="flex items-center space-x-10">
+                <div className="flex items-center space-x-10 pr-4">
                     <div className="hidden md:flex space-x-10">
                         <Link to="/accueil" className="flex items-center space-x-2">
                             <span className="text-md transform transition-transform duration-200 hover:scale-110">Accueil</span>
@@ -83,14 +83,8 @@ export default function NavBar({ showSearchProp }) {
                             </button>
                         </Link>
                     )}
-                    <button onClick={toggleTheme} className="hidden md:flex items-center space-x-2">
-                        {darkMode ? <IoSunny size={24} /> : <IoMoon size={24} />}
-                    </button>
                     <button className="md:hidden transition p-2" onClick={handleSearchClick}>
                         {showSearch ? <IoClose size={24} /> : <IoSearchOutline size={24} />}
-                    </button>
-                    <button onClick={toggleTheme} className="md:hidden flex items-center space-x-2">
-                        {darkMode ? <IoSunny size={24} /> : <IoMoon size={24} />}
                     </button>
                 </div>
             </div>
@@ -98,8 +92,8 @@ export default function NavBar({ showSearchProp }) {
 
 
             {/* Bottom navigation for mobile */}
-            <div className="md:hidden fixed bottom-0 left-0 right-0 z-50 dark:bg-[#0a0a0b] bg-white">
-                <div className="flex justify-around py-2 dark:text-white text-black">
+            <div className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-white">
+                <div className="flex justify-around py-2 text-black">
                     <Link to="/accueil" className="flex flex-col items-center">
                         <AiFillHome size={20} />
                         <span className="text-xs">Accueil</span>

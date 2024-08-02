@@ -9,7 +9,7 @@ export default function WelcomePage() {
             <div className="absolute inset-0 z-0 h-[45vh] bg-gradient-to-r from-[#0a0a0b] via-transparent" />
             <div className="relative z-10 flex flex-col items-center">
                 <h1 className="md:text-5xl text-3xl font-bold mb-4">Bienvenue sur </h1>
-                <img src="../src/assets/cinelogo.png" className="md:w-[20rem] md:h-24 w-48 h-18" />
+                <img src="../src/assets/cinelogo.png" className="md:w-[20rem] md:h-20 w-48 h-18" />
                 <p className="md:text-lg text-md mt-4 mb-6 text-center">
                     Votre portail vers le monde magique du cinéma.
                 </p>

@@ -102,7 +102,7 @@ export default function MovieDetailPage() {
     };
 
     return (
-        <div ref={movieList} className="flex flex-col z-20 items-center justify-center dark:text-white text-black font-Roboto dark:bg-[#0a0a0b] bg-white">
+        <div ref={movieList} className="flex flex-col items-center justify-center text-white font-Roboto bg-[#0a0a0b]">
             {loading ? (
                 <div className="flex justify-center items-center h-screen">
                     <div className="spinner-border animate-spin inline-block w-8 h-8 border-4 rounded-full text-green-500" role="status">
@@ -112,7 +112,7 @@ export default function MovieDetailPage() {
             ) : error ? (
                 <p className="text-red-500">{error}</p>
             ) : (
-                <div className="w-full z-20 md:max-w-7xl md:px-4 md:py-8 py-4">
+                <div className="w-full md:max-w-7xl md:px-4 md:py-8 py-4">
                     <div className="relative w-full md:h-[500px]">
                         <img
                             src={`https://image.tmdb.org/t/p/original${movie?.backdrop_path}`}
@@ -174,9 +174,9 @@ export default function MovieDetailPage() {
                     </div>
 
                     {crew && crew?.length > 0 && (
-                        <div className="mt-2 flex space-x-4 items-end">
+                        <div className="mt-2 flex md:space-x-4 items-center">
                             <h2 className="md:text-lg text-sm px-3 md:px-0">Réalisateur(s):</h2>
-                            <ul className="md:text-lg flex space-x-2">
+                            <ul className="md:text-lg text-sm flex space-x-2">
                                 {crew.filter(cast => cast.job === "Director").map(cast => (
                                     <li key={cast?.id}>{cast?.name}</li>
                                 ))}
@@ -199,7 +199,7 @@ export default function MovieDetailPage() {
                     <div className="mt-8 md:mt-8 px-3 md:px-0">
                         {Object.keys(watchProviders)?.length > 0 && (
                             <div>
-                                <h2 className="md:text-3xl text-xl dark:text-white text-black font-bold">Plateformes:</h2>
+                                <h2 className="md:text-3xl text-xl text-white  font-bold">Plateformes:</h2>
                                 <div className="flex flex-wrap items-center gap-4 mt-4">
                                     {watchProviders.flatrate && watchProviders.flatrate.length > 0 ? (
                                         watchProviders.flatrate.map(provider => (
@@ -225,13 +225,13 @@ export default function MovieDetailPage() {
                     </div>
 
                     <div className="mt-8 md:mt-12 px-3 md:px-0">
-                        <h2 className="md:text-3xl text-xl dark:text-white text-black font-bold pb-4">Synopsis</h2>
+                        <h2 className="md:text-3xl text-xl text-white font-bold pb-4">Synopsis</h2>
                         <p className="md:text-lg text-justify">{movie?.overview}</p>
                     </div>
 
                     {credits && credits?.length > 0 && (
                         <div className="mt-8 md:mt-12 px-3 md:px-0">
-                            <h2 className="md:text-3xl text-xl dark:text-white text-black font-bold">Casting</h2>
+                            <h2 className="md:text-3xl text-xl text-white font-bold">Casting</h2>
                             <ul className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-4">
                                 {credits.slice(0, 8).map(actor => (
                                     <li key={actor?.id} className="flex flex-col items-center space-y-2">
@@ -255,7 +255,7 @@ export default function MovieDetailPage() {
 
                     {trailer && trailer.length > 0 && (
                         <div className="mt-8 md:mt-12 px-3 md:px-0 flex-col w-full justify-center">
-                            <h2 className="md:text-3xl text-xl dark:text-white text-black font-bold">Videos</h2>
+                            <h2 className="md:text-3xl text-xl text-white font-bold">Videos</h2>
                             <div className="mt-4 flex-col md:pr-[15vw] md:pl-[15vw]">
                                 <iframe
                                     width="100%"
@@ -275,7 +275,7 @@ export default function MovieDetailPage() {
                         <div className="grid grid-cols-2 md:grid-cols-6 mt-20">
                             <div className="col-span-2 md:col-span-6">
                                 <div className="flex items-center justify-between">
-                                    <h2 className="md:text-3xl text-xl pl-3 md:pl-0 dark:text-white text-black font-bold">Recommendations</h2>
+                                    <h2 className="md:text-3xl text-xl pl-3 md:pl-0 text-white font-bold">Recommendations</h2>
                                 </div>
                                 <div className="border-t border-gray-300 mt-4"></div>
                             </div>
@@ -298,8 +298,8 @@ export default function MovieDetailPage() {
                                             />
                                         </div>
                                         <div className="p-4 space-y-1">
-                                            <p className="text-sm dark:text-gray-400 text-black">{data?.release_date ? new Date(data.release_date).getFullYear() : "N/A"}</p>
-                                            <h3 className="text-md font-bold line-clamp-1 dark:text-white text-black">{data.title}</h3>
+                                            <h3 className="text-md font-bold line-clamp-1 text-white uppercase">{data.title}</h3>
+                                            <p className="text-sm text-gray-400 ">{data?.release_date ? new Date(data.release_date).getFullYear() : "N/A"}</p>
                                         </div>
                                     </Link>
                                 </div>
