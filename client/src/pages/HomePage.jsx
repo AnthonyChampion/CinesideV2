@@ -173,7 +173,7 @@ export default function HomePage() {
                                 <hr className="my-6 border-gray-200 sm:mx-auto dark:border-gray-400 lg:my-8" />
                                 <div className="flex justify-between">
                                     <span className="bg-gray-100 text-gray-800 md:text-lg text-xs font-medium me-2 px-2.5 py-0.5 rounded border border-gray-500">Top TMDb</span>
-                                    <Link to="/film_par_genre?toprated=true">
+                                    <Link to="/film_par_genre">
                                         <span className="text-gray-400 md:text-lg text-xs font-medium me-2 px-2.5 py-0.5 rounded border border-gray-500">Tous les films</span>
                                     </Link>
                                 </div>

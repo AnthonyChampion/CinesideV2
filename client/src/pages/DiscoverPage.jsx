@@ -1,17 +1,19 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { MoviesByDate } from '../utils/moviedb';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { Button } from 'flowbite-react';
 
 export default function DiscoverMovies() {
+    const { annee } = useParams();
     const [movies, setMovies] = useState([]);
-    const [year, setYear] = useState(2024);
     const [page, setPage] = useState(1);
     const [loading, setLoading] = useState(true);
     const [selectedDecade, setSelectedDecade] = useState('2024');
     const [dropdownOpen, setDropdownOpen] = useState(false);
 
-    const fetchMovies = useCallback(async () => {
+    const navigate = useNavigate();
+
+    const fetchMovies = useCallback(async (year, page) => {
         setLoading(true);
         try {
             const data = await MoviesByDate({ 'primary_release_year': year, page });
@@ -25,11 +27,17 @@ export default function DiscoverMovies() {
         } finally {
             setLoading(false);
         }
-    }, [year, page]);
+    }, []);
 
     useEffect(() => {
-        fetchMovies();
-    }, [fetchMovies]);
+        const year = annee || '2024';
+        if (!annee) {
+            navigate(`/film_par_annee/2024`);
+        } else {
+            fetchMovies(year, page);
+            setSelectedDecade(Math.floor(year / 10) * 10);
+        }
+    }, [fetchMovies, annee, page, navigate]);
 
     const handleLoadMoreMovies = () => {
         setPage(prevPage => prevPage + 1);
@@ -40,7 +48,7 @@ export default function DiscoverMovies() {
     };
 
     const handleYearChange = (year) => {
-        setYear(year);
+        navigate(`/film_par_annee/${year}`);
         setPage(1);
         setDropdownOpen(false);
     };

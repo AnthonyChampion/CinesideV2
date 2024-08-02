@@ -1,10 +1,11 @@
 import React, { useEffect, useState, useMemo, useCallback } from 'react';
 import { fetchGenresOfMovies, fetchMoviesByGenre } from '../utils/moviedb';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { Button } from "flowbite-react";
 import TopRated from '../components/TopRated';
 
 export default function MoviesPage() {
+    const { genre } = useParams();
     const [filters, setFilters] = useState([]);
     const [activeFilter, setActiveFilter] = useState(null);
     const [moviesFiltered, setMoviesFiltered] = useState([]);
@@ -12,6 +13,7 @@ export default function MoviesPage() {
     const [page, setPage] = useState(1);
     const [loading, setLoading] = useState(true);
 
+    const navigate = useNavigate();
     const MOVIES_PER_PAGE = 15;
 
     const handleClickFilter = useCallback((filterId, filterName) => {
@@ -19,13 +21,15 @@ export default function MoviesPage() {
         setPage(1);
         setLoading(true);
         setShowTopRated(false);
-    }, []);
+        navigate(`/film_par_genre/${filterName}`);
+    }, [navigate]);
 
     const handleResetFilter = useCallback(() => {
-        setActiveFilter(null);
+        setActiveFilter({ id: null, name: 'Populaires' });
         setPage(1);
         setShowTopRated(false);
-    }, []);
+        navigate(`/film_par_genre/populaires`);
+    }, [navigate]);
 
     const getGenresOfMovies = useCallback(async () => {
         try {
@@ -76,9 +80,22 @@ export default function MoviesPage() {
 
     useEffect(() => {
         if (!showTopRated) {
-            getMoviesFiltered(page, activeFilter?.id || null);
+            const genreFilter = filters.find(filter => filter.name === genre);
+            if (genreFilter) {
+                setActiveFilter(genreFilter);
+                getMoviesFiltered(page, genreFilter.id);
+            } else {
+                setActiveFilter({ id: null, name: 'Populaires' });
+                getMoviesFiltered(page, null);
+            }
         }
-    }, [page, activeFilter, showTopRated, getMoviesFiltered]);
+    }, [page, genre, showTopRated, getMoviesFiltered, filters]);
+
+    useEffect(() => {
+        if (!genre) {
+            handleResetFilter();
+        }
+    }, [genre, handleResetFilter]);
 
     const handleLoadMoreMovies = useCallback(() => {
         setPage(prevPage => prevPage + 1);
@@ -90,9 +107,11 @@ export default function MoviesPage() {
         setLoading(true);
     }, []);
 
-    const handleClick = useCallback(() => {
+    const handleClickToprated = useCallback(() => {
         setShowTopRated(true);
-    }, []);
+        setActiveFilter(null);
+        navigate(`/film_par_genre/top_tmdb`);
+    }, [navigate]);
 
     const filteredMovies = useMemo(() => moviesFiltered.slice(0, 16), [moviesFiltered]);
 
@@ -109,15 +128,15 @@ export default function MoviesPage() {
                     <div className="md:flex md:flex-row flex-col z-10">
                         <div className="md:flex-col flex-wrap md:w-[10%] w-full pt-6 md:pt-16 md:pl-6">
                             <ul className="grid grid-cols-4 md:grid-cols-1 gap-2 md:gap-4 p-2 md:p-0">
-                                <Button type='button' className="hidden md:flex text-black md:w-full items-center md:p-2 bg-white focus:bg-red-600 focus:text-white focus:border-2 transition ease-in-out transform hover:-translate-y-1"
-                                    onClick={handleClick}>
+                                <Button type='button' className={`hidden md:flex text-black md:w-full items-center md:p-2 bg-white focus:bg-red-600 focus:text-white transition ease-in-out transform hover:-translate-y-1 ${showTopRated ? 'bg-red-600 text-white border-2 border-white' : ''}`}
+                                    onClick={handleClickToprated}>
                                     <p>Top TMDb</p>
                                 </Button>
                                 <li
                                     className="w-full text-black"
                                     onClick={handleResetFilter}
                                 >
-                                    <Button type="button" className="w-full h-full p-1 items-center md:text-sm transition ease-in-out transform hover:-translate-y-1 bg-white focus:bg-red-600 focus:text-white text-black border-2 shadow-lg dark:border-white">
+                                    <Button type="button" className={`w-full h-full p-1 items-center md:text-sm transition ease-in-out transform hover:-translate-y-1 ${activeFilter?.name === 'Populaires' ? 'bg-red-600 text-white' : 'bg-white text-black'} border-2 shadow-lg dark:border-white`}>
                                         Populaires
                                     </Button>
                                 </li>
@@ -133,8 +152,8 @@ export default function MoviesPage() {
                                     </li>
                                 ))}
 
-                                <Button className="md:hidden w-[205%] flex items-center md:p-2 bg-white text-black focus:bg-red-600 focus:text-white transition ease-in-out transform hover:-translate-y-1 shadow-lg"
-                                    onClick={handleClick}>
+                                <Button className={`md:hidden w-[205%] flex items-center md:p-2 bg-white text-black focus:bg-red-600 focus:text-white transition ease-in-out transform hover:-translate-y-1 shadow-lg ${showTopRated ? 'bg-red-600 text-white' : ''}`}
+                                    onClick={handleClickToprated}>
                                     <p>Top TMDb</p>
                                 </Button>
                             </ul>
