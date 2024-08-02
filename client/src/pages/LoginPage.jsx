@@ -17,7 +17,7 @@ export default function LoginPage() {
     const handleLogin = async (event) => {
         event.preventDefault();
         setErrorMessage('');
-        setShowErrorModal(false); // Hide the error modal initially
+        setShowErrorModal(false);
 
         try {
             const response = await axios.post(`${import.meta.env.VITE_API_URL}/login`, { email, password });
@@ -27,7 +27,7 @@ export default function LoginPage() {
                 setShowSuccessModal(true);
                 setTimeout(() => {
                     setShowSuccessModal(false);
-                    navigate('/');
+                    navigate('/accueil');
                 }, 2000);
             } else {
                 setErrorMessage('Utilisateur ou mot de passe incorrect');
@@ -44,7 +44,7 @@ export default function LoginPage() {
     };
 
     return (
-        <div className="fixed inset-0 flex justify-center items-center dark:bg-[#18181b] bg-white">
+        <div className="fixed inset-0 flex justify-center items-center">
             <div className="bg-zinc-800 bg-opacity-80 p-8 rounded-lg shadow-lg w-full max-w-md -mt-10">
                 <h1 className="text-2xl font-bold text-white mb-4">Connexion</h1>
                 <form onSubmit={handleLogin}>
@@ -74,13 +74,13 @@ export default function LoginPage() {
                     </div>
                     <button
                         type="submit"
-                        className="w-full bg-cyan-700 text-white font-bold py-2 px-4 rounded hover:bg-white hover:text-cyan-700 transition duration-300"
+                        className="w-full bg-red-600 text-white font-bold py-2 px-4 rounded hover:bg-white hover:text-red-600 transition duration-300"
                     >
                         Connexion
                     </button>
                 </form>
                 <p className="mt-4 text-white text-center">
-                    Vous n'avez pas de compte ? <Link to="/inscription" className="text-cyan-700 hover:text-white">S'enregistrer</Link>
+                    Vous n'avez pas de compte ? <Link to="/inscription" className="text-red-600 hover:text-white">S'enregistrer</Link>
                 </p>
             </div>
             <LoginModal

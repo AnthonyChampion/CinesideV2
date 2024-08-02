@@ -39,21 +39,28 @@ export default function MovieSearch() {
     return (
         <section>
             <div className="flex">
-                <form className="max-w-md mx-auto md:w-[17rem] w-[18rem]" onSubmit={handleSearch}>
-                    <label htmlFor="" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Recherche</label>
+                <form className="mx-auto md:w-[22rem] w-[18rem]" onSubmit={handleSearch}>
                     <div className="relative">
                         <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                            <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                            <svg className="w-4 h-4 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                                 <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
                             </svg>
                         </div>
-                        <input type="search" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className="block w-full p-4 ps-10 text-sm text-white border border-gray-300 rounded-lg dark:bg-zinc-700 bg-white focus:ring-cyan-700 focus:border-cyan-700 " placeholder="Recherchez un film" required />
+                        <input
+                            type="search"
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                            className="block w-full p-2.5 ps-10 text-sm text-white placeholder-white border-gray-400 bg-transparent focus:ring-white focus:border-white"
+                            placeholder="Recherchez un film"
+                            required
+                        />
                     </div>
                 </form>
+
             </div>
             {error && <p className="text-red-500 mt-2">{error}</p>}
             {movies.length > 0 && (
-                <div className="fixed inset-0 z-50 h-screen flex justify-center items-center bg-black bg-opacity-70 p-2 md:p-8 lg:p-6">
+                <div className="fixed inset-0 h-screen flex justify-center items-center p-2 md:p-8 lg:p-6">
                     <div className="bg-white text-black rounded-lg overflow-scroll noscroll-bar h-full w-full md:w-3/4 lg:w-3/4">
                         <div className="relative">
                             <div className="grid grid-cols-2 gap-2 md:grid-cols-3 lg:grid-cols-4 overflow-y-auto p-2">
@@ -75,8 +82,8 @@ export default function MovieSearch() {
                                             />
                                             <div className="md:mt-2 mt-2">
                                                 <div className="p-2 space-y-1">
+                                                    <h2 className="text-md font-bold line-clamp-1 text-black uppercase">{movie.title}</h2>
                                                     <p className="text-sm text-gray-400">{movie.release_date}</p>
-                                                    <h2 className="text-md font-bold line-clamp-1 text-black">{movie.title}</h2>
                                                 </div>
                                             </div>
                                         </Link>
@@ -84,7 +91,7 @@ export default function MovieSearch() {
                                 ))}
                             </div>
                             <button
-                                className="absolute top-4 right-4 bg-cyan-700 text-white rounded-full w-10 h-10 flex items-center justify-center"
+                                className="absolute top-4 right-4 bg-red-600 text-white rounded-full w-10 h-10 flex items-center justify-center"
                                 onClick={handleClose}
                                 aria-label="Close"
                             >

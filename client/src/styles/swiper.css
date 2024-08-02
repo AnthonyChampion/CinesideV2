@@ -1,0 +1,38 @@
+.custom-swiper {
+    width: 90%;
+}
+
+.swiper-pagination-bullet {
+    background-color: #ffffff !important;
+    opacity: 0.7 !important;
+    width: 12px !important;
+    height: 12px !important;
+}
+
+.swiper-pagination-bullet-active {
+    background-color: #ad0505 !important;
+    opacity: 1 !important;
+}
+
+.swiper-pagination {
+    background-color: transparent !important;
+}
+
+/* Media query for mobile devices */
+@media (max-width: 576px) {
+    .custom-swiper {
+        width: 100% !important;
+    }
+
+    .swiper-button-next,
+    .swiper-button-prev {
+        width: 30px !important;
+        height: 30px !important;
+        background-size: 40% !important;
+    }
+
+    .swiper-pagination-bullet {
+        width: 10px !important;
+        height: 10px !important;
+    }
+}

@@ -16,14 +16,19 @@ import ProtectedRoute from './components/ProtectedRoutes.jsx';
 import ProfilePage from './pages/ProfilePage.jsx';
 import AdminPage from './pages/AdminPage.jsx';
 import DiscoverPage from './pages/DiscoverPage.jsx';
+import WelcomePage from './pages/WelcomePage.jsx';
 
 const router = createBrowserRouter([
+  {
+    element: <WelcomePage />,
+    path: "/",
+  },
   {
     element: <App />,
     children: [
       {
         element: <HomePage />,
-        path: "/",
+        path: "/accueil",
       },
       {
         element: <LoginPage />,
@@ -38,6 +43,10 @@ const router = createBrowserRouter([
         path: "/film_par_genre",
       },
       {
+        element: <MoviesPage />,
+        path: "/film_par_genre/:genre",
+      },
+      {
         element: <MovieDetailPage />,
         path: "/film/:id",
       },
@@ -46,12 +55,16 @@ const router = createBrowserRouter([
         path: "/film_par_annee",
       },
       {
+        element: <DiscoverPage />,
+        path: "/film_par_annee/:annee",
+      },
+      {
         element: (
           <ProtectedRoute>
             <AdminPage />
           </ProtectedRoute>
         ),
-        path: "admin",
+        path: "/admin",
       },
       {
         element: (

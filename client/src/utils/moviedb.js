@@ -6,7 +6,7 @@ const trendingMoviesEndpoint = `https://api.themoviedb.org/3/movie/now_playing?a
 const topRatedMoviesEndpoint = `https://api.themoviedb.org/3/movie/top_rated?api_key=${apiKey}`;
 const upcomingMoviesEndpoint = `https://api.themoviedb.org/3/movie/upcoming?api_key=${apiKey}`;
 const genresOfMovies = `https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}`;
-const popularMovies = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}`;
+const popularMoviesEndPoint = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}`;
 const searchMoviesEndPoint = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}`;
 const discoverMoviesEndPoint = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}`;
 
@@ -72,6 +72,11 @@ export const fetchUpcomingMovies = (page = 1) => {
     return apiCall(upcomingMoviesEndpoint, { page });
 };
 
+export const fetchPopularMovies = (page = 1) => {
+    return apiCall(popularMoviesEndPoint, { page });
+};
+
+
 export const fetchGenresOfMovies = () => {
     return apiCall(genresOfMovies);
 };
@@ -81,7 +86,7 @@ export const fetchTopRatedMovies = (page = 1) => {
 };
 
 export const fetchMoviesByGenre = (page = 1) => {
-    return apiCall(popularMovies, { page });
+    return apiCall(popularMoviesEndPoint, { page });
 };
 
 export const fetchMovieDetails = id => {
@@ -100,7 +105,6 @@ export const searchMovies = params => {
     const updatedParams = { ...params, language: 'fr-FR' };
     return apiCall(searchMoviesEndPoint, updatedParams);
 };
-
 
 export const fetchMovieTrailer = movieId => {
     return apiCall(movieTrailer(movieId));

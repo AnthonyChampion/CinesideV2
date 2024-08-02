@@ -6,13 +6,15 @@ import { Outlet } from 'react-router-dom';
 function App() {
 
   return (
-    <div className="flex flex-col min-h-screen dark:bg-[#18181b] bg-white">
+    <section>
+      <img className="absolute inset-0 z-0 h-[45vh] w-screen" src="../src/assets/gradient.png" />
+      <div className="absolute inset-0 z-0 h-[45vh] bg-gradient-to-t from-[#0a0a0b] via-transparent"></div>
+      <div className="absolute inset-0 z-0 h-[45vh] bg-gradient-to-r from-[#0a0a0b] via-transparent"></div>
       <NavBar />
-      <div className="flex-grow">
-        <Outlet />
-      </div>
+      <Outlet />
       <Footer />
-    </div>
+    </section>
+
   );
 }
 

@@ -11,7 +11,7 @@ export default function LoginModal({ isOpen, onClose, title, children }) {
                 <div className="mb-4">{children}</div>
                 <button
                     onClick={onClose}
-                    className="bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-700 transition duration-300"
+                    className="bg-red-600 text-white font-bold py-2 px-4 rounded hover:bg-red-800 transition duration-300"
                 >
                     Fermer
                 </button>

@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from "react-router-dom";
 import { useAuth } from '../contexts/AuthContext';
 import axios from 'axios';
+import { Button } from 'flowbite-react';
 
 export default function AdminPage() {
     const { auth } = useAuth();
     const [users, setUsers] = useState([]);
     const [error, setError] = useState(null);
     const [searchTerm, setSearchTerm] = useState('');
-
-    const navigate = useNavigate();
 
     const [editUser, setEditUser] = useState(null);
     const [editUserData, setEditUserData] = useState({
@@ -85,7 +83,7 @@ export default function AdminPage() {
     );
 
     return (
-        <div className="container mx-auto mt-8">
+        <div className="container h-[50vh] mx-auto mt-8 relative">
             <h2 className="text-2xl font-semibold text-white mb-4">Gestion des utilisateurs</h2>
             {error && <div className="text-white mb-4">Erreur: {error}</div>}
 
@@ -141,7 +139,7 @@ export default function AdminPage() {
                                             <div className="flex justify-start">
                                                 <button
                                                     type="button"
-                                                    className="bg-green-800 text-white py-1 px-3 rounded-md hover:bg-green-800 hover:text-white mr-2"
+                                                    className="bg-red-600 text-white py-1 px-3 rounded-md hover:bg-green-800 hover:text-white mr-2"
                                                     onClick={handleEditSubmit}
                                                 >
                                                     Enregistrer
@@ -162,18 +160,21 @@ export default function AdminPage() {
                                         <td className="py-2 px-4 border-b border-gray-300">{user.name}</td>
                                         <td className="py-2 px-4 border-b border-gray-300">{user.email}</td>
                                         <td className="py-2 px-4 border-b border-gray-300">
-                                            <button
-                                                className="bg-blue-500 text-white px-2 py-1 rounded mr-2"
-                                                onClick={() => handleEditClick(user)}
-                                            >
-                                                Modifier
-                                            </button>
-                                            <button
-                                                className="bg-red-500 text-white px-2 py-1 rounded"
-                                                onClick={() => handleDelete(user.id)}
-                                            >
-                                                Supprimer
-                                            </button>
+                                            <div className="flex">
+                                                <Button
+                                                    className="bg-blue-800 text-white px-2 py-1 rounded mr-2"
+                                                    onClick={() => handleEditClick(user)}
+                                                >
+                                                    Modifier
+                                                </Button>
+                                                <Button
+                                                    className="bg-red-600 text-white px-2 py-1 rounded"
+                                                    onClick={() => handleDelete(user.id)}
+                                                >
+                                                    Supprimer
+                                                </Button>
+                                            </div>
+
                                         </td>
                                     </>
                                 )}
