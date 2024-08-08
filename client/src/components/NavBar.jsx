@@ -1,38 +1,31 @@
-import React, { useState, useEffect } from 'react';
+// NavBar.jsx
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
-import { IoLogIn, IoLogOut, IoSearchOutline, IoClose, IoSunny, IoMoon } from 'react-icons/io5';
+import { IoLogIn, IoLogOut, IoSearchOutline, IoClose } from 'react-icons/io5';
 import { RiMovie2Line } from "react-icons/ri";
 import { AiFillHome } from "react-icons/ai";
 import { FaRegUser } from "react-icons/fa";
 import MovieSearch from './MovieSearch';
+import PopupMessage from '../components/PopupMessage';
 
 export default function NavBar({ showSearchProp }) {
     const { auth, logout } = useAuth();
     const [showSearch, setShowSearch] = useState(showSearchProp || false);
-    const [darkMode, setDarkMode] = useState(() => localStorage.getItem('color-theme') === 'dark');
-
-    useEffect(() => {
-        if (darkMode) {
-            document.documentElement.classList.add('dark');
-            localStorage.setItem('color-theme', 'dark');
-        } else {
-            document.documentElement.classList.remove('dark');
-            localStorage.setItem('color-theme', 'light');
-        }
-    }, [darkMode]);
+    const [showPopup, setShowPopup] = useState(false);
 
     const handleLogout = () => {
         logout();
+        setShowPopup(true);
+    };
+
+    const handleClosePopup = () => {
+        setShowPopup(false);
     };
 
     const handleSearchClick = () => {
         setShowSearch(!showSearch);
-    };
-
-    const toggleTheme = () => {
-        setDarkMode(!darkMode);
     };
 
     return (
@@ -48,7 +41,7 @@ export default function NavBar({ showSearchProp }) {
                         <Link to="/accueil" className="flex items-center space-x-2">
                             <span className="text-md transform transition-transform duration-200 hover:scale-110">Accueil</span>
                         </Link>
-                        <Link to="/film_par_genre" className="flex items-center space-x-2 ">
+                        <Link to="/film_par_genre" className="flex items-center space-x-2">
                             <span className="text-md transform transition-transform duration-200 hover:scale-110">Genres</span>
                         </Link>
                         <Link to="/film_par_annee" className="flex items-center space-x-2">
@@ -89,8 +82,6 @@ export default function NavBar({ showSearchProp }) {
                 </div>
             </div>
 
-
-
             {/* Bottom navigation for mobile */}
             <div className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-white">
                 <div className="flex justify-around py-2 text-black">
@@ -129,6 +120,12 @@ export default function NavBar({ showSearchProp }) {
                 <div className="relative z-50 w-full p-4">
                     <MovieSearch />
                 </div>
+            )}
+            {showPopup && (
+                <PopupMessage
+                    message="Vous avez été déconnecté avec succès."
+                    onClose={handleClosePopup}
+                />
             )}
         </nav>
     );

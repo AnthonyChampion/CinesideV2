@@ -2,50 +2,42 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import axios from 'axios';
-import LoginModal from '../components/LoginModal';
+import PopupMessage from '../components/PopupMessage';
 
 export default function LoginPage() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [errorMessage, setErrorMessage] = useState('');
-    const [showSuccessModal, setShowSuccessModal] = useState(false);
-    const [showErrorModal, setShowErrorModal] = useState(false);
+    const [popupMessage, setPopupMessage] = useState({ message: '', type: '' });
 
     const { login } = useAuth();
     const navigate = useNavigate();
 
     const handleLogin = async (event) => {
         event.preventDefault();
-        setErrorMessage('');
-        setShowErrorModal(false);
+        setPopupMessage({ message: '', type: '' });
 
         try {
             const response = await axios.post(`${import.meta.env.VITE_API_URL}/login`, { email, password });
 
             if (response.data.user && response.data.token) {
                 login(response.data.user, response.data.token);
-                setShowSuccessModal(true);
+                setPopupMessage({ message: 'Connexion réussie !', type: 'success' });
                 setTimeout(() => {
-                    setShowSuccessModal(false);
+                    setPopupMessage({ message: '', type: '' });
                     navigate('/accueil');
                 }, 2000);
             } else {
-                setErrorMessage('Utilisateur ou mot de passe incorrect');
-                setShowErrorModal(true);
+                setPopupMessage({ message: 'Utilisateur ou mot de passe incorrect', type: 'error' });
             }
         } catch (error) {
-            if (error.response) {
-                setErrorMessage(error.response.data.error || 'Une erreur est survenue');
-            } else {
-                setErrorMessage('Erreur de connexion. Veuillez réessayer.');
-            }
-            setShowErrorModal(true);
+            const errorMessage = error.response ? (error.response.data.error || 'Une erreur est survenue') : 'Erreur de connexion. Veuillez réessayer.';
+            setPopupMessage({ message: errorMessage, type: 'error' });
         }
     };
 
     return (
         <div className="fixed inset-0 flex justify-center items-center">
-            <div className="bg-zinc-800 bg-opacity-80 p-8 rounded-lg shadow-lg w-full max-w-md -mt-10">
+            <div className="bg-zinc-800 bg-opacity-80 p-8 rounded-lg shadow-lg w-full max-w-md -mt-8">
                 <h1 className="text-2xl font-bold text-white mb-4">Connexion</h1>
                 <form onSubmit={handleLogin}>
                     <div className="mb-4">
@@ -83,20 +75,13 @@ export default function LoginPage() {
                     Vous n'avez pas de compte ? <Link to="/inscription" className="text-red-600 hover:text-white">S'enregistrer</Link>
                 </p>
             </div>
-            <LoginModal
-                isOpen={showSuccessModal}
-                onClose={() => setShowSuccessModal(false)}
-                title="Succès"
-            >
-                <p>Connexion réussie !</p>
-            </LoginModal>
-            <LoginModal
-                isOpen={showErrorModal}
-                onClose={() => setShowErrorModal(false)}
-                title="Erreur"
-            >
-                <p>{errorMessage}</p>
-            </LoginModal>
+            {popupMessage.message && (
+                <PopupMessage
+                    message={popupMessage.message}
+                    type={popupMessage.type}
+                    onClose={() => setPopupMessage({ message: '', type: '' })}
+                />
+            )}
         </div>
     );
 }

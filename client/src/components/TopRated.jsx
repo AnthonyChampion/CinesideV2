@@ -44,24 +44,6 @@ export default function TopratedMovies() {
                 </div>
             ) : (
                 <div className="flex flex-col p-4 space-y-1">
-                    <div className="flex">
-                        <div className="flex w-full justify-between md:justify-center md:space-x-8">
-                            {currentPage > 1 && (
-                                <Button
-                                    onClick={goToPrevPage}
-                                    className="text-gray-200 shadow-lg bg-transparent rounded md:text-md hover:bg-red-600 hover:text-white"
-                                >
-                                    Précédents
-                                </Button>
-                            )}
-                            <Button
-                                onClick={goToNextPage}
-                                className="text-gray-200 shadow-lg bg-transparent rounded md:text-md hover:bg-red-600 hover:text-white"
-                            >
-                                Suivants
-                            </Button>
-                        </div>
-                    </div>
                     <div className="flex flex-wrap -mx-3">
                         {toprated.map((movie) => (
                             <div
@@ -87,6 +69,24 @@ export default function TopratedMovies() {
                                 </Link>
                             </div>
                         ))}
+                    </div>
+                    <div className="flex">
+                        <div className="flex w-full justify-between md:justify-center md:space-x-8">
+                            {currentPage > 1 && (
+                                <Button
+                                    onClick={goToPrevPage}
+                                    className="text-gray-200 shadow-lg bg-transparent rounded md:text-md hover:bg-red-600 hover:text-white"
+                                >
+                                    Précédents
+                                </Button>
+                            )}
+                            <Button
+                                onClick={goToNextPage}
+                                className="text-gray-200 shadow-lg bg-transparent rounded md:text-md hover:bg-red-600 hover:text-white"
+                            >
+                                Suivants
+                            </Button>
+                        </div>
                     </div>
                 </div>
             )}

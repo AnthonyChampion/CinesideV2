@@ -120,7 +120,7 @@ export default function MoviesPage() {
             {loading && !showTopRated ? (
                 <div className="flex justify-center items-center h-screen">
                     <div className="spinner-border animate-spin inline-block w-8 h-8 border-4 rounded-full text-red-600" role="status">
-                        <span className="visually-hidden">Chargement...</span>
+                        <span className="visually-hidden pl-10">Chargement...</span>
                     </div>
                 </div>
             ) : (
@@ -163,25 +163,6 @@ export default function MoviesPage() {
                                 <TopRated />
                             ) : (
                                 <div className="flex flex-col p-4 space-y-1">
-                                    <div className="flex">
-                                        <div className="flex w-full justify-between md:justify-center md:space-x-8">
-                                            {page > 1 && (
-                                                <Button
-                                                    onClick={handleLoadLessMovies}
-                                                    className="text-gray-200 shadow-lg bg-transparent rounded md:text-md hover:bg-red-600 hover:text-white"
-                                                >
-                                                    Précédents
-                                                </Button>
-                                            )}
-                                            <Button
-                                                onClick={handleLoadMoreMovies}
-                                                className="text-gray-200 shadow-lg bg-transparent rounded md:text-md hover:bg-red-600 hover:text-white"
-                                            >
-                                                Suivants
-                                            </Button>
-                                        </div>
-                                    </div>
-
                                     <div className="flex flex-wrap -mx-3">
                                         {filteredMovies.map((movie) => (
                                             <div
@@ -207,6 +188,24 @@ export default function MoviesPage() {
                                                 </Link>
                                             </div>
                                         ))}
+                                    </div>
+                                    <div className="flex">
+                                        <div className="flex w-full justify-between md:justify-center md:space-x-8">
+                                            {page > 1 && (
+                                                <Button
+                                                    onClick={handleLoadLessMovies}
+                                                    className="text-gray-200 shadow-lg bg-transparent rounded md:text-md hover:bg-red-600 hover:text-white"
+                                                >
+                                                    Précédents
+                                                </Button>
+                                            )}
+                                            <Button
+                                                onClick={handleLoadMoreMovies}
+                                                className="text-gray-200 shadow-lg bg-transparent rounded md:text-md hover:bg-red-600 hover:text-white"
+                                            >
+                                                Suivants
+                                            </Button>
+                                        </div>
                                     </div>
                                 </div>
                             )}

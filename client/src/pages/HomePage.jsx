@@ -85,7 +85,7 @@ export default function HomePage() {
                 {loading ? (
                     <div className="flex justify-center items-center">
                         <div className="spinner-border animate-spin inline-block w-8 h-8 border-4 rounded-full text-red-600" role="status">
-                            <span className="visually-hidden">Chargement...</span>
+                            <span className="visually-hidden pl-10">Chargement...</span>
                         </div>
                     </div>
                 ) : (

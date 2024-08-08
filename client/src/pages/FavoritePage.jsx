@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Button } from 'flowbite-react';
 import axios from 'axios';
-import { AiOutlineClose } from 'react-icons/ai'; // Import the close icon
+import { AiOutlineClose } from 'react-icons/ai';
 
 export default function Favorite() {
     const [favorites, setFavorites] = useState([]);
@@ -44,8 +43,10 @@ export default function Favorite() {
 
             <div className="container mx-auto">
                 {loading ? (
-                    <div className="flex justify-center items-center h-screen">
-                        <div>Chargement....</div>
+                    <div className="flex justify-center items-center h-screen -mt-40">
+                        <div className="spinner-border animate-spin inline-block w-8 h-8 border-4 rounded-full text-red-600" role="status">
+                            <span className="visually-hidden pl-10">Chargement...</span>
+                        </div>
                     </div>
                 ) : (
                     <>
