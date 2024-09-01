@@ -40,7 +40,7 @@ export default function PersonDetails({ personId, onClose }) {
         <div className="fixed inset-0 z-50 h-screen w-screen flex items-center justify-center bg-black bg-opacity-10 ">
             <div className="relative w-full h-full md:w-3/4 lg:w-3/4 bg-white text-black md:rounded-lg overflow-scroll noscrollbar">
                 <button
-                    className="absolute top-4 right-4 bg-cyan-700 text-white rounded-full w-10 h-10 flex items-center justify-center shadow-lg"
+                    className="absolute top-4 right-4 bg-red-600 text-white rounded-full w-10 h-10 flex items-center justify-center shadow-lg"
                     onClick={onClose}
                     aria-label="Close"
                 >
@@ -49,7 +49,7 @@ export default function PersonDetails({ personId, onClose }) {
                 {loading ? (
                     <div className="p-6 text-center text-lg">Chargement...</div>
                 ) : error ? (
-                    <div className="p-6 text-center text-red-500 text-lg">{error}</div>
+                    <div className="p-6 text-center text-red-600 text-lg">{error}</div>
                 ) : person ? (
                     <div className="p-6 flex flex-col items-center">
                         <img
@@ -77,7 +77,7 @@ export default function PersonDetails({ personId, onClose }) {
                                         {movies.length > moviesToShow && (
                                             <Button
                                                 onClick={handleSeeMore}
-                                                className="flex items-center justify-center md:h-10 h-10 px-4 py-2 bg-white text-black rounded-md shadow-md hover:bg-cyan-700 hover:text-white"
+                                                className="flex items-center justify-center md:h-10 h-10 px-4 py-2 bg-red-600 text-white rounded-md shadow-md hover:bg-white hover:text-red-600"
                                             >
                                                 Afficher plus de films
                                             </Button>

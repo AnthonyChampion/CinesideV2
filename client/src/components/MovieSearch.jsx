@@ -39,7 +39,7 @@ export default function MovieSearch() {
     return (
         <section>
             <div className="flex">
-                <form className="mx-auto md:w-[22rem] w-[18rem]" onSubmit={handleSearch}>
+                <form className="mx-auto md:w-[18.8rem] w-[18rem]" onSubmit={handleSearch}>
                     <div className="relative">
                         <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
                             <svg className="w-4 h-4 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
@@ -50,7 +50,7 @@ export default function MovieSearch() {
                             type="search"
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
-                            className="block w-full p-2.5 ps-10 text-sm text-white placeholder-white border-gray-400 bg-transparent focus:ring-white focus:border-white"
+                            className="block w-full p-2.5 ps-10 text-md text-white placeholder-white rounded border-zinc-500 bg-zinc-700 bg-opacity-80 focus:ring-white focus:border-white"
                             placeholder="Recherchez un film"
                             required
                         />
@@ -60,19 +60,20 @@ export default function MovieSearch() {
             </div>
             {error && <p className="text-red-500 mt-2">{error}</p>}
             {movies.length > 0 && (
-                <div className="fixed inset-0 h-screen flex justify-center items-center p-2 md:p-8 lg:p-6">
-                    <div className="bg-white text-black rounded-lg overflow-scroll noscroll-bar h-full w-full md:w-3/4 lg:w-3/4">
+                <div className="fixed inset-0 h-screen flex justify-center items-center p-2 lg:p-6">
+                    <div className="absolute inset-0 bg-black opacity-80 z-20"></div>
+                    <div className="relative bg-white text-black rounded-lg overflow-scroll noscroll-bar h-full w-full md:w-3/4 lg:w-3/4 z-20">
                         <div className="relative">
                             <div className="grid grid-cols-2 gap-2 md:grid-cols-3 lg:grid-cols-4 overflow-y-auto p-2">
                                 {movies.map((movie) => (
-                                    <Card
+                                    <div
                                         key={movie.id}
-                                        className="relative group cursor-pointer border-none overflow-hidden shadow-lg"
+                                        className="relative group cursor-pointer border-none overflow-hidden shadow-lg p-2 md:p-4"
                                         onClick={handleClose}
                                     >
                                         <Link to={`/film/${movie.id}`}>
                                             <img
-                                                className="w-full md:h-[350px] h-[180px] object-contain transform transition duration-300 group-hover:scale-105"
+                                                className="w-full md:h-[360px] h-[250px] object-cover transform transition duration-300 group-hover:scale-105"
                                                 src={"https://image.tmdb.org/t/p/w500" + movie.poster_path}
                                                 alt={movie.title}
                                                 onError={(e) => {
@@ -82,16 +83,16 @@ export default function MovieSearch() {
                                             />
                                             <div className="md:mt-2 mt-2">
                                                 <div className="p-2 space-y-1">
-                                                    <h2 className="text-md font-bold line-clamp-1 text-black uppercase">{movie.title}</h2>
-                                                    <p className="text-sm text-gray-400">{movie.release_date}</p>
+                                                    <h2 className="md:text-md text-[14px] font-bold line-clamp-1 text-black uppercase">{movie.title}</h2>
+                                                    <p className="md:text-sm text-[12px] text-gray-400">{movie.release_date}</p>
                                                 </div>
                                             </div>
                                         </Link>
-                                    </Card>
+                                    </div>
                                 ))}
                             </div>
                             <button
-                                className="absolute top-4 right-4 bg-red-600 text-white rounded-full w-10 h-10 flex items-center justify-center"
+                                className="absolute top-4 right-4 bg-red-600 text-white rounded-full w-10 h-10 flex items-center justify-center z-30"
                                 onClick={handleClose}
                                 aria-label="Close"
                             >

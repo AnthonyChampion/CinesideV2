@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Button } from 'flowbite-react';
 import axios from 'axios';
-import { AiOutlineClose } from 'react-icons/ai'; // Import the close icon
+import { AiOutlineClose } from 'react-icons/ai';
 
 export default function Favorite() {
     const [favorites, setFavorites] = useState([]);
@@ -35,17 +34,19 @@ export default function Favorite() {
     };
 
     return (
-        <section className="p-6 dark:text-white text-[#101522] w-screen min-h-screen dark:bg-[#0a0a0b] bg-white">
+        <section className="p-6 w-screen min-h-screen bg-[#0a0a0b] ">
             <div className="relative flex flex-col justify-center items-center mt-4 md:mt-0">
-                <h1 className="md:text-3xl text-xl dark:text-white text-[#101522] font-bold text-center">Mes films favoris</h1>
-                <span className="mt-1">Total: {favorites.length} films</span>
+                <h1 className="md:text-3xl text-xl text-white font-bold text-center">Mes films favoris</h1>
+                <span className="mt-1 text-white">Total: {favorites.length} films</span>
                 <div className="border-t border-gray-400 mt-4 w-[50%]"></div>
             </div>
 
             <div className="container mx-auto">
                 {loading ? (
-                    <div className="flex justify-center items-center h-screen">
-                        <div>Chargement....</div>
+                    <div className="flex justify-center items-center h-screen -mt-40">
+                        <div className="spinner-border animate-spin inline-block w-8 h-8 border-4 rounded-full text-red-600" role="status">
+                            <span className="visually-hidden pl-10">Chargement...</span>
+                        </div>
                     </div>
                 ) : (
                     <>
