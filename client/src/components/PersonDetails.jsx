@@ -49,7 +49,7 @@ export default function PersonDetails({ personId, onClose }) {
                 {loading ? (
                     <div className="p-6 text-center text-lg">Chargement...</div>
                 ) : error ? (
-                    <div className="p-6 text-center text-red-500 text-lg">{error}</div>
+                    <div className="p-6 text-center text-red-600 text-lg">{error}</div>
                 ) : person ? (
                     <div className="p-6 flex flex-col items-center">
                         <img
