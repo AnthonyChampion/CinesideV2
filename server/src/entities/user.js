@@ -1,6 +1,5 @@
 const { EntitySchema } = require('typeorm');
 
-// l'entité défini le modèle de données
 
 module.exports = new EntitySchema({
     name: 'User',

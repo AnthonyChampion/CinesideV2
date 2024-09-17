@@ -73,7 +73,7 @@ export default function PersonDetails({ personId, onClose }) {
                             <div className="grid grid-cols-2 md:grid-cols-6 mt-20">
                                 <div className="col-span-2 md:col-span-6">
                                     <div className="flex items-center justify-between">
-                                        <h2 className="text-3xl text-black font-bold">Filmographie</h2>
+                                        <h2 className="md:text-3xl text-xl text-black font-bold">Filmographie</h2>
                                         {movies.length > moviesToShow && (
                                             <Button
                                                 onClick={handleSeeMore}

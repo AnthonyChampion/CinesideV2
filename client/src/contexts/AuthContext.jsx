@@ -15,21 +15,21 @@ export const useAuth = () => useContext(AuthContext);
 
 export function AuthProvider({ children }) {
     const [auth, setAuth] = useState(null);
-    const [token, setToken] = useState(""); //On initialise l'état du token par une string vide
+    const [token, setToken] = useState("");
 
-    //fonction permettant de set le user + le token
+
     const login = useCallback((user, token) => {
         setAuth(user);
         setToken(token);
-        // On ajoute le token dans chaque requêtes
+
         axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
     }, []);
 
-    //fonction qui réinitialise l'état de base du auth et du token
+
     const logout = useCallback(() => {
         setAuth(null);
         setToken(null)
-        // On retire le token des requêtes 
+
         delete axios.defaults.headers.common['Authorization'];
     }, []);
 
@@ -47,8 +47,8 @@ export function AuthProvider({ children }) {
     useEffect(() => {
         if (auth) {
             // On ajoute le user et le token dans le local storage
-            localStorage.setItem("user", JSON.stringify(auth)); // ajouter une durée de temps
-            localStorage.setItem("token", token); // ajouter une durée de temps
+            localStorage.setItem("user", JSON.stringify(auth));
+            localStorage.setItem("token", token);
             axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
         } else {
             localStorage.removeItem("user");

@@ -11,7 +11,7 @@ const getFavoritesByUserId = async (req, res) => {
 };
 
 const addFavorite = async (req, res) => {
-    // on creer un objet favorite a envoyer au service
+
     const favorite = {
         user_id: req.user.id,
         movie_id: req.body.movie_id,

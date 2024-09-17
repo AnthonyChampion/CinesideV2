@@ -132,9 +132,6 @@ export default function HomePage() {
                                 <hr className="my-6 border-gray-200 sm:mx-auto lg:my-8" />
                                 <div className="flex justify-between">
                                     <span className="bg-red-600 text-white md:text-lg text-xs font-medium me-2 px-2.5 py-1 rounded">Top TMDB</span>
-                                    <Link to="/film_par_genre/top_tmdb">
-                                        <span className="text-gray-400 md:text-lg text-xs font-medium me-2 px-2.5 py-1 rounded border border-gray-500">Tous les films</span>
-                                    </Link>
                                 </div>
                                 <div className="flex flex-wrap md:mt-4 mt-2">
                                     {toprated.slice(0, 5).map((data) => (
