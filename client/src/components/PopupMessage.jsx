@@ -1,7 +1,7 @@
-// PopupMessage.jsx
 import React from 'react';
+import PropTypes from 'prop-types';
 
-export default function PopupMessage({ message, onClose }) {
+function PopupMessage({ message, onClose }) {
     return (
         <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-80">
             <div className="bg-white p-4 rounded shadow-lg text-center max-w-sm w-full">
@@ -16,3 +16,11 @@ export default function PopupMessage({ message, onClose }) {
         </div>
     );
 }
+
+PopupMessage.propTypes = {
+    message: PropTypes.string.isRequired,
+    onClose: PropTypes.func.isRequired,
+};
+
+export default PopupMessage;
+

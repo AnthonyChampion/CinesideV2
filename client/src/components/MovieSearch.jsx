@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { searchMovies } from '../utils/moviedb';
 import { Link } from 'react-router-dom';
-import { Card } from 'flowbite-react';
 
 export default function MovieSearch() {
     const [searchTerm, setSearchTerm] = useState('');

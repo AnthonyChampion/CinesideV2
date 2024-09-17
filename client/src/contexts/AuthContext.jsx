@@ -33,7 +33,6 @@ export function AuthProvider({ children }) {
         delete axios.defaults.headers.common['Authorization'];
     }, []);
 
-    // Récupère le User et le token dans le local storage pour alimenter le AuthContext
     useEffect(() => {
         const storedUser = localStorage.getItem("user");
         const storedToken = localStorage.getItem("token");
@@ -46,7 +45,6 @@ export function AuthProvider({ children }) {
 
     useEffect(() => {
         if (auth) {
-            // On ajoute le user et le token dans le local storage
             localStorage.setItem("user", JSON.stringify(auth));
             localStorage.setItem("token", token);
             axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
